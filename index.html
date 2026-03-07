@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExploitCraft // Terminal</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00ff41;
+    --dark-green: #003b00;
+    --dim-green: #00a32a;
+    --bg: #0a0a0a;
+    --scanline: rgba(0,255,65,0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CRT scanlines */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      var(--scanline) 2px,
+      var(--scanline) 4px
+    );
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  /* CRT flicker */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.4) 100%);
+    pointer-events: none;
+    z-index: 999;
+    animation: flicker 0.15s infinite;
+  }
+
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    92% { opacity: 1; }
+    93% { opacity: 0.8; }
+    94% { opacity: 1; }
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px;
+    height: 20px;
+    background: var(--green);
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .terminal {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 100vh;
+  }
+
+  .header {
+    border-bottom: 1px solid var(--dim-green);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .traffic-lights {
+    display: flex;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--dim-green);
+    box-shadow: 0 0 6px var(--dim-green);
+  }
+
+  .title-bar {
+    font-family: 'VT323', monospace;
+    font-size: 1.1rem;
+    color: var(--dim-green);
+    flex: 1;
+    text-align: center;
+    letter-spacing: 2px;
+  }
+
+  .ascii-art {
+    font-family: 'VT323', monospace;
+    font-size: clamp(0.6rem, 1.8vw, 1rem);
+    line-height: 1.2;
+    color: var(--green);
+    text-shadow: 0 0 10px var(--green);
+    margin-bottom: 2.5rem;
+    white-space: pre;
+    overflow: hidden;
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { text-shadow: 0 0 10px var(--green); }
+    50% { text-shadow: 0 0 20px var(--green), 0 0 40px var(--green); }
+  }
+
+  .line {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+    opacity: 0;
+    animation: appear 0.1s forwards;
+  }
+
+  .prompt {
+    color: var(--dim-green);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .prompt span { color: var(--green); }
+
+  .output {
+    color: #c8ffc8;
+    line-height: 1.6;
+  }
+
+  .output.dim { color: #4a7a4a; }
+  .output.warn { color: #ffaa00; text-shadow: 0 0 8px #ffaa00; }
+  .output.success { color: var(--green); text-shadow: 0 0 8px var(--green); }
+  .output.error { color: #ff3333; text-shadow: 0 0 8px #ff3333; }
+
+  .section { margin: 1.5rem 0; }
+
+  .tag {
+    display: inline-block;
+    border: 1px solid var(--dim-green);
+    color: var(--dim-green);
+    font-size: 0.75rem;
+    padding: 1px 6px;
+    margin: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .tag.active {
+    border-color: var(--green);
+    color: var(--green);
+    box-shadow: 0 0 6px var(--green);
+  }
+
+  .progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0.3rem 0;
+  }
+
+  .bar-label {
+    width: 120px;
+    color: #4a7a4a;
+    font-size: 0.85rem;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 8px;
+    background: #0d1f0d;
+    border: 1px solid #1a3a1a;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    width: 0%;
+    transition: width 1.5s ease-out;
+  }
+
+  .bar-pct {
+    width: 35px;
+    text-align: right;
+    color: var(--green);
+    font-size: 0.85rem;
+  }
+
+  .input-line {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    border-top: 1px solid #1a3a1a;
+    padding-top: 1rem;
+    align-items: center;
+  }
+
+  .input-line input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    caret-color: var(--green);
+  }
+
+  .matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.07;
+  }
+
+  .blink-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1em;
+    background: var(--green);
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+
+  /* staggered line appearances */
+  .line:nth-child(1)  { animation-delay: 0.1s; }
+  .line:nth-child(2)  { animation-delay: 0.3s; }
+  .line:nth-child(3)  { animation-delay: 0.5s; }
+  .line:nth-child(4)  { animation-delay: 0.7s; }
+  .line:nth-child(5)  { animation-delay: 1.0s; }
+  .line:nth-child(6)  { animation-delay: 1.3s; }
+  .line:nth-child(7)  { animation-delay: 1.6s; }
+  .line:nth-child(8)  { animation-delay: 1.9s; }
+  .line:nth-child(9)  { animation-delay: 2.2s; }
+  .line:nth-child(10) { animation-delay: 2.5s; }
+  .line:nth-child(11) { animation-delay: 2.8s; }
+  .line:nth-child(12) { animation-delay: 3.1s; }
+  .line:nth-child(13) { animation-delay: 3.4s; }
+  .line:nth-child(14) { animation-delay: 3.7s; }
+  .line:nth-child(15) { animation-delay: 4.0s; }
+  .line:nth-child(16) { animation-delay: 4.3s; }
+
+  @keyframes appear {
+    to { opacity: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .ascii-art { font-size: 0.5rem; }
+    .terminal { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<canvas class="matrix-rain" id="matrix"></canvas>
+<div class="cursor" id="cursor"></div>
+
+<div class="terminal">
+  <div class="header">
+    <div class="traffic-lights">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="title-bar">exploitcraft@root: ~  —  bash  —  80×24</div>
+  </div>
+
+  <pre class="ascii-art">
+ ███████╗██╗  ██╗██████╗ ██╗      ██████╗ ██╗████████╗
+ ██╔════╝╚██╗██╔╝██╔══██╗██║     ██╔═══██╗██║╚══██╔══╝
+ █████╗   ╚███╔╝ ██████╔╝██║     ██║   ██║██║   ██║   
+ ██╔══╝   ██╔██╗ ██╔═══╝ ██║     ██║   ██║██║   ██║   
+ ███████╗██╔╝ ██╗██║     ███████╗╚██████╔╝██║   ██║   
+ ╚══════╝╚═╝  ╚═╝╚═╝     ╚══════╝ ╚═════╝ ╚═╝   ╚═╝   
+                         ██████╗██████╗  █████╗ ███████╗████████╗
+                        ██╔════╝██╔══██╗██╔══██╗██╔════╝╚══██╔══╝
+                        ██║     ██████╔╝███████║█████╗     ██║   
+                        ██║     ██╔══██╗██╔══██║██╔══╝     ██║   
+                        ╚██████╗██║  ██║██║  ██║██║        ██║   
+                         ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝        ╚═╝  </pre>
+
+  <div class="section" id="lines">
+
+    <div class="line">
+      <span class="prompt">[<span>root@exploitcraft</span>]# </span>
+      <span class="output dim">whoami</span>
+    </div>
+    <div class="line">
+      <span class="output">Emon — self-taught dev &amp; security tool builder. Bangladesh 🇧🇩</span>
+    </div>
+
+    <div class="line" style="margin-top:1rem">
+      <span class="prompt">[<span>root@exploitcraft</span>]# </span>
+      <span class="output dim">cat skills.txt</span>
+    </div>
+    <div class="line">
+      <span class="output">
+        <span class="tag active">Next.js</span>
+        <span class="tag active">React</span>
+        <span class="tag active">TypeScript</span>
+        <span class="tag active">Tailwind</span>
+        <span class="tag">Python</span>
+        <span class="tag">Bash</span>
+        <span class="tag">Linux</span>
+        <span class="tag">OSINT</span>
+      </span>
+    </div>
+
+    <div class="line" style="margin-top:1rem">
+      <span class="prompt">[<span>root@exploitcraft</span>]# </span>
+      <span class="output dim">./skill_levels --verbose</span>
+    </div>
+
+    <div class="line" id="bars-line" style="display:block; opacity:0; animation-delay: 2.5s;">
+      <div style="padding: 0.5rem 0;">
+        <div class="progress-bar">
+          <span class="bar-label">Next.js</span>
+          <div class="bar-track"><div class="bar-fill" data-pct="85"></div></div>
+          <span class="bar-pct">85%</span>
+        </div>
+        <div class="progress-bar">
+          <span class="bar-label">React</span>
+          <div class="bar-track"><div class="bar-fill" data-pct="80"></div></div>
+          <span class="bar-pct">80%</span>
+        </div>
+        <div class="progress-bar">
+          <span class="bar-label">TypeScript</span>
+          <div class="bar-track"><div class="bar-fill" data-pct="70"></div></div>
+          <span class="bar-pct">70%</span>
+        </div>
+        <div class="progress-bar">
+          <span class="bar-label">Python</span>
+          <div class="bar-track"><div class="bar-fill" data-pct="65"></div></div>
+          <span class="bar-pct">65%</span>
+        </div>
+        <div class="progress-bar">
+          <span class="bar-label">Linux/Bash</span>
+          <div class="bar-track"><div class="bar-fill" data-pct="75"></div></div>
+          <span class="bar-pct">75%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="line" style="margin-top:1rem">
+      <span class="prompt">[<span>root@exploitcraft</span>]# </span>
+      <span class="output dim">ls ./projects</span>
+    </div>
+    <div class="line">
+      <span class="output success">ExploitCraft/portfolio</span>
+      <span class="output dim"> &nbsp;[Next.js · Cloudflare Pages · Live]</span>
+    </div>
+
+    <div class="line" style="margin-top:1rem">
+      <span class="prompt">[<span>root@exploitcraft</span>]# </span>
+      <span class="output dim">cat contact.json</span>
+    </div>
+    <div class="line">
+      <span class="output">{ "github": "<a href="https://github.com/Emon452432" style="color:var(--green)">@Emon452432</a>", "twitter": "<a href="https://twitter.com/Emon452432" style="color:var(--green)">@Emon452432</a>" }</span>
+    </div>
+
+    <div class="line" style="margin-top:1rem">
+      <span class="prompt">[<span>root@exploitcraft</span>]# </span>
+      <span class="output dim">uptime</span>
+    </div>
+    <div class="line">
+      <span class="output warn">still learning. always building. never stopping.</span>
+    </div>
+
+    <div class="line" style="margin-top:1rem">
+      <span class="prompt">[<span>root@exploitcraft</span>]# </span>
+      <span class="blink-cursor"></span>
+    </div>
+
+  </div>
+
+  <div class="input-line">
+    <span class="prompt">[<span>root@exploitcraft</span>]# </span>
+    <input type="text" id="cmd-input" placeholder="type a command..." autocomplete="off" spellcheck="false" />
+  </div>
+</div>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+
+  // Matrix rain
+  const canvas = document.getElementById('matrix');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const cols = Math.floor(canvas.width / 16);
+  const drops = Array(cols).fill(1);
+  const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
+
+  function drawMatrix() {
+    ctx.fillStyle = 'rgba(10,10,10,0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#00ff41';
+    ctx.font = '14px Share Tech Mono';
+    drops.forEach((y, i) => {
+      const char = chars[Math.floor(Math.random() * chars.length)];
+      ctx.fillText(char, i * 16, y * 16);
+      if (y * 16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    });
+  }
+  setInterval(drawMatrix, 50);
+
+  // Animate progress bars after delay
+  setTimeout(() => {
+    const barsLine = document.getElementById('bars-line');
+    barsLine.style.opacity = '1';
+    document.querySelectorAll('.bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.pct + '%';
+    });
+  }, 3200);
+
+  // Fake terminal input
+  const input = document.getElementById('cmd-input');
+  const responses = {
+    help: '>> Available: whoami, skills, projects, contact, clear',
+    whoami: '>> Emon — self-taught dev from Bangladesh 🇧🇩',
+    skills: '>> Next.js React TypeScript Python Bash Linux OSINT',
+    projects: '>> ExploitCraft/portfolio — live on Cloudflare Pages',
+    contact: '>> github.com/Emon452432 | @Emon452432',
+    clear: '__CLEAR__',
+    ls: '>> portfolio  README.md  skills.txt  contact.json',
+    pwd: '>> /home/exploitcraft',
+    date: `>> ${new Date().toString()}`,
+  };
+
+  input.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    const cmd = input.value.trim().toLowerCase();
+    input.value = '';
+    const lines = document.getElementById('lines');
+    const resp = responses[cmd] || `>> command not found: ${cmd}. try 'help'`;
+    if (resp === '__CLEAR__') {
+      lines.innerHTML = '';
+      return;
+    }
+    const el = document.createElement('div');
+    el.className = 'line';
+    el.style.opacity = '1';
+    el.innerHTML = `<span class="prompt">[<span>root@exploitcraft</span>]# </span><span class="output dim">${cmd}</span>`;
+    lines.appendChild(el);
+    const out = document.createElement('div');
+    out.className = 'line';
+    out.style.opacity = '1';
+    out.innerHTML = `<span class="output">${resp}</span>`;
+    lines.appendChild(out);
+    out.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
+</body>
+</html>
