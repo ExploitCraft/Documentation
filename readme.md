@@ -6,19 +6,6 @@ A single-file static documentation page for [ReconNinja](https://github.com/Expl
 
 `reconninja-docs.html` is a self-contained HTML documentation site. No build tools, no dependencies, no npm — just open it in a browser or serve it as a static page.
 
-## What's inside
-
-- Full installation guide (PyPI, GitHub, source)
-- Quick start examples
-- Complete 14-phase pipeline breakdown
-- Scan profiles reference
-- All CLI flags documented
-- v4.0.0 new features (WHOIS, Wayback, SSL, VT, Shodan)
-- AI analysis provider guide
-- Output & report structure
-- Resume scan usage
-- Plugin system guide
-
 ## Deploy
 
 **GitHub Pages** — rename to `index.html`, push to a `docs/` branch or repo, enable Pages in settings.
