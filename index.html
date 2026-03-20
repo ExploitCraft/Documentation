@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ReconNinja v5.2.1</title>
+<title>ReconNinja v6.0.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ── TOKENS ───────────────────────────────────────────────────────────────── */
@@ -13,16 +13,16 @@
   --bg3:      #111620;
   --border:   rgba(255,255,255,0.06);
   --border2:  rgba(255,255,255,0.12);
-  --g:        #39ff14;   /* neon green – primary */
-  --g2:       #1aff8c;   /* mint accent */
-  --r:        #ff2952;   /* red */
-  --b:        #00cfff;   /* cyan */
+  --g:        #39ff14;
+  --g2:       #1aff8c;
+  --r:        #ff2952;
+  --b:        #00cfff;
+  --y:        #ffb347;
   --text:     #b8c4d4;
   --text2:    #6b7f96;
   --white:    #eef3fa;
 }
 
-/* ── RESET ────────────────────────────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:15px}
 body{
@@ -33,635 +33,262 @@ body{
   overflow-x:hidden;
 }
 
-/* ── SCANLINES OVERLAY ───────────────────────────────────────────────────── */
+/* scanlines */
 body::before{
-  content:'';
-  position:fixed;inset:0;
-  pointer-events:none;z-index:999;
-  background:repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0,0,0,0.15) 2px,
-    rgba(0,0,0,0.15) 4px
-  );
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:999;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);
   opacity:0.3;
 }
-
-/* ── GRID BACKGROUND ─────────────────────────────────────────────────────── */
+/* grid */
 body::after{
-  content:'';
-  position:fixed;inset:0;
-  pointer-events:none;z-index:0;
-  background-image:
-    linear-gradient(rgba(57,255,20,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(57,255,20,0.03) 1px, transparent 1px);
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(57,255,20,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(57,255,20,0.03) 1px,transparent 1px);
   background-size:60px 60px;
 }
 
-/* ── LAYOUT ──────────────────────────────────────────────────────────────── */
-.layout{
-  display:flex;
-  min-height:100vh;
-  position:relative;z-index:1;
-}
+.layout{display:flex;min-height:100vh;position:relative;z-index:1}
 
 /* ── SIDEBAR ─────────────────────────────────────────────────────────────── */
 .sidebar{
-  width:240px;
-  flex-shrink:0;
-  position:sticky;
-  top:0;height:100vh;
-  overflow-y:auto;
-  background:var(--bg2);
-  border-right:1px solid var(--border);
-  display:flex;flex-direction:column;
-  padding:0;
+  width:250px;flex-shrink:0;position:sticky;top:0;height:100vh;
+  overflow-y:auto;background:var(--bg2);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;padding:0;
 }
 .sidebar::-webkit-scrollbar{width:2px}
 .sidebar::-webkit-scrollbar-thumb{background:var(--g);opacity:0.3}
 
-.sb-logo{
-  padding:2rem 1.5rem 1.5rem;
-  border-bottom:1px solid var(--border);
-}
-.sb-logo-word{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:2rem;
-  letter-spacing:3px;
-  line-height:1;
-  color:var(--white);
-}
+.sb-logo{padding:2rem 1.5rem 1.5rem;border-bottom:1px solid var(--border)}
+.sb-logo-word{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:3px;line-height:1;color:var(--white)}
 .sb-logo-word span{color:var(--g)}
-.sb-version{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.65rem;
-  color:var(--text2);
-  margin-top:4px;
-  letter-spacing:1px;
-}
+.sb-version{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text2);margin-top:4px;letter-spacing:1px}
 .sb-version b{color:var(--g);font-weight:400}
 
 .sb-status{
-  display:flex;align-items:center;gap:8px;
-  padding:1rem 1.5rem;
+  display:flex;align-items:center;gap:8px;padding:1rem 1.5rem;
   border-bottom:1px solid var(--border);
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.65rem;
-  color:var(--text2);
+  font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text2);
 }
-.sb-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:var(--g);
-  box-shadow:0 0 6px var(--g);
-  animation:blink 2.5s ease-in-out infinite;
-}
+.sb-dot{width:6px;height:6px;border-radius:50%;background:var(--g);box-shadow:0 0 6px var(--g);animation:blink 2.5s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
 
 .sb-nav{padding:1.5rem 0}
 .sb-group{margin-bottom:0.25rem}
 .sb-group-label{
-  padding:0.5rem 1.5rem 0.25rem;
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.58rem;
-  text-transform:uppercase;
-  letter-spacing:2px;
-  color:var(--text2);
-  opacity:0.6;
+  padding:0.5rem 1.5rem 0.25rem;font-family:'JetBrains Mono',monospace;
+  font-size:0.58rem;text-transform:uppercase;letter-spacing:2px;color:var(--text2);opacity:0.6;
 }
 .sb-link{
-  display:flex;align-items:center;gap:0.75rem;
-  padding:0.45rem 1.5rem;
-  color:var(--text2);
-  text-decoration:none;
-  font-size:0.82rem;
-  font-weight:500;
-  transition:all 0.15s;
-  border-left:2px solid transparent;
-  position:relative;
+  display:flex;align-items:center;gap:0.75rem;padding:0.45rem 1.5rem;
+  color:var(--text2);text-decoration:none;font-size:0.82rem;font-weight:500;
+  transition:all 0.15s;border-left:2px solid transparent;position:relative;
 }
 .sb-link:hover{color:var(--white);border-left-color:var(--border2)}
 .sb-link.active{color:var(--g);border-left-color:var(--g);background:rgba(57,255,20,0.04)}
-.sb-link .num{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.6rem;
-  color:var(--text2);
-  opacity:0.5;
-  min-width:18px;
-}
+.sb-link .num{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--text2);opacity:0.5;min-width:18px}
 .sb-link.active .num{color:var(--g);opacity:0.7}
+.sb-link .new-badge{font-family:'JetBrains Mono',monospace;font-size:0.52rem;color:var(--g);background:rgba(57,255,20,0.1);border:1px solid rgba(57,255,20,0.2);padding:0.05rem 0.35rem;border-radius:2px;margin-left:auto}
 
 .sb-footer{
-  margin-top:auto;
-  padding:1.5rem;
-  border-top:1px solid var(--border);
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.62rem;
-  color:var(--text2);
+  margin-top:auto;padding:1.5rem;border-top:1px solid var(--border);
+  font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--text2);
 }
 .sb-footer a{color:var(--text2);text-decoration:none;transition:color 0.15s}
 .sb-footer a:hover{color:var(--g)}
 
 /* ── MAIN ────────────────────────────────────────────────────────────────── */
-.main{
-  flex:1;
-  max-width:900px;
-  padding:5rem 4rem;
-  min-width:0;
-}
+.main{flex:1;max-width:920px;padding:5rem 4rem;min-width:0}
 
-/* ── SECTION BASE ────────────────────────────────────────────────────────── */
 .section{
-  margin-bottom:7rem;
-  scroll-margin-top:2rem;
-  opacity:0;
-  transform:translateY(20px);
-  transition:opacity 0.5s ease, transform 0.5s ease;
+  margin-bottom:7rem;scroll-margin-top:2rem;
+  opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease;
 }
 .section.visible{opacity:1;transform:translateY(0)}
 
-.sec-eyebrow{
-  display:flex;align-items:center;gap:0.75rem;
-  margin-bottom:1rem;
-}
-.sec-num{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.65rem;
-  color:var(--g);
-  letter-spacing:2px;
-}
+.sec-eyebrow{display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem}
+.sec-num{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--g);letter-spacing:2px}
 .sec-line{height:1px;flex:1;max-width:40px;background:var(--g);opacity:0.4}
-.sec-tag{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.58rem;
-  color:var(--text2);
-  text-transform:uppercase;
-  letter-spacing:2px;
-}
+.sec-tag{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--text2);text-transform:uppercase;letter-spacing:2px}
 
-h2{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2rem,4vw,3rem);
-  color:var(--white);
-  letter-spacing:2px;
-  line-height:1;
-  margin-bottom:1.5rem;
-}
+h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3rem);color:var(--white);letter-spacing:2px;line-height:1;margin-bottom:1.5rem}
 h2 .hl{color:var(--g)}
 
 h3{
-  font-size:0.8rem;
-  font-weight:600;
-  color:var(--white);
-  text-transform:uppercase;
-  letter-spacing:2px;
-  margin:2.5rem 0 1rem;
-  display:flex;align-items:center;gap:0.75rem;
+  font-size:0.8rem;font-weight:600;color:var(--white);text-transform:uppercase;
+  letter-spacing:2px;margin:2.5rem 0 1rem;display:flex;align-items:center;gap:0.75rem;
 }
 h3::after{content:'';flex:1;height:1px;background:var(--border)}
+h3 .new-tag{font-size:0.6rem;color:var(--g);background:rgba(57,255,20,0.08);border:1px solid rgba(57,255,20,0.2);padding:0.1rem 0.5rem;border-radius:2px;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:none}
 
 p{color:var(--text);margin-bottom:1rem;font-size:0.9rem;line-height:1.75}
 
 /* ── HERO ────────────────────────────────────────────────────────────────── */
-#hero{
-  margin-bottom:7rem;
-  padding-bottom:5rem;
-  border-bottom:1px solid var(--border);
-  opacity:0;
-  animation:heroIn 0.8s 0.1s forwards ease;
+#overview{
+  margin-bottom:7rem;padding-bottom:5rem;border-bottom:1px solid var(--border);
+  opacity:0;animation:heroIn 0.8s 0.1s forwards ease;
 }
 @keyframes heroIn{to{opacity:1}}
 
 .hero-tag{
-  display:inline-flex;align-items:center;gap:0.6rem;
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.65rem;
-  color:var(--g);
-  letter-spacing:2px;
-  text-transform:uppercase;
-  margin-bottom:1.5rem;
+  display:inline-flex;align-items:center;gap:0.6rem;font-family:'JetBrains Mono',monospace;
+  font-size:0.65rem;color:var(--g);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem;
 }
-.hero-tag::before{
-  content:'';
-  width:6px;height:6px;border-radius:50%;
-  background:var(--g);
-  box-shadow:0 0 8px var(--g);
-  animation:blink 2.5s infinite;
-}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--g);box-shadow:0 0 8px var(--g);animation:blink 2.5s infinite}
 
-.hero-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(4rem,10vw,7rem);
-  line-height:0.9;
-  letter-spacing:4px;
-  color:var(--white);
-  margin-bottom:0.5rem;
-}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,7rem);line-height:0.9;letter-spacing:4px;color:var(--white);margin-bottom:0.5rem}
 .hero-title .slash{color:var(--g)}
-.hero-title .dim{
-  display:block;
-  font-size:clamp(1.2rem,3vw,2rem);
-  letter-spacing:8px;
-  color:var(--text2);
-  opacity:0.5;
-  margin-bottom:0.25rem;
-}
+.hero-title .dim{display:block;font-size:clamp(1.2rem,3vw,2rem);letter-spacing:8px;color:var(--text2);opacity:0.5;margin-bottom:0.25rem}
 
-.hero-sub{
-  font-size:0.95rem;
-  color:var(--text2);
-  max-width:500px;
-  margin:1.5rem 0 2rem;
-  line-height:1.7;
-}
+.hero-sub{font-size:0.95rem;color:var(--text2);max-width:520px;margin:1.5rem 0 2rem;line-height:1.7}
 
 .hero-warn{
-  display:flex;align-items:flex-start;gap:1rem;
-  border:1px solid rgba(255,41,82,0.25);
-  background:rgba(255,41,82,0.04);
-  border-radius:4px;
-  padding:1rem 1.25rem;
-  margin-bottom:2.5rem;
-  font-size:0.82rem;
-  color:#ff6b8a;
-  max-width:560px;
+  display:flex;align-items:flex-start;gap:1rem;border:1px solid rgba(255,41,82,0.25);
+  background:rgba(255,41,82,0.04);border-radius:4px;padding:1rem 1.25rem;
+  margin-bottom:2.5rem;font-size:0.82rem;color:#ff6b8a;max-width:560px;
 }
-.hero-warn-icon{
-  font-size:0.9rem;
-  flex-shrink:0;
-  margin-top:2px;
-  color:var(--r);
+.hero-warn-icon{font-size:0.9rem;flex-shrink:0;margin-top:2px;color:var(--r)}
+
+/* v6 new-in banner */
+.new-in-banner{
+  display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;
+  background:rgba(57,255,20,0.04);border:1px solid rgba(57,255,20,0.15);
+  border-radius:6px;padding:0.9rem 1.1rem;margin-bottom:2rem;
 }
+.new-in-label{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--g);letter-spacing:1px;white-space:nowrap}
+.new-in-item{font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:0.2rem 0.65rem;border-radius:2px;border:1px solid rgba(57,255,20,0.2);color:var(--g2);background:rgba(26,255,140,0.05)}
 
 .chips{display:flex;flex-wrap:wrap;gap:0.5rem}
-.chip{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.62rem;
-  padding:0.3rem 0.8rem;
-  border-radius:2px;
-  letter-spacing:0.5px;
-  border:1px solid var(--border2);
-  color:var(--text2);
-}
+.chip{font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:0.3rem 0.8rem;border-radius:2px;letter-spacing:0.5px;border:1px solid var(--border2);color:var(--text2)}
 .chip.g{color:var(--g);border-color:rgba(57,255,20,0.25);background:rgba(57,255,20,0.05)}
 .chip.b{color:var(--b);border-color:rgba(0,207,255,0.25);background:rgba(0,207,255,0.05)}
 .chip.r{color:var(--r);border-color:rgba(255,41,82,0.25);background:rgba(255,41,82,0.05)}
+.chip.y{color:var(--y);border-color:rgba(255,179,71,0.25);background:rgba(255,179,71,0.05)}
 
-/* ── TERMINAL CODE BLOCKS ───────────────────────────────────────────────── */
+/* ── TERMINAL ────────────────────────────────────────────────────────────── */
 .terminal{
-  background:#060810;
-  border:1px solid var(--border2);
-  border-radius:8px;
-  overflow:hidden;
-  margin:1.5rem 0;
-  box-shadow:0 4px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(57,255,20,0.04);
+  background:#060810;border:1px solid var(--border2);border-radius:8px;
+  overflow:hidden;margin:1.5rem 0;
+  box-shadow:0 4px 30px rgba(0,0,0,0.5),0 0 0 1px rgba(57,255,20,0.04);
 }
 .term-bar{
-  display:flex;align-items:center;gap:0.5rem;
-  padding:0.7rem 1rem;
-  background:rgba(255,255,255,0.03);
-  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:0.5rem;padding:0.7rem 1rem;
+  background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);
 }
 .term-dot{width:10px;height:10px;border-radius:50%}
-.term-dot.r{background:#ff5f56}
-.term-dot.y{background:#ffbd2e}
-.term-dot.g{background:#27c93f}
-.term-name{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.62rem;
-  color:var(--text2);
-  margin-left:0.25rem;
-  letter-spacing:1px;
-}
-.term-body{
-  padding:1.5rem;
-  overflow-x:auto;
-}
+.term-dot.r{background:#ff5f56}.term-dot.y{background:#ffbd2e}.term-dot.g{background:#27c93f}
+.term-name{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--text2);margin-left:0.25rem;letter-spacing:1px}
+.term-body{padding:1.5rem;overflow-x:auto}
 .term-body::-webkit-scrollbar{height:3px}
 .term-body::-webkit-scrollbar-thumb{background:rgba(57,255,20,0.3)}
 pre{margin:0;background:none;border:none;padding:0}
-code{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.8rem;
-  line-height:1.9;
-  color:#8baacc;
-}
-.cmt{color:#2d4a2d}
-.cmd{color:var(--g)}
-.fl{color:#ffb347}
-.str{color:#ff8888}
-.kw{color:var(--b)}
+code{font-family:'JetBrains Mono',monospace;font-size:0.8rem;line-height:1.9;color:#8baacc}
+.cmt{color:#2d4a2d}.cmd{color:var(--g)}.fl{color:#ffb347}.str{color:#ff8888}.kw{color:var(--b)}
 
-/* ── INLINE CODE ─────────────────────────────────────────────────────────── */
-.ic{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.75rem;
-  color:var(--g2);
-  background:rgba(57,255,20,0.07);
-  border:1px solid rgba(57,255,20,0.15);
-  padding:0.1rem 0.45rem;
-  border-radius:3px;
-}
+.ic{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--g2);background:rgba(57,255,20,0.07);border:1px solid rgba(57,255,20,0.15);padding:0.1rem 0.45rem;border-radius:3px}
 
 /* ── TABLE ───────────────────────────────────────────────────────────────── */
 .tbl-wrap{overflow-x:auto;margin:1.5rem 0}
 table{width:100%;border-collapse:collapse;font-size:0.83rem}
 thead{border-bottom:1px solid rgba(57,255,20,0.2)}
-th{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.58rem;
-  text-transform:uppercase;
-  letter-spacing:2px;
-  color:var(--g);
-  padding:0.75rem 1rem;
-  text-align:left;
-  font-weight:400;
-}
-td{
-  padding:0.7rem 1rem;
-  border-bottom:1px solid var(--border);
-  color:var(--text);
-  vertical-align:top;
-}
-td:first-child{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.75rem;
-  color:var(--b);
-}
+th{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:2px;color:var(--g);padding:0.75rem 1rem;text-align:left;font-weight:400}
+td{padding:0.7rem 1rem;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top}
+td:first-child{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--b)}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:rgba(255,255,255,0.015)}
+.td-new{color:var(--g)!important;font-size:0.62rem!important;font-family:'JetBrains Mono',monospace!important}
 
 /* ── PIPELINE ────────────────────────────────────────────────────────────── */
 .pipeline{margin:2rem 0;position:relative;padding-left:2.5rem}
-.pipeline::before{
-  content:'';
-  position:absolute;
-  left:0.75rem;top:0;bottom:0;
-  width:1px;
-  background:linear-gradient(to bottom,var(--g),transparent);
-  opacity:0.3;
-}
+.pipeline::before{content:'';position:absolute;left:0.75rem;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--g),transparent);opacity:0.3}
 .phase{
-  position:relative;
-  padding:1.1rem 1.25rem;
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:6px;
-  margin-bottom:4px;
-  transition:all 0.2s;
-  display:flex;gap:1rem;align-items:flex-start;
+  position:relative;padding:1.1rem 1.25rem;background:var(--bg2);border:1px solid var(--border);
+  border-radius:6px;margin-bottom:4px;transition:all 0.2s;display:flex;gap:1rem;align-items:flex-start;
 }
-.phase::before{
-  content:'';
-  position:absolute;
-  left:-1.75rem;
-  top:50%;transform:translateY(-50%);
-  width:8px;height:8px;
-  border-radius:50%;
-  border:1px solid var(--g);
-  background:var(--bg);
-  box-shadow:0 0 8px rgba(57,255,20,0.3);
-}
-.phase:hover{
-  border-color:rgba(57,255,20,0.2);
-  background:rgba(57,255,20,0.03);
-  transform:translateX(3px);
-}
-.phase-badge{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.6rem;
-  color:var(--g);
-  border:1px solid rgba(57,255,20,0.25);
-  background:rgba(57,255,20,0.06);
-  padding:0.2rem 0.55rem;
-  border-radius:3px;
-  white-space:nowrap;
-  flex-shrink:0;
-  margin-top:2px;
-}
-.phase-name{
-  font-weight:600;
-  color:var(--white);
-  font-size:0.88rem;
-}
-.phase-desc{
-  font-size:0.78rem;
-  color:var(--text2);
-  margin-top:2px;
-}
+.phase::before{content:'';position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;border:1px solid var(--g);background:var(--bg);box-shadow:0 0 8px rgba(57,255,20,0.3)}
+.phase.new-phase{border-color:rgba(57,255,20,0.2);background:rgba(57,255,20,0.025)}
+.phase.new-phase::before{background:rgba(57,255,20,0.3);box-shadow:0 0 12px rgba(57,255,20,0.5)}
+.phase:hover{border-color:rgba(57,255,20,0.2);background:rgba(57,255,20,0.03);transform:translateX(3px)}
+.phase-badge{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--g);border:1px solid rgba(57,255,20,0.25);background:rgba(57,255,20,0.06);padding:0.2rem 0.55rem;border-radius:3px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.phase-badge.new{color:var(--g2);border-color:rgba(26,255,140,0.35);background:rgba(26,255,140,0.08)}
+.phase-name{font-weight:600;color:var(--white);font-size:0.88rem}
+.phase-desc{font-size:0.78rem;color:var(--text2);margin-top:2px}
 
 /* ── CARDS ───────────────────────────────────────────────────────────────── */
-.card-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-  gap:1rem;
-  margin:1.5rem 0;
-}
-.card{
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:8px;
-  padding:1.5rem 1.25rem;
-  transition:all 0.2s;
-  position:relative;
-  overflow:hidden;
-}
-.card::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;
-  height:1px;
-  background:linear-gradient(90deg, transparent, var(--g), transparent);
-  opacity:0;
-  transition:opacity 0.3s;
-}
-.card:hover{
-  border-color:rgba(57,255,20,0.2);
-  box-shadow:0 0 20px rgba(57,255,20,0.04);
-  transform:translateY(-2px);
-}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1.5rem 0}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.5rem 1.25rem;transition:all 0.2s;position:relative;overflow:hidden}
+.card.new-card{border-color:rgba(57,255,20,0.18)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--g),transparent);opacity:0;transition:opacity 0.3s}
+.card:hover{border-color:rgba(57,255,20,0.2);box-shadow:0 0 20px rgba(57,255,20,0.04);transform:translateY(-2px)}
 .card:hover::before{opacity:0.6}
 .card-icon{font-size:1.4rem;margin-bottom:0.75rem;display:block}
 .card-title{font-weight:600;color:var(--white);font-size:0.88rem;margin-bottom:0.4rem}
 .card-desc{font-size:0.77rem;color:var(--text2);line-height:1.55}
-.card-pill{
-  display:inline-block;
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.6rem;
-  color:var(--g2);
-  border:1px solid rgba(26,255,140,0.2);
-  background:rgba(26,255,140,0.05);
-  padding:0.15rem 0.55rem;
-  border-radius:2px;
-  margin-top:0.75rem;
-  letter-spacing:0.5px;
-}
+.card-pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--g2);border:1px solid rgba(26,255,140,0.2);background:rgba(26,255,140,0.05);padding:0.15rem 0.55rem;border-radius:2px;margin-top:0.75rem;letter-spacing:0.5px}
 .card-pill.blue{color:var(--b);border-color:rgba(0,207,255,0.2);background:rgba(0,207,255,0.05)}
+.card-pill.new{color:var(--g);border-color:rgba(57,255,20,0.3);background:rgba(57,255,20,0.07)}
 
 /* ── CHANGELOG ───────────────────────────────────────────────────────────── */
 .cl{display:flex;flex-direction:column;gap:0;margin:2rem 0}
-.cl-row{
-  display:flex;gap:2rem;
-  padding-bottom:2.5rem;
-  position:relative;
-}
-.cl-row:not(:last-child)::before{
-  content:'';
-  position:absolute;
-  left:42px;top:32px;bottom:0;
-  width:1px;
-  background:linear-gradient(to bottom,rgba(57,255,20,0.3),transparent);
-}
-.cl-tag{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.1rem;
-  letter-spacing:2px;
-  color:var(--g);
-  background:rgba(57,255,20,0.07);
-  border:1px solid rgba(57,255,20,0.2);
-  padding:0.3rem 0.6rem 0.2rem;
-  border-radius:4px;
-  width:86px;
-  text-align:center;
-  flex-shrink:0;
-  height:fit-content;
-  margin-top:2px;
-}
+.cl-row{display:flex;gap:2rem;padding-bottom:2.5rem;position:relative}
+.cl-row:not(:last-child)::before{content:'';position:absolute;left:42px;top:32px;bottom:0;width:1px;background:linear-gradient(to bottom,rgba(57,255,20,0.3),transparent)}
+.cl-tag{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;color:var(--g);background:rgba(57,255,20,0.07);border:1px solid rgba(57,255,20,0.2);padding:0.3rem 0.6rem 0.2rem;border-radius:4px;width:86px;text-align:center;flex-shrink:0;height:fit-content;margin-top:2px}
 .cl-tag.bugfix{color:var(--r);background:rgba(255,41,82,0.06);border-color:rgba(255,41,82,0.2)}
 .cl-tag.feat{color:var(--b);background:rgba(0,207,255,0.06);border-color:rgba(0,207,255,0.2)}
+.cl-tag.major{color:var(--g);background:rgba(57,255,20,0.1);border-color:rgba(57,255,20,0.35);box-shadow:0 0 12px rgba(57,255,20,0.1)}
 .cl-body{flex:1}
-.cl-meta{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.62rem;
-  color:var(--text2);
-  letter-spacing:1px;
-  margin-bottom:0.5rem;
-}
-.cl-title{
-  font-weight:600;
-  color:var(--white);
-  font-size:0.95rem;
-  margin-bottom:0.75rem;
-}
+.cl-meta{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--text2);letter-spacing:1px;margin-bottom:0.5rem}
+.cl-title{font-weight:600;color:var(--white);font-size:0.95rem;margin-bottom:0.75rem}
 .cl-items{list-style:none;padding:0;display:flex;flex-direction:column;gap:0.35rem}
-.cl-items li{
-  font-size:0.8rem;
-  color:var(--text);
-  padding-left:1.25rem;
-  position:relative;
-  line-height:1.6;
-}
-.cl-items li::before{
-  content:'▸';
-  position:absolute;left:0;
-  color:var(--g);
-  font-size:0.7rem;
-}
+.cl-items li{font-size:0.8rem;color:var(--text);padding-left:1.25rem;position:relative;line-height:1.6}
+.cl-items li::before{content:'▸';position:absolute;left:0;color:var(--g);font-size:0.7rem}
+.cl-section{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--text2);text-transform:uppercase;letter-spacing:1.5px;margin:1rem 0 0.4rem;padding-left:0}
 
 /* ── DIFF PANEL ──────────────────────────────────────────────────────────── */
-.diff-demo{
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:8px;
-  overflow:hidden;
-  margin:1.5rem 0;
-}
-.diff-header{
-  display:flex;align-items:center;gap:1rem;
-  padding:0.75rem 1.25rem;
-  background:rgba(255,255,255,0.02);
-  border-bottom:1px solid var(--border);
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.65rem;
-  color:var(--text2);
-}
+.diff-demo{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.5rem 0}
+.diff-header{display:flex;align-items:center;gap:1rem;padding:0.75rem 1.25rem;background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text2)}
 .diff-header span{color:var(--g)}
-.diff-row{
-  display:flex;gap:0;
-  border-bottom:1px solid var(--border);
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.75rem;
-}
+.diff-row{display:flex;gap:0;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.75rem}
 .diff-row:last-child{border-bottom:none}
-.diff-type{
-  width:80px;flex-shrink:0;
-  padding:0.6rem 1rem;
-  font-size:0.6rem;
-  letter-spacing:1px;
-}
+.diff-type{width:100px;flex-shrink:0;padding:0.6rem 1rem;font-size:0.6rem;letter-spacing:1px}
 .diff-type.new{color:var(--g);background:rgba(57,255,20,0.05)}
 .diff-type.gone{color:var(--r);background:rgba(255,41,82,0.05)}
 .diff-type.changed{color:var(--b);background:rgba(0,207,255,0.05)}
 .diff-val{padding:0.6rem 1rem;color:var(--text);flex:1}
 
 /* ── FLAG BLOCKS ─────────────────────────────────────────────────────────── */
-.flag-block{
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:8px;
-  overflow:hidden;
-  margin:1rem 0;
-}
-.flag-group{border-bottom:1px solid var(--border)}
-.flag-group:last-child{border-bottom:none}
-.flag-row{
-  display:grid;
-  grid-template-columns:220px 1fr;
-  gap:0;
-  padding:0.6rem 1.25rem;
-  border-bottom:1px solid rgba(255,255,255,0.03);
-  align-items:start;
-  transition:background 0.15s;
-}
+.flag-block{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1rem 0}
+.flag-row{display:grid;grid-template-columns:230px 1fr;gap:0;padding:0.6rem 1.25rem;border-bottom:1px solid rgba(255,255,255,0.03);align-items:start;transition:background 0.15s}
 .flag-row:last-child{border-bottom:none}
 .flag-row:hover{background:rgba(255,255,255,0.02)}
-.flag-name{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.75rem;
-  color:var(--fl, #ffb347);
-  padding:0.1rem 0;
-}
+.flag-name{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--y);padding:0.1rem 0}
 .flag-name.new-flag{color:var(--g2)}
 .flag-desc{font-size:0.8rem;color:var(--text2);padding:0.1rem 0}
 
+/* ── BUG TABLE ───────────────────────────────────────────────────────────── */
+.bug-table{width:100%;border-collapse:collapse;font-size:0.8rem;margin:1.5rem 0}
+.bug-table th{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:2px;color:var(--g);padding:0.6rem 0.9rem;text-align:left;font-weight:400;border-bottom:1px solid rgba(57,255,20,0.2)}
+.bug-table td{padding:0.65rem 0.9rem;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top}
+.bug-table tr:last-child td{border-bottom:none}
+.bug-table tr:hover td{background:rgba(255,255,255,0.015)}
+.sev{font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:0.15rem 0.55rem;border-radius:3px;white-space:nowrap}
+.sev.crit{color:var(--r);background:rgba(255,41,82,0.1);border:1px solid rgba(255,41,82,0.2)}
+.sev.high{color:var(--y);background:rgba(255,179,71,0.1);border:1px solid rgba(255,179,71,0.2)}
+.sev.med{color:var(--b);background:rgba(0,207,255,0.08);border:1px solid rgba(0,207,255,0.2)}
+.sev.low{color:var(--text2);background:rgba(255,255,255,0.04);border:1px solid var(--border)}
+
 /* ── OUTPUT TREE ─────────────────────────────────────────────────────────── */
-.tree{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.78rem;
-  line-height:2;
-  color:var(--text2);
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:8px;
-  padding:1.5rem;
-  margin:1.5rem 0;
-}
+.tree{font-family:'JetBrains Mono',monospace;font-size:0.78rem;line-height:2;color:var(--text2);background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin:1.5rem 0}
 .tree .dir{color:var(--white);font-weight:500}
 .tree .file-g{color:var(--g2)}
+.tree .file-new{color:var(--g);font-weight:500}
 .tree .cmt{color:var(--text2);opacity:0.5;font-size:0.7rem}
 
-/* ── DIVIDER ─────────────────────────────────────────────────────────────── */
-.divider{
-  border:none;
-  height:1px;
-  background:linear-gradient(90deg,transparent,var(--border2),transparent);
-  margin:4rem 0;
-}
+.divider{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:4rem 0}
 
-/* ── FOOTER ──────────────────────────────────────────────────────────────── */
-.footer{
-  padding-top:2rem;
-  display:flex;flex-wrap:wrap;gap:0.75rem;
-  align-items:center;justify-content:space-between;
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.65rem;
-  color:var(--text2);
-}
+.footer{padding-top:2rem;display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text2)}
 .footer a{color:var(--text2);text-decoration:none;transition:color 0.15s}
 .footer a:hover{color:var(--g)}
 .footer-links{display:flex;gap:1.5rem}
 
-/* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
 @media(max-width:768px){
   .sidebar{display:none}
   .main{padding:2.5rem 1.25rem}
@@ -671,18 +298,17 @@ tr:hover td{background:rgba(255,255,255,0.015)}
 </style>
 </head>
 <body>
-
 <div class="layout">
 
 <!-- ═══ SIDEBAR ════════════════════════════════════════════════════════════ -->
 <aside class="sidebar">
   <div class="sb-logo">
     <div class="sb-logo-word">Recon<span>Ninja</span></div>
-    <div class="sb-version"><b>v5.2.1</b> &nbsp;·&nbsp; MIT License</div>
+    <div class="sb-version"><b>v6.0.0</b> &nbsp;·&nbsp; MIT License</div>
   </div>
   <div class="sb-status">
     <div class="sb-dot"></div>
-    <span>707 tests passing</span>
+    <span>598 tests passing</span>
   </div>
   <nav class="sb-nav">
     <div class="sb-group">
@@ -698,18 +324,24 @@ tr:hover td{background:rgba(255,255,255,0.015)}
       <a href="#flags" class="sb-link"><span class="num">06</span>All Flags</a>
     </div>
     <div class="sb-group">
-      <div class="sb-group-label">v5 Features</div>
+      <div class="sb-group-label">v6 Features</div>
       <a href="#changelog" class="sb-link"><span class="num">07</span>Changelog</a>
-      <a href="#intelligence" class="sb-link"><span class="num">08</span>Intelligence</a>
-      <a href="#diff" class="sb-link"><span class="num">09</span>Scan Diff</a>
-      <a href="#ai" class="sb-link"><span class="num">10</span>AI Analysis</a>
+      <a href="#bugfixes" class="sb-link"><span class="num">08</span>Bug Fixes <span class="new-badge">v6</span></a>
+      <a href="#newmodules" class="sb-link"><span class="num">09</span>New Modules <span class="new-badge">v6</span></a>
+    </div>
+    <div class="sb-group">
+      <div class="sb-group-label">Intelligence</div>
+      <a href="#intelligence" class="sb-link"><span class="num">10</span>All Modules</a>
+      <a href="#ai" class="sb-link"><span class="num">11</span>AI Analysis</a>
+      <a href="#diff" class="sb-link"><span class="num">12</span>Scan Diff</a>
+      <a href="#notify" class="sb-link"><span class="num">13</span>Notifications <span class="new-badge">v6</span></a>
     </div>
     <div class="sb-group">
       <div class="sb-group-label">Advanced</div>
-      <a href="#output" class="sb-link"><span class="num">11</span>Output & Reports</a>
-      <a href="#resume" class="sb-link"><span class="num">12</span>Resume Scans</a>
-      <a href="#plugins" class="sb-link"><span class="num">13</span>Plugin System</a>
-      <a href="#development" class="sb-link"><span class="num">14</span>Development</a>
+      <a href="#output" class="sb-link"><span class="num">14</span>Output & Reports</a>
+      <a href="#resume" class="sb-link"><span class="num">15</span>Resume Scans</a>
+      <a href="#plugins" class="sb-link"><span class="num">16</span>Plugin System</a>
+      <a href="#development" class="sb-link"><span class="num">17</span>Development</a>
     </div>
   </nav>
   <div class="sb-footer">
@@ -722,180 +354,152 @@ tr:hover td{background:rgba(255,255,255,0.015)}
 <main class="main">
 
 <!-- HERO -->
-<div id="overview" style="margin-bottom:7rem;padding-bottom:5rem;border-bottom:1px solid var(--border)">
-  <div class="hero-tag">v5.2.1 · Latest Release</div>
+<div id="overview">
+  <div class="hero-tag">v6.0.0 · Latest Release</div>
   <div class="hero-title">
     <span class="dim">// recon</span>
     NINJA<span class="slash">_</span>
   </div>
-  <p class="hero-sub">14-phase automated reconnaissance framework for authorized security testing. One command drives the full pipeline — passive recon through AI threat analysis.</p>
+  <p class="hero-sub">21-phase automated reconnaissance framework for authorized security testing. One command drives the full pipeline — passive recon through cloud bucket enumeration and AI threat analysis.</p>
   <div class="hero-warn">
     <span class="hero-warn-icon">⚠</span>
     <span>Use only against targets you own or have explicit written permission to test. Unauthorized scanning is illegal.</span>
   </div>
+  <div class="new-in-banner">
+    <span class="new-in-label">NEW IN V6 →</span>
+    <span class="new-in-item">GitHub OSINT</span>
+    <span class="new-in-item">JS Extraction</span>
+    <span class="new-in-item">Cloud Buckets</span>
+    <span class="new-in-item">DNS Zone Transfer</span>
+    <span class="new-in-item">WAF Detection</span>
+    <span class="new-in-item">CORS Scanner</span>
+    <span class="new-in-item">Scan Diff</span>
+    <span class="new-in-item">Notifications</span>
+    <span class="new-in-item">8 Bugs Fixed</span>
+  </div>
   <div class="chips">
     <span class="chip b">Python 3.10+</span>
-    <span class="chip g">707 Tests</span>
+    <span class="chip g">598 Tests</span>
     <span class="chip g">MIT License</span>
     <span class="chip r">Security Tool</span>
+    <span class="chip y">21 Phases</span>
     <span class="chip">Linux</span>
     <span class="chip">PyPI</span>
   </div>
 </div>
 
-<!-- 01 INSTALLATION -->
+<!-- 02 INSTALL -->
 <section class="section" id="install">
-  <div class="sec-eyebrow">
-    <span class="sec-num">02</span>
-    <div class="sec-line"></div>
-    <span class="sec-tag">Installation</span>
-  </div>
+  <div class="sec-eyebrow"><span class="sec-num">02</span><div class="sec-line"></div><span class="sec-tag">Installation</span></div>
   <h2>Get <span class="hl">Running</span></h2>
-  <p>Only <span class="ic">rich</span> and <span class="ic">python-dotenv</span> are hard dependencies. All external tools are optional — ReconNinja detects availability and falls back gracefully.</p>
+  <p>Only <span class="ic">rich</span> is a hard dependency. All external tools are optional — ReconNinja detects availability and falls back gracefully. Add <span class="ic">[dns]</span> for zone transfer support.</p>
 
   <h3>From PyPI</h3>
   <div class="terminal">
-    <div class="term-bar">
-      <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
-      <span class="term-name">bash</span>
-    </div>
-    <div class="term-body">
-<pre><code><span class="cmt"># Standard install</span>
+    <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-name">bash</span></div>
+    <div class="term-body"><pre><code><span class="cmt"># Standard</span>
 <span class="cmd">pip install</span> ReconNinja
 
-<span class="cmt"># With AI support (Groq, Gemini, OpenAI, Ollama)</span>
+<span class="cmt"># With AI providers (Groq, Gemini, OpenAI)</span>
 <span class="cmd">pip install</span> <span class="str">"ReconNinja[ai]"</span>
 
-<span class="cmt"># Full — includes Shodan + Censys</span>
-<span class="cmd">pip install</span> <span class="str">"ReconNinja[full]"</span></code></pre>
-    </div>
-  </div>
+<span class="cmt"># With DNS zone transfer support (dnspython)</span>
+<span class="cmd">pip install</span> <span class="str">"ReconNinja[dns]"</span>
 
-  <h3>From GitHub</h3>
-  <div class="terminal">
-    <div class="term-bar">
-      <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
-      <span class="term-name">bash</span>
-    </div>
-    <div class="term-body">
-<pre><code><span class="cmd">pip install</span> git+https://github.com/ExploitCraft/ReconNinja.git
-
-<span class="cmt"># With AI support</span>
-<span class="cmd">pip install</span> <span class="str">"git+https://github.com/ExploitCraft/ReconNinja.git[ai]"</span></code></pre>
-    </div>
+<span class="cmt"># Full — AI + Shodan + dnspython</span>
+<span class="cmd">pip install</span> <span class="str">"ReconNinja[full]"</span></code></pre></div>
   </div>
 
   <h3>From Source</h3>
   <div class="terminal">
-    <div class="term-bar">
-      <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
-      <span class="term-name">bash</span>
-    </div>
-    <div class="term-body">
-<pre><code><span class="cmd">git clone</span> https://github.com/ExploitCraft/ReconNinja.git
-<span class="cmd">cd</span> ReconNinja
-<span class="cmd">pip install -e</span> <span class="str">".[full]"</span></code></pre>
-    </div>
+    <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-name">bash</span></div>
+    <div class="term-body"><pre><code><span class="cmd">git clone</span> https://github.com/ExploitCraft/ReconNinja.git
+<span class="cmd">cd</span> ReconNinja &amp;&amp; <span class="cmd">pip install -e</span> <span class="str">".[full]"</span></code></pre></div>
   </div>
 
   <h3>Check Tool Availability</h3>
   <div class="terminal">
-    <div class="term-bar">
-      <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
-      <span class="term-name">bash</span>
-    </div>
-    <div class="term-body">
-<pre><code><span class="cmd">ReconNinja --check-tools</span>
-
-<span class="cmt"># Optional external tools: nmap, rustscan, masscan, amass,</span>
-<span class="cmt"># subfinder, httpx, feroxbuster, ffuf, dirsearch,</span>
-<span class="cmt"># whatweb, nikto, nuclei, aquatone, gowitness</span></code></pre>
-    </div>
+    <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-name">bash</span></div>
+    <div class="term-body"><pre><code><span class="cmd">ReconNinja --check-tools</span>
+<span class="cmt"># Optional: nmap, rustscan, masscan, amass, subfinder, httpx,</span>
+<span class="cmt"># feroxbuster, ffuf, dirsearch, whatweb, nikto, nuclei,</span>
+<span class="cmt"># aquatone, gowitness, wafw00f, dig</span></code></pre></div>
   </div>
 </section>
 
 <!-- 03 QUICK START -->
 <section class="section" id="quickstart">
-  <div class="sec-eyebrow">
-    <span class="sec-num">03</span>
-    <div class="sec-line"></div>
-    <span class="sec-tag">Quick Start</span>
-  </div>
+  <div class="sec-eyebrow"><span class="sec-num">03</span><div class="sec-line"></div><span class="sec-tag">Quick Start</span></div>
   <h2>Fire It <span class="hl">Up</span></h2>
   <div class="terminal">
-    <div class="term-bar">
-      <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
-      <span class="term-name">bash</span>
-    </div>
-    <div class="term-body">
-<pre><code><span class="cmt"># Interactive guided setup</span>
+    <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-name">bash</span></div>
+    <div class="term-body"><pre><code><span class="cmt"># Interactive guided setup</span>
 <span class="cmd">ReconNinja</span>
 
 <span class="cmt"># Standard scan</span>
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com
 
-<span class="cmt"># Full 14-phase pipeline</span>
+<span class="cmt"># Full 21-phase pipeline</span>
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--profile</span> full_suite <span class="fl">-y</span>
 
-<span class="cmt"># Intelligence modules — no keys needed</span>
+<span class="cmt"># v5 intelligence — no keys needed</span>
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--whois --wayback --ssl -y</span>
 
-<span class="cmt"># v5.1: Censys + Hunter.io email enumeration</span>
+<span class="cmt"># v6 new modules — no keys needed</span>
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com \
-  <span class="fl">--censys --censys-key</span> YOUR_KEY \
-  <span class="fl">--hunter --hunter-key</span> YOUR_KEY <span class="fl">-y</span>
+  <span class="fl">--github-osint --js-extract</span>  \
+  <span class="fl">--cloud-buckets --dns-zone</span>   \
+  <span class="fl">--waf --cors -y</span>
 
-<span class="cmt"># v5.1: Diff current scan against a baseline</span>
-<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com \
-  <span class="fl">--diff</span> reports/example.com_20260309_120000/state.json <span class="fl">-y</span>
+<span class="cmt"># v6 scan diff — compare two JSON reports</span>
+<span class="cmd">ReconNinja</span> <span class="fl">--diff</span> reports/.../20260101/report.json \
+                  reports/.../20260320/report.json
 
-<span class="cmt"># Full intelligence suite</span>
+<span class="cmt"># Full v6 suite with Slack notifications</span>
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--profile</span> full_suite \
-  <span class="fl">--whois --wayback --ssl</span>                     \
-  <span class="fl">--shodan --shodan-key</span> YOUR_KEY               \
-  <span class="fl">--vt --vt-key</span> YOUR_KEY                       \
-  <span class="fl">--censys --censys-key</span> YOUR_KEY               \
-  <span class="fl">--hunter --hunter-key</span> YOUR_KEY               \
-  <span class="fl">--ai --ai-provider</span> groq <span class="fl">--ai-key</span> YOUR_KEY    \
-  <span class="fl">-y</span></code></pre>
-    </div>
+  <span class="fl">--shodan --shodan-key</span> KEY \
+  <span class="fl">--vt --vt-key</span> KEY         \
+  <span class="fl">--github-osint --github-token</span> TOKEN \
+  <span class="fl">--ai --ai-provider</span> groq <span class="fl">--ai-key</span> KEY \
+  <span class="fl">--notify</span> slack://hooks.slack.com/services/xxx \
+  <span class="fl">-y</span></code></pre></div>
   </div>
 </section>
 
 <!-- 04 PIPELINE -->
 <section class="section" id="pipeline">
-  <div class="sec-eyebrow">
-    <span class="sec-num">04</span>
-    <div class="sec-line"></div>
-    <span class="sec-tag">Pipeline</span>
-  </div>
-  <h2>14-Phase <span class="hl">Pipeline</span></h2>
-  <p>Each phase feeds results into the next. Completed phases are checkpointed — interrupted scans resume from the last saved state.</p>
+  <div class="sec-eyebrow"><span class="sec-num">04</span><div class="sec-line"></div><span class="sec-tag">Pipeline</span></div>
+  <h2>21-Phase <span class="hl">Pipeline</span></h2>
+  <p>Each phase feeds results into the next. Completed phases are checkpointed — interrupted scans resume from the last saved state. <span style="color:var(--g);font-family:'JetBrains Mono',monospace;font-size:0.8rem">7 new phases added in v6.</span></p>
   <div class="pipeline">
     <div class="phase"><span class="phase-badge">Phase 1</span><div><div class="phase-name">Passive Recon</div><div class="phase-desc">Subdomain enumeration via amass, subfinder, crt.sh</div></div></div>
-    <div class="phase"><span class="phase-badge">Phase 2</span><div><div class="phase-name">RustScan</div><div class="phase-desc">Ultra-fast port discovery across all 65,535 ports</div></div></div>
-    <div class="phase"><span class="phase-badge">Phase 2b</span><div><div class="phase-name">Async TCP</div><div class="phase-desc">Pure-Python asyncio fallback — no root required. Respects <span class="ic">--exclude</span> guard (fixed v5.2.1)</div></div></div>
+    <div class="phase"><span class="phase-badge">Phase 2</span><div><div class="phase-name">RustScan</div><div class="phase-desc">Ultra-fast port discovery across all 65,535 ports. Results persisted for resume (BUG-FIX v6)</div></div></div>
+    <div class="phase"><span class="phase-badge">Phase 2b</span><div><div class="phase-name">Async TCP</div><div class="phase-desc">Pure-Python asyncio fallback — no root required</div></div></div>
     <div class="phase"><span class="phase-badge">Phase 3</span><div><div class="phase-name">Masscan</div><div class="phase-desc">Optional SYN sweep (root required)</div></div></div>
     <div class="phase"><span class="phase-badge">Phase 4</span><div><div class="phase-name">Nmap</div><div class="phase-desc">Deep service / version / script analysis on confirmed-open ports</div></div></div>
     <div class="phase"><span class="phase-badge">Phase 4b</span><div><div class="phase-name">CVE Lookup</div><div class="phase-desc">NVD API CVE matching on detected service versions</div></div></div>
     <div class="phase"><span class="phase-badge">Phase 5</span><div><div class="phase-name">httpx</div><div class="phase-desc">Live web detection + technology fingerprinting</div></div></div>
+    <div class="phase new-phase"><span class="phase-badge new">Phase 5b</span><div><div class="phase-name">WAF Detection <span style="font-size:0.65rem;color:var(--g);font-family:'JetBrains Mono',monospace">NEW</span></div><div class="phase-desc">Passive header/cookie fingerprinting + wafw00f. 20 WAF signatures. <span class="ic">--waf</span></div></div></div>
+    <div class="phase new-phase"><span class="phase-badge new">Phase 5c</span><div><div class="phase-name">CORS Scanner <span style="font-size:0.65rem;color:var(--g);font-family:'JetBrains Mono',monospace">NEW</span></div><div class="phase-desc">Crafted Origin probes — detects arbitrary reflection, null origin, wildcard+credentials. <span class="ic">--cors</span></div></div></div>
     <div class="phase"><span class="phase-badge">Phase 6</span><div><div class="phase-name">Directory Scan</div><div class="phase-desc">feroxbuster → ffuf → dirsearch fallback chain</div></div></div>
+    <div class="phase new-phase"><span class="phase-badge new">Phase 6b</span><div><div class="phase-name">JS Extraction <span style="font-size:0.65rem;color:var(--g);font-family:'JetBrains Mono',monospace">NEW</span></div><div class="phase-desc">Crawl pages, download JS, extract API endpoints + secrets (AWS keys, tokens, connection strings). <span class="ic">--js-extract</span></div></div></div>
     <div class="phase"><span class="phase-badge">Phase 7</span><div><div class="phase-name">WhatWeb</div><div class="phase-desc">Technology stack fingerprinting</div></div></div>
     <div class="phase"><span class="phase-badge">Phase 8</span><div><div class="phase-name">Nikto</div><div class="phase-desc">Classic web vulnerability scanner</div></div></div>
     <div class="phase"><span class="phase-badge">Phase 9</span><div><div class="phase-name">Nuclei</div><div class="phase-desc">Template-based vulnerability detection</div></div></div>
-    <div class="phase"><span class="phase-badge">Phase 10</span><div><div class="phase-name">Screenshots</div><div class="phase-desc">aquatone → gowitness fallback. Uses <span class="ic">web_findings</span> URLs when no subdomain file exists (fixed v5.2.1)</div></div></div>
-    <div class="phase"><span class="phase-badge">Phase 12</span><div><div class="phase-name">Intelligence Modules</div><div class="phase-desc">WHOIS · Wayback · SSL · VirusTotal · Shodan · Censys · Hunter.io</div></div></div>
-    <div class="phase"><span class="phase-badge">Phase 14</span><div><div class="phase-name">AI Analysis</div><div class="phase-desc">Groq / Ollama / Gemini / OpenAI threat summary + remediation</div></div></div>
+    <div class="phase"><span class="phase-badge">Phase 10</span><div><div class="phase-name">Screenshots</div><div class="phase-desc">aquatone → gowitness fallback. Now receives full URLs (BUG-FIX v6)</div></div></div>
+    <div class="phase"><span class="phase-badge">Phase 11</span><div><div class="phase-name">AI Analysis</div><div class="phase-desc">Groq / Ollama / Gemini / OpenAI. Rule-based fallback now reachable when no key (BUG-FIX v6)</div></div></div>
+    <div class="phase"><span class="phase-badge">Phase 12</span><div><div class="phase-name">Intelligence</div><div class="phase-desc">WHOIS · Wayback · SSL · VirusTotal · Shodan</div></div></div>
+    <div class="phase new-phase"><span class="phase-badge new">Phase 13a</span><div><div class="phase-name">GitHub OSINT <span style="font-size:0.65rem;color:var(--g);font-family:'JetBrains Mono',monospace">NEW</span></div><div class="phase-desc">Search for exposed secrets, API keys, config files across public GitHub. <span class="ic">--github-osint</span></div></div></div>
+    <div class="phase new-phase"><span class="phase-badge new">Phase 13b</span><div><div class="phase-name">Cloud Buckets <span style="font-size:0.65rem;color:var(--g);font-family:'JetBrains Mono',monospace">NEW</span></div><div class="phase-desc">Enumerate AWS S3, Azure Blob, GCS for public/authenticated buckets. <span class="ic">--cloud-buckets</span></div></div></div>
+    <div class="phase new-phase"><span class="phase-badge new">Phase 13c</span><div><div class="phase-name">DNS Zone Transfer <span style="font-size:0.65rem;color:var(--g);font-family:'JetBrains Mono',monospace">NEW</span></div><div class="phase-desc">AXFR attempt against all nameservers. Saves full leaked zone to disk. <span class="ic">--dns-zone</span></div></div></div>
+    <div class="phase"><span class="phase-badge">Phase 14</span><div><div class="phase-name">Plugins</div><div class="phase-desc">Drop .py into plugins/ to extend after all phases</div></div></div>
+    <div class="phase"><span class="phase-badge">Phase 15</span><div><div class="phase-name">Reports</div><div class="phase-desc">HTML · JSON · Markdown — all v6 results included</div></div></div>
   </div>
 </section>
 
 <!-- 05 PROFILES -->
 <section class="section" id="profiles">
-  <div class="sec-eyebrow">
-    <span class="sec-num">05</span>
-    <div class="sec-line"></div>
-    <span class="sec-tag">Profiles</span>
-  </div>
+  <div class="sec-eyebrow"><span class="sec-num">05</span><div class="sec-line"></div><span class="sec-tag">Profiles</span></div>
   <h2>Scan <span class="hl">Profiles</span></h2>
   <div class="tbl-wrap">
     <table>
@@ -907,7 +511,7 @@ tr:hover td{background:rgba(255,255,255,0.015)}
         <tr><td>stealth</td><td>SYN scan, low timing, no banners</td></tr>
         <tr><td>web_only</td><td>httpx + directory scan + nuclei</td></tr>
         <tr><td>port_only</td><td>RustScan + Masscan + Nmap only</td></tr>
-        <tr><td>full_suite</td><td>All 14 phases — auto-enables <span class="ic">--whois</span>, <span class="ic">--wayback</span>, <span class="ic">--ssl</span></td></tr>
+        <tr><td>full_suite</td><td>All 21 phases — enables all intelligence + v6 modules</td></tr>
         <tr><td>custom</td><td>Interactive CLI builder</td></tr>
       </tbody>
     </table>
@@ -916,18 +520,14 @@ tr:hover td{background:rgba(255,255,255,0.015)}
 
 <!-- 06 FLAGS -->
 <section class="section" id="flags">
-  <div class="sec-eyebrow">
-    <span class="sec-num">06</span>
-    <div class="sec-line"></div>
-    <span class="sec-tag">Reference</span>
-  </div>
+  <div class="sec-eyebrow"><span class="sec-num">06</span><div class="sec-line"></div><span class="sec-tag">Reference</span></div>
   <h2>All <span class="hl">Flags</span></h2>
 
   <h3>Target</h3>
   <div class="flag-block">
     <div class="flag-row"><span class="flag-name">-t, --target</span><span class="flag-desc">Domain, IP, CIDR, or path to list file</span></div>
     <div class="flag-row"><span class="flag-name">-p, --profile</span><span class="flag-desc">fast · standard · thorough · stealth · web_only · port_only · full_suite · custom</span></div>
-    <div class="flag-row"><span class="flag-name">-y, --yes</span><span class="flag-desc">Skip confirmation prompt</span></div>
+    <div class="flag-row"><span class="flag-name">-y, --yes</span><span class="flag-desc">Skip confirmation prompt (CI/automation)</span></div>
   </div>
 
   <h3>Port Scanning</h3>
@@ -954,33 +554,49 @@ tr:hover td{background:rgba(255,255,255,0.015)}
     <div class="flag-row"><span class="flag-name">--wordlist-size</span><span class="flag-desc">small · medium · large</span></div>
   </div>
 
+  <h3>Vulnerability Intelligence</h3>
+  <div class="flag-block">
+    <div class="flag-row"><span class="flag-name">--cve</span><span class="flag-desc">NVD CVE lookup for detected services</span></div>
+    <div class="flag-row"><span class="flag-name">--nvd-key KEY</span><span class="flag-desc">NVD API key — raises rate limit from 5 to 50 req/30s</span></div>
+  </div>
+
   <h3>Intelligence Integrations</h3>
   <div class="flag-block">
     <div class="flag-row"><span class="flag-name">--shodan</span><span class="flag-desc">Shodan host intelligence lookup</span></div>
     <div class="flag-row"><span class="flag-name">--shodan-key KEY</span><span class="flag-desc">Shodan API key</span></div>
-    <div class="flag-row"><span class="flag-name">--vt</span><span class="flag-desc">VirusTotal reputation — auto-routes domain vs IP lookup</span></div>
+    <div class="flag-row"><span class="flag-name">--vt</span><span class="flag-desc">VirusTotal reputation — auto-routes domain vs IP endpoint</span></div>
     <div class="flag-row"><span class="flag-name">--vt-key KEY</span><span class="flag-desc">VirusTotal API key</span></div>
     <div class="flag-row"><span class="flag-name">--whois</span><span class="flag-desc">WHOIS lookup (no key needed)</span></div>
-    <div class="flag-row"><span class="flag-name">--wayback</span><span class="flag-desc">Wayback Machine URL discovery</span></div>
-    <div class="flag-row"><span class="flag-name">--ssl</span><span class="flag-desc">SSL/TLS certificate analysis</span></div>
-    <div class="flag-row"><span class="flag-name">--cve</span><span class="flag-desc">NVD CVE lookup for detected services</span></div>
-    <div class="flag-row"><span class="flag-name">--nvd-key KEY</span><span class="flag-desc">NVD API key — raises rate limit from 5 to 50 req/30s</span></div>
-    <div class="flag-row"><span class="flag-name new-flag">--censys</span><span class="flag-desc">Censys host intelligence — CDN/WAF detection <span style="color:var(--g);font-size:0.7rem">NEW v5.1</span></span></div>
-    <div class="flag-row"><span class="flag-name new-flag">--censys-key KEY</span><span class="flag-desc">Censys API key</span></div>
-    <div class="flag-row"><span class="flag-name new-flag">--hunter</span><span class="flag-desc">Hunter.io email enumeration — pattern + confidence scoring <span style="color:var(--g);font-size:0.7rem">NEW v5.1</span></span></div>
-    <div class="flag-row"><span class="flag-name new-flag">--hunter-key KEY</span><span class="flag-desc">Hunter.io API key</span></div>
+    <div class="flag-row"><span class="flag-name">--wayback</span><span class="flag-desc">Wayback Machine URL discovery (no key needed)</span></div>
+    <div class="flag-row"><span class="flag-name">--ssl</span><span class="flag-desc">SSL/TLS certificate analysis (no key needed)</span></div>
   </div>
 
-  <h3>Scan Diff</h3>
+  <h3>v6 New Modules <span class="new-tag">NEW</span></h3>
   <div class="flag-block">
-    <div class="flag-row"><span class="flag-name new-flag">--diff STATE_FILE</span><span class="flag-desc">Compare current scan against a previous state.json <span style="color:var(--g);font-size:0.7rem">NEW v5.1</span></span></div>
+    <div class="flag-row"><span class="flag-name new-flag">--github-osint</span><span class="flag-desc">Search GitHub for exposed secrets, API keys, and config files</span></div>
+    <div class="flag-row"><span class="flag-name new-flag">--github-token KEY</span><span class="flag-desc">GitHub personal access token — raises rate limit 60 → 5000 req/hr</span></div>
+    <div class="flag-row"><span class="flag-name new-flag">--js-extract</span><span class="flag-desc">Crawl JS files from live pages; extract API endpoints and credentials</span></div>
+    <div class="flag-row"><span class="flag-name new-flag">--cloud-buckets</span><span class="flag-desc">Enumerate AWS S3, Azure Blob, GCS buckets for public/authenticated access</span></div>
+    <div class="flag-row"><span class="flag-name new-flag">--dns-zone</span><span class="flag-desc">DNS zone transfer (AXFR) check against all discovered nameservers</span></div>
+    <div class="flag-row"><span class="flag-name new-flag">--waf</span><span class="flag-desc">WAF detection — passive header fingerprinting + wafw00f (20 WAF signatures)</span></div>
+    <div class="flag-row"><span class="flag-name new-flag">--cors</span><span class="flag-desc">CORS misconfiguration scanner — arbitrary origin, null origin, wildcard+credentials</span></div>
+  </div>
+
+  <h3>Scan Diff <span class="new-tag">NEW</span></h3>
+  <div class="flag-block">
+    <div class="flag-row"><span class="flag-name new-flag">--diff A.json B.json</span><span class="flag-desc">Compare two ReconNinja JSON reports — new/closed ports, new vulns, new subdomains</span></div>
+  </div>
+
+  <h3>Notifications <span class="new-tag">NEW</span></h3>
+  <div class="flag-block">
+    <div class="flag-row"><span class="flag-name new-flag">--notify URL</span><span class="flag-desc">Mid-scan webhook alerts. Supports <span class="ic">slack://</span>, <span class="ic">discord://</span>, or any <span class="ic">https://</span> endpoint</span></div>
   </div>
 
   <h3>AI Analysis</h3>
   <div class="flag-block">
-    <div class="flag-row"><span class="flag-name">--ai</span><span class="flag-desc">Enable AI threat analysis (Phase 14)</span></div>
+    <div class="flag-row"><span class="flag-name">--ai</span><span class="flag-desc">Enable AI threat analysis</span></div>
     <div class="flag-row"><span class="flag-name">--ai-provider</span><span class="flag-desc">groq · ollama · gemini · openai (default: groq)</span></div>
-    <div class="flag-row"><span class="flag-name">--ai-key KEY</span><span class="flag-desc">API key for AI provider</span></div>
+    <div class="flag-row"><span class="flag-name">--ai-key KEY</span><span class="flag-desc">API key (not required for ollama)</span></div>
     <div class="flag-row"><span class="flag-name">--ai-model MODEL</span><span class="flag-desc">Override the default model for selected provider</span></div>
   </div>
 
@@ -988,7 +604,7 @@ tr:hover td{background:rgba(255,255,255,0.015)}
   <div class="flag-block">
     <div class="flag-row"><span class="flag-name">--output DIR</span><span class="flag-desc">Output directory (default: reports/)</span></div>
     <div class="flag-row"><span class="flag-name">--output-format FMT</span><span class="flag-desc">all · html · json · md · txt (default: all)</span></div>
-    <div class="flag-row"><span class="flag-name">--exclude PHASES</span><span class="flag-desc">Comma-separated list of phases to skip</span></div>
+    <div class="flag-row"><span class="flag-name">--exclude PHASES</span><span class="flag-desc">Comma-separated phases to skip: passive, port, web, vuln</span></div>
     <div class="flag-row"><span class="flag-name">--timeout N</span><span class="flag-desc">Global per-operation timeout seconds (default: 30)</span></div>
     <div class="flag-row"><span class="flag-name">--rate-limit N</span><span class="flag-desc">Seconds between requests (default: 0)</span></div>
   </div>
@@ -998,302 +614,337 @@ tr:hover td{background:rgba(255,255,255,0.015)}
     <div class="flag-row"><span class="flag-name">--resume FILE</span><span class="flag-desc">Resume interrupted scan from state.json</span></div>
     <div class="flag-row"><span class="flag-name">--update</span><span class="flag-desc">Check GitHub for updates and install latest</span></div>
     <div class="flag-row"><span class="flag-name">--force-update</span><span class="flag-desc">Update even if already on latest version</span></div>
-    <div class="flag-row"><span class="flag-name">--update-branch</span><span class="flag-desc">Branch to pull from (default: main)</span></div>
     <div class="flag-row"><span class="flag-name">--check-tools</span><span class="flag-desc">Show availability of all optional tools</span></div>
   </div>
 </section>
 
 <!-- 07 CHANGELOG -->
 <section class="section" id="changelog">
-  <div class="sec-eyebrow">
-    <span class="sec-num">07</span>
-    <div class="sec-line"></div>
-    <span class="sec-tag">History</span>
-  </div>
+  <div class="sec-eyebrow"><span class="sec-num">07</span><div class="sec-line"></div><span class="sec-tag">History</span></div>
   <h2>Change<span class="hl">log</span></h2>
-
   <div class="cl">
+
+    <div class="cl-row">
+      <div class="cl-tag major">6.0.0</div>
+      <div class="cl-body">
+        <div class="cl-meta">2026-03-20 &nbsp;·&nbsp; MAJOR &nbsp;·&nbsp; 598 tests</div>
+        <div class="cl-title">8 bugs fixed · 6 new recon modules · scan diff · notifications · full version migration</div>
+        <div class="cl-section">Bug Fixes</div>
+        <ul class="cl-items">
+          <li><span style="color:var(--r)">[Critical]</span> <span class="ic">subdomains.py</span> — <span class="ic">_dns_brute</span> args in wrong order; <span class="ic">BUILTIN_SUBS</span> landing in <span class="ic">out_file</span> slot → <span class="ic">TypeError</span> at runtime on machines without SecLists</li>
+          <li><span style="color:var(--y)">[High]</span> <span class="ic">orchestrator.py</span> — RustScan ports not persisted; <span class="ic">all_open_ports</span> empty on <span class="ic">--resume</span> → Nmap skipped entirely</li>
+          <li><span style="color:var(--y)">[High]</span> <span class="ic">updater.py</span> — <span class="ic">backup</span> variable referenced before assignment on fresh install → <span class="ic">UnboundLocalError</span></li>
+          <li><span style="color:var(--y)">[High]</span> <span class="ic">orchestrator.py</span> — AI fallback <span class="ic">_generate_ai_analysis()</span> was dead code; condition always <span class="ic">True</span> → no-key users got raw error object in report</li>
+          <li><span style="color:var(--b)">[Medium]</span> <span class="ic">ports.py</span> — Banner grabber sent <span class="ic">HEAD / HTTP/1.0</span> immediately; SSH/FTP/SMTP disconnected → banner capture failed on all non-HTTP ports</li>
+          <li><span style="color:var(--b)">[Medium]</span> <span class="ic">orchestrator.py</span> — Aquatone received bare hostnames (<span class="ic">sub_file</span>) instead of full URLs (<span class="ic">url_file</span>) → screenshots broken</li>
+          <li><span style="color:var(--b)">[Medium]</span> <span class="ic">cve_lookup.py</span> — NVD delay only fired on hits; empty-result queries burst past 5 req/30s → silent 403s</li>
+          <li><span style="color:var(--text2)">[Low]</span> <span class="ic">utils/updater.py</span> — Stale duplicate of <span class="ic">core/updater.py</span>, never imported, missing subprocess timeout → deleted</li>
+        </ul>
+        <div class="cl-section">New Modules</div>
+        <ul class="cl-items">
+          <li><span class="ic">core/github_osint.py</span> — Search GitHub for secrets, API keys, and config files. 10 secret patterns × 6 file patterns. <span class="ic">--github-osint</span></li>
+          <li><span class="ic">core/js_extractor.py</span> — Download JS files from live pages, extract API endpoints, detect credentials (AWS, GitHub, Stripe, connections strings). <span class="ic">--js-extract</span></li>
+          <li><span class="ic">core/cloud_buckets.py</span> — Enumerate AWS S3, Azure Blob, GCS with ~60 name candidates. Finds public and authenticated-only buckets. <span class="ic">--cloud-buckets</span></li>
+          <li><span class="ic">core/dns_zone_transfer.py</span> — AXFR attempt with dnspython + raw TCP fallback. Saves leaked zone records. <span class="ic">--dns-zone</span></li>
+          <li><span class="ic">core/waf_detect.py</span> — 20 WAF signatures via header/cookie/body + active blocking test + wafw00f integration. <span class="ic">--waf</span></li>
+          <li><span class="ic">core/cors_scan.py</span> — Crafted Origin probes: arbitrary reflection, wildcard+credentials (critical), null origin, subdomain bypass. <span class="ic">--cors</span></li>
+        </ul>
+        <div class="cl-section">Utilities</div>
+        <ul class="cl-items">
+          <li><span class="ic">core/scan_diff.py</span> — Diff any two JSON reports: new/closed ports, changed versions, new vulns, new subdomains, new technologies. <span class="ic">--diff A.json B.json</span></li>
+          <li><span class="ic">utils/notify.py</span> — Thread-safe webhook alerts (Slack, Discord, generic JSON). Fires mid-scan on critical findings. <span class="ic">--notify URL</span></li>
+        </ul>
+        <div class="cl-section">Version Migration</div>
+        <ul class="cl-items">
+          <li>All <span class="ic">v5.2.2</span> / <span class="ic">5.0.0</span> references updated to <span class="ic">v6.0.0</span> across all 43 source files, configs, and tests</li>
+          <li><span class="ic">pyproject.toml</span> — version <span class="ic">5.2.2 → 6.0.0</span>; description updated to "21-phase"; <span class="ic">[dns]</span> optional group added</li>
+          <li><span class="ic">ReconResult</span> gains 7 new fields; <span class="ic">ScanConfig</span> gains 8 new fields — v5 <span class="ic">state.json</span> files are forward-compatible</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cl-row">
+      <div class="cl-tag bugfix">5.2.2</div>
+      <div class="cl-body">
+        <div class="cl-meta">2026-03-18 &nbsp;·&nbsp; BUGFIX</div>
+        <div class="cl-title">15 bugs fixed — pyflakes clean across all 21 source files</div>
+        <ul class="cl-items">
+          <li>Unused imports cleaned across 8 files; unnecessary f-string prefixes removed from 7 static strings</li>
+          <li><span class="ic">report_html.py</span> footer / subtitle version updated from <span class="ic">v3.3</span> to <span class="ic">v5.2.2</span></li>
+          <li>Dead variables (<span class="ic">status</span>, <span class="ic">der_cert</span>, <span class="ic">tmp_builtin</span>) removed from wayback, ssl_scan, subdomains</li>
+        </ul>
+      </div>
+    </div>
+
     <div class="cl-row">
       <div class="cl-tag bugfix">5.2.1</div>
       <div class="cl-body">
-        <div class="cl-meta">2026-03-13 &nbsp;·&nbsp; BUGFIX &nbsp;·&nbsp; 707 tests</div>
-        <div class="cl-title">10 bugs fixed across orchestrator, updater, resume, and test suite</div>
+        <div class="cl-meta">2026-03-13 &nbsp;·&nbsp; BUGFIX</div>
+        <div class="cl-title">9 bugs fixed — 597 tests passing</div>
         <ul class="cl-items">
-          <li><span class="ic">orchestrator.py</span> — <span class="ic">--exclude</span> flag was parsed but never applied; all phase guards now check <span class="ic">cfg.exclude_phases</span></li>
-          <li><span class="ic">orchestrator.py</span> — VirusTotal always called <span class="ic">vt_domain_lookup</span> even on IP targets; now routes via <span class="ic">ipaddress.ip_address()</span></li>
-          <li><span class="ic">orchestrator.py</span> — Screenshots phase skipped when no subdomain file existed; now uses <span class="ic">web_findings</span> URLs with main domain as fallback</li>
-          <li><span class="ic">ReconNinja.py / reports.py / orchestrator.py / resume.py</span> — Version hardcoded as <span class="ic">5.0.0</span> across multiple files; all bumped to <span class="ic">5.2.1</span></li>
-          <li><span class="ic">orchestrator.py</span> — Dead imports (<span class="ic">signal</span>, <span class="ic">sys</span>, <span class="ic">asdict</span>) removed</li>
-          <li><span class="ic">updater.py</span> — <span class="ic">subprocess.run</span> calls missing <span class="ic">timeout</span> parameter; added <span class="ic">timeout=300</span></li>
-          <li><span class="ic">orchestrator.py</span> — Phase 2b Async TCP ran even when <span class="ic">port</span> phase excluded; wrapped in exclude guard</li>
-          <li><span class="ic">resume.py</span> — State file <span class="ic">version</span> field hardcoded <span class="ic">5.0.0</span>; updated to <span class="ic">5.2.1</span></li>
-          <li><span class="ic">requirements.txt</span> — Added <span class="ic">python-dotenv&gt;=1.0.0</span> dependency</li>
-          <li>Test version assertions updated to <span class="ic">5.2.1</span> across the full test suite</li>
+          <li><span class="ic">--exclude</span> flag now actually skips phases</li>
+          <li>VirusTotal correctly routes to IP endpoint for IP targets</li>
+          <li>Screenshots work with no subdomains — uses live web targets as fallback</li>
+          <li>Phase 2b Async TCP now respects <span class="ic">--exclude port</span></li>
         </ul>
       </div>
     </div>
+
     <div class="cl-row">
-      <div class="cl-tag feat">5.1.0</div>
+      <div class="cl-tag feat">5.0.0</div>
       <div class="cl-body">
-        <div class="cl-meta">2026-03-11 &nbsp;·&nbsp; FEATURES</div>
-        <div class="cl-title">Censys host intelligence, Hunter.io email enumeration, Scan Diff Engine</div>
+        <div class="cl-meta">2026-03-09 &nbsp;·&nbsp; FEATURES</div>
+        <div class="cl-title">Shodan, VirusTotal, WHOIS, Wayback, SSL + full pip publish</div>
         <ul class="cl-items">
-          <li><span class="ic">core/censys_lookup.py</span> — Censys Search v2 host lookup with CDN/WAF heuristic detection. <span class="ic">--censys --censys-key KEY</span></li>
-          <li><span class="ic">core/hunter_lookup.py</span> — Hunter.io domain email enumeration with pattern detection and per-email confidence scoring. <span class="ic">--hunter --hunter-key KEY</span></li>
-          <li><span class="ic">core/diff.py</span> — Compare two <span class="ic">state.json</span> snapshots; structured delta of new/closed ports, changed services, new/resolved subdomains. <span class="ic">--diff STATE_FILE</span></li>
-          <li>110+ new tests covering all three modules</li>
-        </ul>
-      </div>
-    </div>
-    <div class="cl-row">
-      <div class="cl-tag bugfix">5.0.0</div>
-      <div class="cl-body">
-        <div class="cl-meta">2026-03-09 &nbsp;·&nbsp; BUGFIX</div>
-        <div class="cl-title">4 critical fixes across ports, web scanner, and plugin loader</div>
-        <ul class="cl-items">
-          <li><span class="ic">core/ports.py</span> — Removed duplicate port 587 from <span class="ic">_NMAP_TOP_PORTS</span></li>
-          <li><span class="ic">core/web.py: run_whatweb</span> — Added missing <span class="ic">ensure_dir()</span> preventing crash on missing output dir</li>
-          <li><span class="ic">core/web.py: run_nikto</span> — Same <span class="ic">ensure_dir()</span> fix</li>
-          <li><span class="ic">plugins/__init__.py</span> — Removed erroneous <span class="ic">@staticmethod</span> from module-level <span class="ic">_load_module</span></li>
-        </ul>
-      </div>
-    </div>
-    <div class="cl-row">
-      <div class="cl-tag feat">4.0.0</div>
-      <div class="cl-body">
-        <div class="cl-meta">2026-03-07 &nbsp;·&nbsp; FEATURES</div>
-        <div class="cl-title">5 intelligence modules + full pip publish support</div>
-        <ul class="cl-items">
-          <li>Shodan, VirusTotal, WHOIS, Wayback Machine, SSL/TLS analysis</li>
+          <li>5 intelligence modules, 3 requiring zero API keys</li>
           <li><span class="ic">--output-format</span>, <span class="ic">--exclude</span>, <span class="ic">--timeout</span>, <span class="ic">--rate-limit</span> flags</li>
-          <li><span class="ic">pyproject.toml</span> + <span class="ic">MANIFEST.in</span> — full PyPI publish support; <span class="ic">[ai]</span> and <span class="ic">[full]</span> extras</li>
-          <li>Resume round-trips fixed — intelligence results now correctly restored from <span class="ic">state.json</span></li>
-          <li>HTML / JSON / Markdown reports now include all intelligence sections</li>
-          <li>80+ tests in <span class="ic">tests/test_v4_modules.py</span></li>
+          <li><span class="ic">pyproject.toml</span> + PyPI support with <span class="ic">[ai]</span> and <span class="ic">[full]</span> extras</li>
         </ul>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- 08 INTELLIGENCE -->
-<section class="section" id="intelligence">
-  <div class="sec-eyebrow">
-    <span class="sec-num">08</span>
-    <div class="sec-line"></div>
-    <span class="sec-tag">Intelligence</span>
-  </div>
-  <h2>Intelligence <span class="hl">Modules</span></h2>
-  <p>8 modules — 5 free, 3 require API keys. All results preserved in <span class="ic">state.json</span> and restored on resume.</p>
+<!-- 08 BUG FIXES -->
+<section class="section" id="bugfixes">
+  <div class="sec-eyebrow"><span class="sec-num">08</span><div class="sec-line"></div><span class="sec-tag">v6.0.0 — Bug Fixes</span></div>
+  <h2>8 Bugs <span class="hl">Fixed</span></h2>
+  <p>All 8 bugs identified in a comprehensive code review were fixed in v6.0.0.</p>
+  <table class="bug-table">
+    <thead><tr><th>#</th><th>Sev</th><th>File</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text2)">1</td><td><span class="sev crit">Critical</span></td><td><span class="ic" style="font-size:0.7rem">subdomains.py</span></td><td style="font-size:0.78rem"><span class="ic" style="font-size:0.68rem">_dns_brute</span> arg order — <span class="ic" style="font-size:0.68rem">BUILTIN_SUBS</span> received as <span class="ic" style="font-size:0.68rem">out_file</span>, causing <span class="ic" style="font-size:0.68rem">TypeError</span> on machines without SecLists or external tools</td></tr>
+      <tr><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text2)">2</td><td><span class="sev high">High</span></td><td><span class="ic" style="font-size:0.7rem">orchestrator.py</span></td><td style="font-size:0.78rem">RustScan ports not persisted to <span class="ic" style="font-size:0.68rem">ReconResult</span> — on <span class="ic" style="font-size:0.68rem">--resume</span>, <span class="ic" style="font-size:0.68rem">all_open_ports</span> was always empty → Nmap skipped entirely</td></tr>
+      <tr><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text2)">3</td><td><span class="sev high">High</span></td><td><span class="ic" style="font-size:0.7rem">updater.py</span></td><td style="font-size:0.78rem"><span class="ic" style="font-size:0.68rem">backup</span> variable used before assignment on fresh installs → <span class="ic" style="font-size:0.68rem">UnboundLocalError</span>, hiding the real failure</td></tr>
+      <tr><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text2)">4</td><td><span class="sev high">High</span></td><td><span class="ic" style="font-size:0.7rem">orchestrator.py</span></td><td style="font-size:0.78rem">AI fallback was dead code — condition <span class="ic" style="font-size:0.68rem">if cfg.ai_provider != ""</span> always <span class="ic" style="font-size:0.68rem">True</span>; no-key users got raw error in report</td></tr>
+      <tr><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text2)">5</td><td><span class="sev med">Medium</span></td><td><span class="ic" style="font-size:0.7rem">ports.py</span></td><td style="font-size:0.78rem">Banner grabber sent <span class="ic" style="font-size:0.68rem">HEAD / HTTP/1.0</span> to every port immediately — SSH/FTP/Redis disconnect on unexpected HTTP</td></tr>
+      <tr><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text2)">6</td><td><span class="sev med">Medium</span></td><td><span class="ic" style="font-size:0.7rem">orchestrator.py</span></td><td style="font-size:0.78rem">Aquatone received <span class="ic" style="font-size:0.68rem">sub_file</span> (bare hostnames) not <span class="ic" style="font-size:0.68rem">url_file</span> (full URLs) → screenshots completely broken</td></tr>
+      <tr><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text2)">7</td><td><span class="sev med">Medium</span></td><td><span class="ic" style="font-size:0.7rem">cve_lookup.py</span></td><td style="font-size:0.78rem">NVD delay only fired when CVEs found; no-result queries burst over 5 req/30s limit → silent HTTP 403s</td></tr>
+      <tr><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text2)">8</td><td><span class="sev low">Low</span></td><td><span class="ic" style="font-size:0.7rem">utils/updater.py</span></td><td style="font-size:0.78rem">Stale duplicate of <span class="ic" style="font-size:0.68rem">core/updater.py</span>, never imported anywhere, missing <span class="ic" style="font-size:0.68rem">timeout=300</span> — deleted</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 09 NEW MODULES -->
+<section class="section" id="newmodules">
+  <div class="sec-eyebrow"><span class="sec-num">09</span><div class="sec-line"></div><span class="sec-tag">v6.0.0 — New Modules</span></div>
+  <h2>6 New <span class="hl">Modules</span></h2>
+  <p>Every new module is pure Python — no external tools required. They integrate directly into the pipeline and report fully into HTML/JSON/Markdown output.</p>
   <div class="card-grid">
-    <div class="card"><span class="card-icon">🔍</span><div class="card-title">WHOIS</div><div class="card-desc">Domain registration, registrar, expiry dates, nameservers, registrant.</div><span class="card-pill">No key</span></div>
-    <div class="card"><span class="card-icon">📼</span><div class="card-title">Wayback Machine</div><div class="card-desc">Historical URL discovery via CDX API. Categorizes by extension and path — surfaces old <span class="ic">.env</span>, <span class="ic">/admin</span>, etc.</div><span class="card-pill">No key</span></div>
-    <div class="card"><span class="card-icon">🔒</span><div class="card-title">SSL/TLS</div><div class="card-desc">Certificate expiry, self-signed flag, SANs, weak ciphers (RC4, DES), old protocols (TLS 1.0, 1.1).</div><span class="card-pill">No key</span></div>
-    <div class="card"><span class="card-icon">🦠</span><div class="card-title">VirusTotal</div><div class="card-desc">Domain/IP reputation across 80+ vendors. Auto-routes to correct endpoint for IP vs domain targets.</div><span class="card-pill">Free tier</span></div>
-    <div class="card"><span class="card-icon">📡</span><div class="card-title">Shodan</div><div class="card-desc">Host intelligence — ports, banners, known CVEs, org, ISP, geolocation.</div><span class="card-pill">Free tier</span></div>
-    <div class="card"><span class="card-icon">🛡️</span><div class="card-title">CVE Lookup</div><div class="card-desc">NVD API CVE matching against Nmap-detected service versions.</div><span class="card-pill">Optional key</span></div>
-    <div class="card"><span class="card-icon">🌐</span><div class="card-title">Censys</div><div class="card-desc">Censys Search v2 host intelligence with CDN/WAF heuristic detection. Added v5.1.0.</div><span class="card-pill blue">API key · v5.1</span></div>
-    <div class="card"><span class="card-icon">📧</span><div class="card-title">Hunter.io</div><div class="card-desc">Domain email enumeration — addresses, email patterns, confidence scores, sources. Added v5.1.0.</div><span class="card-pill blue">API key · v5.1</span></div>
+    <div class="card new-card"><span class="card-icon">🐙</span><div class="card-title">GitHub OSINT</div><div class="card-desc">Search public GitHub for exposed secrets, credentials, and config files belonging to the target org. 10 secret + 6 file patterns.</div><span class="card-pill new">--github-osint</span></div>
+    <div class="card new-card"><span class="card-icon">📜</span><div class="card-title">JS Extraction</div><div class="card-desc">Crawl live pages, fetch JS files, extract API endpoint paths and scan for credentials (AWS keys, GitHub tokens, Stripe, connection strings).</div><span class="card-pill new">--js-extract</span></div>
+    <div class="card new-card"><span class="card-icon">🪣</span><div class="card-title">Cloud Buckets</div><div class="card-desc">Probe ~60 name candidates × 3 providers: AWS S3, Azure Blob, GCS. Identifies publicly listable and authenticated-only buckets.</div><span class="card-pill new">--cloud-buckets</span></div>
+    <div class="card new-card"><span class="card-icon">🌐</span><div class="card-title">DNS Zone Transfer</div><div class="card-desc">AXFR attempt against every nameserver. Uses dnspython if available, falls back to raw TCP. Saves full leaked zone to disk.</div><span class="card-pill new">--dns-zone</span></div>
+    <div class="card new-card"><span class="card-icon">🛡️</span><div class="card-title">WAF Detection</div><div class="card-desc">20 WAF fingerprint signatures via headers, cookies, and body. Active blocking test with crafted XSS payload. wafw00f integration.</div><span class="card-pill new">--waf</span></div>
+    <div class="card new-card"><span class="card-icon">🔀</span><div class="card-title">CORS Scanner</div><div class="card-desc">6 crafted Origin headers. Detects: arbitrary reflection, wildcard+credentials (critical), null origin, subdomain bypass vectors.</div><span class="card-pill new">--cors</span></div>
+  </div>
+</section>
+
+<!-- 10 INTELLIGENCE -->
+<section class="section" id="intelligence">
+  <div class="sec-eyebrow"><span class="sec-num">10</span><div class="sec-line"></div><span class="sec-tag">Intelligence</span></div>
+  <h2>Intelligence <span class="hl">Modules</span></h2>
+  <p>11 modules total — 8 free, 3 require API keys. All results checkpointed and fully restored on <span class="ic">--resume</span>.</p>
+  <div class="card-grid">
+    <div class="card"><span class="card-icon">🔍</span><div class="card-title">WHOIS</div><div class="card-desc">Registrar, expiry, nameservers, registrant, emails.</div><span class="card-pill">No key</span></div>
+    <div class="card"><span class="card-icon">📼</span><div class="card-title">Wayback Machine</div><div class="card-desc">Historical URL discovery. Surfaces old <span class="ic">.env</span>, <span class="ic">/admin</span>, <span class="ic">.sql</span> files.</div><span class="card-pill">No key</span></div>
+    <div class="card"><span class="card-icon">🔒</span><div class="card-title">SSL/TLS</div><div class="card-desc">Certificate expiry, weak ciphers (RC4, DES), old protocols (TLS 1.0/1.1).</div><span class="card-pill">No key</span></div>
+    <div class="card"><span class="card-icon">🌐</span><div class="card-title">DNS Zone Transfer</div><div class="card-desc">AXFR vulnerability — leaks the entire DNS zone if misconfigured.</div><span class="card-pill new">v6 · No key</span></div>
+    <div class="card"><span class="card-icon">🦠</span><div class="card-title">VirusTotal</div><div class="card-desc">Domain/IP reputation. Auto-routes to correct endpoint.</div><span class="card-pill">Free tier</span></div>
+    <div class="card"><span class="card-icon">📡</span><div class="card-title">Shodan</div><div class="card-desc">Host intelligence — ports, banners, known CVEs, org, ISP.</div><span class="card-pill">Free tier</span></div>
+    <div class="card"><span class="card-icon">🔑</span><div class="card-title">CVE Lookup</div><div class="card-desc">NVD API CVE matching on Nmap-detected service versions.</div><span class="card-pill">Optional key</span></div>
+    <div class="card"><span class="card-icon">🐙</span><div class="card-title">GitHub OSINT</div><div class="card-desc">Exposed secrets, API keys, config files on GitHub.</div><span class="card-pill new">v6 · Optional key</span></div>
+    <div class="card"><span class="card-icon">📜</span><div class="card-title">JS Extraction</div><div class="card-desc">Endpoints + credentials from JS files on live pages.</div><span class="card-pill new">v6 · No key</span></div>
+    <div class="card"><span class="card-icon">🪣</span><div class="card-title">Cloud Buckets</div><div class="card-desc">AWS S3, Azure Blob, GCS public bucket enumeration.</div><span class="card-pill new">v6 · No key</span></div>
+    <div class="card"><span class="card-icon">🔀</span><div class="card-title">CORS Scanner</div><div class="card-desc">CORS misconfiguration detection across live endpoints.</div><span class="card-pill new">v6 · No key</span></div>
   </div>
   <div class="tbl-wrap">
     <table>
-      <thead><tr><th>Module</th><th>Flag</th><th>Key</th><th>Since</th></tr></thead>
+      <thead><tr><th>Module</th><th>Flag</th><th>Key Required</th><th>Since</th></tr></thead>
       <tbody>
         <tr><td>WHOIS</td><td><span class="ic">--whois</span></td><td>None</td><td>v4.0.0</td></tr>
         <tr><td>Wayback Machine</td><td><span class="ic">--wayback</span></td><td>None</td><td>v4.0.0</td></tr>
         <tr><td>SSL/TLS Analysis</td><td><span class="ic">--ssl</span></td><td>None</td><td>v4.0.0</td></tr>
-        <tr><td>VirusTotal</td><td><span class="ic">--vt --vt-key KEY</span></td><td>Free tier</td><td>v4.0.0</td></tr>
-        <tr><td>Shodan</td><td><span class="ic">--shodan --shodan-key KEY</span></td><td>Free tier</td><td>v4.0.0</td></tr>
-        <tr><td>NVD CVE Lookup</td><td><span class="ic">--cve --nvd-key KEY</span></td><td>Optional</td><td>v3.3.0</td></tr>
-        <tr><td>Censys</td><td><span class="ic">--censys --censys-key KEY</span></td><td>Required</td><td>v5.1.0</td></tr>
-        <tr><td>Hunter.io</td><td><span class="ic">--hunter --hunter-key KEY</span></td><td>Required</td><td>v5.1.0</td></tr>
+        <tr><td>VirusTotal</td><td><span class="ic">--vt --vt-key</span></td><td>Free tier</td><td>v4.0.0</td></tr>
+        <tr><td>Shodan</td><td><span class="ic">--shodan --shodan-key</span></td><td>Free tier</td><td>v4.0.0</td></tr>
+        <tr><td>NVD CVE Lookup</td><td><span class="ic">--cve --nvd-key</span></td><td>Optional</td><td>v3.3.0</td></tr>
+        <tr><td><span class="td-new">★ GitHub OSINT</span></td><td><span class="ic">--github-osint --github-token</span></td><td>Optional (raises limit)</td><td><span style="color:var(--g);font-family:'JetBrains Mono',monospace;font-size:0.72rem">v6.0.0</span></td></tr>
+        <tr><td><span class="td-new">★ JS Extraction</span></td><td><span class="ic">--js-extract</span></td><td>None</td><td><span style="color:var(--g);font-family:'JetBrains Mono',monospace;font-size:0.72rem">v6.0.0</span></td></tr>
+        <tr><td><span class="td-new">★ Cloud Buckets</span></td><td><span class="ic">--cloud-buckets</span></td><td>None</td><td><span style="color:var(--g);font-family:'JetBrains Mono',monospace;font-size:0.72rem">v6.0.0</span></td></tr>
+        <tr><td><span class="td-new">★ DNS Zone Transfer</span></td><td><span class="ic">--dns-zone</span></td><td>None</td><td><span style="color:var(--g);font-family:'JetBrains Mono',monospace;font-size:0.72rem">v6.0.0</span></td></tr>
+        <tr><td><span class="td-new">★ WAF Detection</span></td><td><span class="ic">--waf</span></td><td>None</td><td><span style="color:var(--g);font-family:'JetBrains Mono',monospace;font-size:0.72rem">v6.0.0</span></td></tr>
+        <tr><td><span class="td-new">★ CORS Scanner</span></td><td><span class="ic">--cors</span></td><td>None</td><td><span style="color:var(--g);font-family:'JetBrains Mono',monospace;font-size:0.72rem">v6.0.0</span></td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
-<!-- 09 DIFF -->
-<section class="section" id="diff">
-  <div class="sec-eyebrow">
-    <span class="sec-num">09</span>
-    <div class="sec-line"></div>
-    <span class="sec-tag">Scan Diff · v5.1.0</span>
-  </div>
-  <h2>Scan <span class="hl">Diff</span> Engine</h2>
-  <p>Compare any two <span class="ic">state.json</span> snapshots and get a structured delta — track your attack surface over time, catch new exposure, verify remediations.</p>
-  <div class="terminal">
-    <div class="term-bar">
-      <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
-      <span class="term-name">bash</span>
-    </div>
-    <div class="term-body">
-<pre><code><span class="cmt"># Scan today and diff against last week's baseline</span>
-<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com \
-  <span class="fl">--diff</span> reports/example.com_20260309_120000/state.json \
-  <span class="fl">-y</span></code></pre>
-    </div>
-  </div>
-  <div class="diff-demo">
-    <div class="diff-header">
-      <span>diff.json</span> &nbsp;·&nbsp; example.com &nbsp;·&nbsp; 20260309 → 20260314
-    </div>
-    <div class="diff-row"><div class="diff-type new">NEW PORT</div><div class="diff-val">192.168.1.5:8443 (HTTPS)</div></div>
-    <div class="diff-row"><div class="diff-type gone">CLOSED</div><div class="diff-val">192.168.1.5:23 (Telnet)</div></div>
-    <div class="diff-row"><div class="diff-type new">NEW SUB</div><div class="diff-val">staging.example.com</div></div>
-    <div class="diff-row"><div class="diff-type changed">CHANGED</div><div class="diff-val">192.168.1.5:80 · Apache/2.4.41 → Apache/2.4.57</div></div>
-  </div>
-</section>
-
-<!-- 10 AI -->
+<!-- 11 AI -->
 <section class="section" id="ai">
-  <div class="sec-eyebrow">
-    <span class="sec-num">10</span>
-    <div class="sec-line"></div>
-    <span class="sec-tag">AI Analysis</span>
-  </div>
+  <div class="sec-eyebrow"><span class="sec-num">11</span><div class="sec-line"></div><span class="sec-tag">AI Analysis</span></div>
   <h2>AI-Powered <span class="hl">Analysis</span></h2>
-  <p>Phase 14 feeds all scan results into an LLM for threat prioritization and remediation suggestions. Four providers supported.</p>
+  <p>Phase 11 feeds all scan results into an LLM for threat prioritisation and remediation. When no API key is present, a built-in rule-based analyser runs automatically (BUG-FIX v6).</p>
   <div class="tbl-wrap">
     <table>
-      <thead><tr><th>Provider</th><th>Flag</th><th>Default Model</th></tr></thead>
+      <thead><tr><th>Provider</th><th>Flag</th><th>Default Model</th><th>Key</th></tr></thead>
       <tbody>
-        <tr><td>Groq</td><td><span class="ic">--ai-provider groq</span></td><td>llama3-8b-8192</td></tr>
-        <tr><td>Ollama</td><td><span class="ic">--ai-provider ollama</span></td><td>llama3</td></tr>
-        <tr><td>Gemini</td><td><span class="ic">--ai-provider gemini</span></td><td>gemini-pro</td></tr>
-        <tr><td>OpenAI</td><td><span class="ic">--ai-provider openai</span></td><td>gpt-4o-mini</td></tr>
+        <tr><td>Groq</td><td><span class="ic">--ai-provider groq</span></td><td>llama3-70b-8192</td><td>Required</td></tr>
+        <tr><td>Ollama</td><td><span class="ic">--ai-provider ollama</span></td><td>llama3</td><td>None (local)</td></tr>
+        <tr><td>Gemini</td><td><span class="ic">--ai-provider gemini</span></td><td>gemini-1.5-flash</td><td>Required</td></tr>
+        <tr><td>OpenAI</td><td><span class="ic">--ai-provider openai</span></td><td>gpt-4o-mini</td><td>Required</td></tr>
+        <tr><td style="color:var(--g2);font-family:'JetBrains Mono',monospace;font-size:0.75rem">Rule-based</td><td><span class="ic">--ai</span> (no key)</td><td>Built-in</td><td>None</td></tr>
       </tbody>
     </table>
   </div>
   <div class="terminal">
-    <div class="term-bar">
-      <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
-      <span class="term-name">bash</span>
-    </div>
-    <div class="term-body">
-<pre><code><span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com \
-  <span class="fl">--ai</span>                              \
-  <span class="fl">--ai-provider</span> groq               \
-  <span class="fl">--ai-key</span> YOUR_GROQ_KEY           \
-  <span class="fl">--ai-model</span> llama3-70b-8192       <span class="cmt"># optional override</span></code></pre>
-    </div>
+    <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-name">bash</span></div>
+    <div class="term-body"><pre><code><span class="cmt"># With Groq (fast, free tier)</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai --ai-key</span> YOUR_GROQ_KEY
+
+<span class="cmt"># With local Ollama (no key, completely free)</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai --ai-provider</span> ollama
+
+<span class="cmt"># No key — rule-based analysis runs automatically (v6 fix)</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai</span></code></pre></div>
   </div>
 </section>
 
-<!-- 11 OUTPUT -->
-<section class="section" id="output">
-  <div class="sec-eyebrow">
-    <span class="sec-num">11</span>
-    <div class="sec-line"></div>
-    <span class="sec-tag">Output</span>
+<!-- 12 DIFF -->
+<section class="section" id="diff">
+  <div class="sec-eyebrow"><span class="sec-num">12</span><div class="sec-line"></div><span class="sec-tag">Scan Diff · v6.0.0</span></div>
+  <h2>Scan <span class="hl">Diff</span></h2>
+  <p>Compare any two ReconNinja JSON reports. Track attack surface changes over time, catch new exposure, verify remediations.</p>
+  <div class="terminal">
+    <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-name">bash</span></div>
+    <div class="term-body"><pre><code><span class="cmt"># Run two scans then compare</span>
+<span class="cmd">ReconNinja</span> <span class="fl">--diff</span> \
+  reports/example.com_20260101_120000/report.json \
+  reports/example.com_20260320_120000/report.json</code></pre></div>
   </div>
+  <div class="diff-demo">
+    <div class="diff-header"><span>report diff</span> &nbsp;·&nbsp; example.com &nbsp;·&nbsp; 20260101 → 20260320</div>
+    <div class="diff-row"><div class="diff-type new">NEW PORT</div><div class="diff-val">10.0.0.5:8443 — https-alt (HIGH severity)</div></div>
+    <div class="diff-row"><div class="diff-type gone">CLOSED</div><div class="diff-val">10.0.0.5:23 — telnet (removed from exposure)</div></div>
+    <div class="diff-row"><div class="diff-type new">NEW SUB</div><div class="diff-val">staging.example.com</div></div>
+    <div class="diff-row"><div class="diff-type changed">VERSION</div><div class="diff-val">10.0.0.5:80 · Apache/2.4.41 → Apache/2.4.57</div></div>
+    <div class="diff-row"><div class="diff-type new">NEW VULN</div><div class="diff-val">[CRITICAL] CVE-2024-XXXX — Apache RCE @ 10.0.0.5:80</div></div>
+    <div class="diff-row"><div class="diff-type new">NEW TECH</div><div class="diff-val">React, Node.js (new stack detected)</div></div>
+  </div>
+  <p style="font-size:0.82rem;color:var(--text2)">Output covers: new/closed ports · changed service versions · new/gone subdomains · new/fixed vulnerabilities · new web services · new technologies detected.</p>
+</section>
+
+<!-- 13 NOTIFICATIONS -->
+<section class="section" id="notify">
+  <div class="sec-eyebrow"><span class="sec-num">13</span><div class="sec-line"></div><span class="sec-tag">Notifications · v6.0.0</span></div>
+  <h2>Mid-Scan <span class="hl">Alerts</span></h2>
+  <p>Fire webhook notifications the moment critical findings appear — don't wait for the scan to finish. Supports Slack, Discord, and any custom JSON endpoint.</p>
+  <div class="terminal">
+    <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-name">bash</span></div>
+    <div class="term-body"><pre><code><span class="cmt"># Slack</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com \
+  <span class="fl">--notify</span> slack://hooks.slack.com/services/T.../B.../xxx <span class="fl">-y</span>
+
+<span class="cmt"># Discord</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com \
+  <span class="fl">--notify</span> discord://discord.com/api/webhooks/xxx/yyy <span class="fl">-y</span>
+
+<span class="cmt"># Custom JSON webhook</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com \
+  <span class="fl">--notify</span> https://your-server.com/recon-alerts <span class="fl">-y</span></code></pre></div>
+  </div>
+  <p>Alerts fire for: high-risk ports found · critical vulnerabilities · public cloud buckets · critical CORS issues · GitHub secret exposure · zone transfer vulnerability · scan completion summary.</p>
+</section>
+
+<!-- 14 OUTPUT -->
+<section class="section" id="output">
+  <div class="sec-eyebrow"><span class="sec-num">14</span><div class="sec-line"></div><span class="sec-tag">Output</span></div>
   <h2>Output & <span class="hl">Reports</span></h2>
-  <p>Every scan creates a timestamped folder. All formats generated by default.</p>
+  <p>Every scan creates a timestamped folder. All formats are generated by default. v6 adds dedicated output directories for each new module.</p>
   <div class="tree">
 <span class="dir">reports/</span>
-└── <span class="dir">example.com_20260314_090000/</span>
+└── <span class="dir">example.com_20260320_120000/</span>
     ├── <span class="file-g">report.html</span>         <span class="cmt">← dark-mode dashboard</span>
     ├── <span class="file-g">report.json</span>         <span class="cmt">← full machine-readable results</span>
     ├── <span class="file-g">report.md</span>           <span class="cmt">← markdown summary</span>
-    ├── <span class="file-g">diff.json</span>           <span class="cmt">← delta vs baseline (if --diff used)</span>
     ├── scan_config.json    <span class="cmt">← exact config used</span>
     ├── scan.log            <span class="cmt">← full execution log</span>
     ├── state.json          <span class="cmt">← resume checkpoint</span>
     ├── subdomains/
     ├── nmap/
-    └── nuclei/
+    ├── nuclei/
+    ├── <span class="file-new">js_extract/</span>         <span class="cmt">← v6: downloaded JS files</span>
+    ├── <span class="file-new">cloud_buckets/</span>      <span class="cmt">← v6: bucket findings</span>
+    ├── <span class="file-new">dns_zone/</span>           <span class="cmt">← v6: leaked zone records</span>
+    ├── <span class="file-new">waf/</span>                <span class="cmt">← v6: WAF detection results</span>
+    └── <span class="file-new">cors/</span>               <span class="cmt">← v6: CORS findings</span>
   </div>
 </section>
 
-<!-- 12 RESUME -->
+<!-- 15 RESUME -->
 <section class="section" id="resume">
-  <div class="sec-eyebrow">
-    <span class="sec-num">12</span>
-    <div class="sec-line"></div>
-    <span class="sec-tag">Resume</span>
-  </div>
+  <div class="sec-eyebrow"><span class="sec-num">15</span><div class="sec-line"></div><span class="sec-tag">Resume</span></div>
   <h2>Resume <span class="hl">Scans</span></h2>
-  <p>Every completed phase writes a checkpoint to <span class="ic">state.json</span>. If a scan crashes or is interrupted, resume with zero repeated work.</p>
+  <p>Every completed phase writes a checkpoint to <span class="ic">state.json</span>. Resume with zero repeated work. In v6, RustScan port results are now correctly persisted and restored (BUG-FIX v6 #2).</p>
   <div class="terminal">
-    <div class="term-bar">
-      <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
-      <span class="term-name">bash</span>
-    </div>
-    <div class="term-body">
-<pre><code><span class="cmt"># Scan crashed after Phase 8 — resume from checkpoint</span>
-<span class="cmd">ReconNinja</span> <span class="fl">--resume</span> reports/example.com_20260314_090000/state.json</code></pre>
-    </div>
+    <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-name">bash</span></div>
+    <div class="term-body"><pre><code><span class="cmt"># Scan crashed after Phase 9 — resume from checkpoint</span>
+<span class="cmd">ReconNinja</span> <span class="fl">--resume</span> reports/example.com_20260320_120000/state.json</code></pre></div>
   </div>
-  <p>All intelligence results (WHOIS, Wayback, SSL, VirusTotal, Shodan, Censys, Hunter.io) are serialized into <span class="ic">state.json</span> and fully restored on resume.</p>
+  <p>All results — including v5 intelligence (WHOIS, Wayback, SSL, VT, Shodan) and v6 new module data (GitHub, JS, buckets, zone transfer, WAF, CORS) — are serialised into <span class="ic">state.json</span> and fully restored on resume.</p>
 </section>
 
-<!-- 13 PLUGINS -->
+<!-- 16 PLUGINS -->
 <section class="section" id="plugins">
-  <div class="sec-eyebrow">
-    <span class="sec-num">13</span>
-    <div class="sec-line"></div>
-    <span class="sec-tag">Plugins</span>
-  </div>
+  <div class="sec-eyebrow"><span class="sec-num">16</span><div class="sec-line"></div><span class="sec-tag">Plugins</span></div>
   <h2>Plugin <span class="hl">System</span></h2>
-  <p>Drop any <span class="ic">.py</span> file into the <span class="ic">plugins/</span> directory. Plugins receive the full <span class="ic">ReconResult</span> and <span class="ic">ScanConfig</span> after all phases complete. A built-in example plugin <span class="ic">cve_banner_check.py</span> is included.</p>
+  <p>Drop any <span class="ic">.py</span> file into <span class="ic">plugins/</span>. Plugins receive the full <span class="ic">ReconResult</span> and <span class="ic">ScanConfig</span> after all phases complete, with access to all v6 new result fields.</p>
   <div class="terminal">
-    <div class="term-bar">
-      <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
-      <span class="term-name">plugins/my_plugin.py</span>
-    </div>
-    <div class="term-body">
-<pre><code><span class="kw">def</span> run(target, out_folder, result, cfg):
-    print(f<span class="str">"Hosts found:   {len(result.hosts)}"</span>)
+    <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-name">plugins/my_plugin.py</span></div>
+    <div class="term-body"><pre><code>PLUGIN_NAME    = <span class="str">"my_plugin"</span>
+PLUGIN_VERSION = <span class="str">"1.0"</span>
+
+<span class="kw">def</span> run(target, out_folder, result, cfg):
+    <span class="cmt"># v5 intelligence</span>
     print(f<span class="str">"Shodan hits:   {len(result.shodan_results)}"</span>)
-    print(f<span class="str">"Emails found:  {len(result.hunter_results)}"</span>)
-    <span class="cmt"># write custom reports, call external APIs, post to Slack, etc.</span></code></pre>
-    </div>
+    <span class="cmt"># v6 new results</span>
+    print(f<span class="str">"GitHub hits:   {sum(r.get('total_findings',0) for r in result.github_findings)}"</span>)
+    print(f<span class="str">"Public buckets:{sum(1 for b in result.bucket_findings if b.get('status')=='public')}"</span>)
+    print(f<span class="str">"CORS findings: {len(result.cors_findings)}"</span>)
+    <span class="cmt"># write custom reports, post to Slack, etc.</span></code></pre></div>
   </div>
 </section>
 
-<!-- 14 DEVELOPMENT -->
+<!-- 17 DEVELOPMENT -->
 <section class="section" id="development">
-  <div class="sec-eyebrow">
-    <span class="sec-num">14</span>
-    <div class="sec-line"></div>
-    <span class="sec-tag">Development</span>
-  </div>
+  <div class="sec-eyebrow"><span class="sec-num">17</span><div class="sec-line"></div><span class="sec-tag">Development</span></div>
   <h2>Dev <span class="hl">Setup</span></h2>
   <div class="terminal">
-    <div class="term-bar">
-      <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
-      <span class="term-name">bash</span>
-    </div>
-    <div class="term-body">
-<pre><code><span class="cmd">git clone</span> https://github.com/ExploitCraft/ReconNinja.git
+    <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-name">bash</span></div>
+    <div class="term-body"><pre><code><span class="cmd">git clone</span> https://github.com/ExploitCraft/ReconNinja.git
 <span class="cmd">cd</span> ReconNinja
 <span class="cmd">pip install -e</span> <span class="str">".[full]"</span>
 
-<span class="cmt"># Run all 707 tests</span>
-<span class="cmd">pytest</span>
+<span class="cmt"># Run all 598 tests</span>
+<span class="cmd">pytest</span> tests/ <span class="fl">-v</span>
 
-<span class="cmt"># v4 intelligence module tests</span>
-<span class="cmd">pytest</span> tests/test_v4_modules.py <span class="fl">-v</span>
-
-<span class="cmt"># v5.1 module tests (Censys, Hunter, Diff)</span>
-<span class="cmd">pytest</span> tests/test_reconninja_v510.py <span class="fl">-v</span>
-
-<span class="cmt"># Orchestrator tests</span>
-<span class="cmd">pytest</span> tests/test_orchestrator.py <span class="fl">-v</span></code></pre>
-    </div>
+<span class="cmt"># Specific suites</span>
+<span class="cmd">pytest</span> tests/test_orchestrator.py <span class="fl">-v</span>   <span class="cmt"># pipeline + all bug fix regressions</span>
+<span class="cmd">pytest</span> tests/test_v4_modules.py <span class="fl">-v</span>    <span class="cmt"># intelligence module tests</span>
+<span class="cmd">pytest</span> tests/test_models.py <span class="fl">-v</span>        <span class="cmt"># data model tests</span>
+<span class="cmd">pytest</span> tests/test_resume.py <span class="fl">-v</span>        <span class="cmt"># resume/state serialization</span></code></pre></div>
   </div>
 </section>
 
 <hr class="divider">
 
 <footer class="footer">
-  <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem">
-    ReconNinja v5.2.1 &nbsp;·&nbsp; MIT License &nbsp;·&nbsp; ExploitCraft · Bangladesh 🇧🇩
-  </span>
+  <span>ReconNinja v6.0.0 &nbsp;·&nbsp; MIT License &nbsp;·&nbsp; ExploitCraft · Bangladesh 🇧🇩</span>
   <div class="footer-links">
     <a href="https://github.com/ExploitCraft/ReconNinja">GitHub</a>
     <a href="https://github.com/ExploitCraft/ReconNinja/issues">Issues</a>
     <a href="https://pypi.org/user/ExploitCraft/">PyPI</a>
-    <a href="https://github.com/ExploitCraft">ExploitCraft</a>
+    <a href="http://doc.emonpersonal.xyz/">Docs</a>
   </div>
 </footer>
 
@@ -1301,13 +952,11 @@ tr:hover td{background:rgba(255,255,255,0.015)}
 </div>
 
 <script>
-// scroll-triggered section reveal
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
 }, { threshold: 0.05 });
 document.querySelectorAll('.section').forEach(s => obs.observe(s));
 
-// active nav link
 const sections = document.querySelectorAll('.section, #overview');
 const links    = document.querySelectorAll('.sb-link');
 const navObs   = new IntersectionObserver(entries => {
