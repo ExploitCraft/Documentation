@@ -23,7 +23,6 @@
   --text2: #6b7f96;
   --white: #eef3fa;
 
-  /* per-tool accent colors */
   --rn-c:  #39ff14;
   --vh-c:  #b47aff;
   --el-c:  #ff2952;
@@ -37,7 +36,6 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;line
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px);opacity:.25}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(57,255,20,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(57,255,20,.025) 1px,transparent 1px);background-size:60px 60px}
 
-/* ── LAYOUT ──────────────────────────────────────────────────────────────── */
 .layout{display:flex;min-height:100vh;position:relative;z-index:1}
 
 /* ── SIDEBAR ─────────────────────────────────────────────────────────────── */
@@ -121,7 +119,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 .chip{font-family:'JetBrains Mono',monospace;font-size:.58rem;padding:.25rem .65rem;border-radius:2px;border:1px solid var(--border2);color:var(--text2)}
 .chip.accent{border-color:currentColor;opacity:.85}
 
-/* sub-headings */
 h3.sh{font-size:.75rem;font-weight:600;color:var(--white);text-transform:uppercase;letter-spacing:2.5px;margin:2.5rem 0 1rem;display:flex;align-items:center;gap:.75rem}
 h3.sh::after{content:'';flex:1;height:1px;background:var(--border)}
 h3.sh .new-tag{font-size:.58rem;font-family:'JetBrains Mono',monospace;padding:.08rem .45rem;border-radius:2px;letter-spacing:1px;text-transform:none}
@@ -173,18 +170,22 @@ tr:hover td{background:rgba(255,255,255,.012)}
 .phase:hover{border-color:rgba(57,255,20,.2);transform:translateX(3px)}
 .phase.new-p{border-color:rgba(57,255,20,.18);background:rgba(57,255,20,.02)}
 .phase.new-p::before{background:rgba(57,255,20,.3)}
+.phase.v7-p{border-color:rgba(0,207,255,.18);background:rgba(0,207,255,.02)}
+.phase.v7-p::before{background:rgba(0,207,255,.3);border-color:var(--b);box-shadow:0 0 6px rgba(0,207,255,.25)}
 .pbadge{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--g);border:1px solid rgba(57,255,20,.25);background:rgba(57,255,20,.06);padding:.18rem .5rem;border-radius:3px;white-space:nowrap;flex-shrink:0;margin-top:3px}
 .pbadge.new{color:var(--g2);border-color:rgba(26,255,140,.3);background:rgba(26,255,140,.07)}
+.pbadge.v7{color:var(--b);border-color:rgba(0,207,255,.3);background:rgba(0,207,255,.07)}
 .pname{font-weight:600;color:var(--white);font-size:.86rem}
 .pdesc{font-size:.76rem;color:var(--text2);margin-top:1px}
 
 /* ── FLAG BLOCK ──────────────────────────────────────────────────────────── */
 .flag-block{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1rem 0}
-.flag-row{display:grid;grid-template-columns:220px 1fr;padding:.55rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.03);align-items:start;transition:background .15s}
+.flag-row{display:grid;grid-template-columns:240px 1fr;padding:.55rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.03);align-items:start;transition:background .15s}
 .flag-row:last-child{border-bottom:none}
 .flag-row:hover{background:rgba(255,255,255,.018)}
 .flag-name{font-family:'JetBrains Mono',monospace;font-size:.73rem;color:var(--y);padding:.1rem 0}
 .flag-name.new{color:var(--g2)}
+.flag-name.v7{color:var(--b)}
 .flag-desc{font-size:.78rem;color:var(--text2);padding:.1rem 0}
 
 /* ── PATTERN TABLE ───────────────────────────────────────────────────────── */
@@ -208,39 +209,48 @@ tr:hover td{background:rgba(255,255,255,.012)}
 .eco-tags{display:flex;flex-wrap:wrap;gap:.35rem}
 .eco-tag{font-family:'JetBrains Mono',monospace;font-size:.58rem;padding:.15rem .5rem;border-radius:2px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text2)}
 
-/* ── IC inline code ──────────────────────────────────────────────────────── */
 .ic{font-family:'JetBrains Mono',monospace;font-size:.73rem;color:var(--g2);background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.15);padding:.08rem .4rem;border-radius:3px}
 
-/* ── BADGE ───────────────────────────────────────────────────────────────── */
 .badge{font-family:'JetBrains Mono',monospace;font-size:.58rem;padding:.15rem .55rem;border-radius:3px;border:1px solid}
 .badge.new{color:var(--g);border-color:rgba(57,255,20,.3);background:rgba(57,255,20,.07)}
+.badge.v7{color:var(--b);border-color:rgba(0,207,255,.3);background:rgba(0,207,255,.07)}
 .badge.crit{color:var(--r);border-color:rgba(255,41,82,.3);background:rgba(255,41,82,.07)}
 .badge.high{color:var(--y);border-color:rgba(255,179,71,.3);background:rgba(255,179,71,.07)}
 
-/* ── TOOL COLOR OVERRIDES ────────────────────────────────────────────────── */
 .t-rn{--tc:var(--rn-c)}.t-vh{--tc:var(--vh-c)}.t-el{--tc:var(--el-c)}.t-gd{--tc:var(--gd-c)}.t-wp{--tc:var(--wp-c)}
 .ts-eyebrow,.t-rn .ts-title .hl,.t-vh .ts-title .hl,.t-el .ts-title .hl,.t-gd .ts-title .hl,.t-wp .ts-title .hl{color:var(--tc)}
 .t-rn .ts-eyebrow{color:var(--rn-c)}.t-vh .ts-eyebrow{color:var(--vh-c)}.t-el .ts-eyebrow{color:var(--el-c)}.t-gd .ts-eyebrow{color:var(--gd-c)}.t-wp .ts-eyebrow{color:var(--wp-c)}
 
-/* ── WARN ────────────────────────────────────────────────────────────────── */
 .warn{display:flex;align-items:flex-start;gap:.9rem;border:1px solid rgba(255,41,82,.2);background:rgba(255,41,82,.03);border-radius:4px;padding:.9rem 1.1rem;margin-bottom:1.5rem;font-size:.8rem;color:#ff6b8a;max-width:600px}
 .warn-icon{flex-shrink:0;color:var(--r);margin-top:1px}
+
+/* ── CHANGELOG BLOCK ─────────────────────────────────────────────────────── */
+.changelog{margin:1.5rem 0}
+.cl-entry{border:1px solid var(--border);border-radius:6px;margin-bottom:.5rem;overflow:hidden}
+.cl-entry.latest{border-color:rgba(57,255,20,.2)}
+.cl-head{display:flex;align-items:center;gap:1rem;padding:.75rem 1.2rem;background:rgba(255,255,255,.02);font-family:'JetBrains Mono',monospace;font-size:.7rem}
+.cl-ver{color:var(--g);font-weight:700}
+.cl-date{color:var(--text2);font-size:.6rem}
+.cl-tag{font-size:.58rem;padding:.1rem .45rem;border-radius:2px;border:1px solid;margin-left:auto}
+.cl-tag.bugfix{color:var(--y);border-color:rgba(255,179,71,.3);background:rgba(255,179,71,.07)}
+.cl-tag.major{color:var(--g);border-color:rgba(57,255,20,.3);background:rgba(57,255,20,.07)}
+.cl-body{padding:.9rem 1.2rem;font-size:.78rem;color:var(--text2);line-height:1.65}
+.cl-body strong{color:var(--white)}
+
+/* ── MODULE GRID (v7 highlight) ──────────────────────────────────────────── */
+.mod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.7rem;margin:1.25rem 0}
+.mod{background:var(--bg2);border:1px solid rgba(0,207,255,.15);border-radius:8px;padding:1rem 1.1rem;position:relative;overflow:hidden;transition:all .2s}
+.mod::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--b),transparent);opacity:.4}
+.mod:hover{transform:translateY(-2px);border-color:rgba(0,207,255,.3)}
+.mod-flag{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--b);margin-bottom:.35rem}
+.mod-title{font-weight:600;color:var(--white);font-size:.85rem;margin-bottom:.3rem}
+.mod-desc{font-size:.74rem;color:var(--text2);line-height:1.55}
 
 /* ── FOOTER ──────────────────────────────────────────────────────────────── */
 .footer{padding:2.5rem 4.5rem;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--text2);border-top:1px solid var(--border)}
 .footer a{color:var(--text2);text-decoration:none;transition:color .15s}.footer a:hover{color:var(--g)}
 .footer-links{display:flex;gap:1.5rem}
 
-/* ── DIFF ─────────────────────────────────────────────────────────────────── */
-.diff-demo{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.25rem 0}
-.diff-head{display:flex;align-items:center;gap:1rem;padding:.65rem 1.2rem;background:rgba(255,255,255,.02);border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--text2)}
-.diff-row{display:flex;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.73rem}
-.diff-row:last-child{border-bottom:none}
-.diff-type{width:90px;flex-shrink:0;padding:.55rem .9rem;font-size:.58rem;letter-spacing:.5px}
-.diff-type.add{color:var(--g);background:rgba(57,255,20,.05)}.diff-type.rm{color:var(--r);background:rgba(255,41,82,.05)}.diff-type.ch{color:var(--b);background:rgba(0,207,255,.05)}
-.diff-val{padding:.55rem .9rem;color:var(--text);flex:1}
-
-/* ── SEVERITY ─────────────────────────────────────────────────────────────── */
 .sev{font-family:'JetBrains Mono',monospace;font-size:.6rem;padding:.13rem .5rem;border-radius:3px;border:1px solid;white-space:nowrap}
 .sev.crit{color:var(--r);background:rgba(255,41,82,.08);border-color:rgba(255,41,82,.2)}
 .sev.high{color:var(--y);background:rgba(255,179,71,.08);border-color:rgba(255,179,71,.2)}
@@ -275,14 +285,16 @@ tr:hover td{background:rgba(255,255,255,.012)}
       <div class="sb-tool-header">
         <div class="sb-tool-dot" style="background:var(--rn-c);box-shadow:0 0 5px var(--rn-c)"></div>
         <span class="sb-tool-name" style="color:var(--rn-c)">ReconNinja</span>
-        <span class="sb-tool-ver">v6.0.0</span>
+        <span class="sb-tool-ver">v7.1.0</span>
       </div>
       <a href="#rn-overview"   class="sb-link"><span class="num">01</span>Overview</a>
       <a href="#rn-install"    class="sb-link"><span class="num">02</span>Installation</a>
       <a href="#rn-quickstart" class="sb-link"><span class="num">03</span>Quick Start</a>
-      <a href="#rn-pipeline"   class="sb-link"><span class="num">04</span>21-Phase Pipeline</a>
-      <a href="#rn-flags"      class="sb-link"><span class="num">05</span>All Flags</a>
-      <a href="#rn-ai"         class="sb-link"><span class="num">06</span>AI Analysis</a>
+      <a href="#rn-pipeline"   class="sb-link"><span class="num">04</span>38-Phase Pipeline</a>
+      <a href="#rn-v7"         class="sb-link"><span class="num">05</span>v7 New Modules</a>
+      <a href="#rn-flags"      class="sb-link"><span class="num">06</span>All Flags</a>
+      <a href="#rn-ai"         class="sb-link"><span class="num">07</span>AI Analysis</a>
+      <a href="#rn-changelog"  class="sb-link"><span class="num">08</span>Changelog</a>
     </div>
 
     <div class="sb-section">
@@ -336,6 +348,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
   <div class="sb-footer">
     <a href="https://github.com/ExploitCraft">github.com/ExploitCraft</a>
     <a href="https://pypi.org/user/ExploitCraft/">pypi.org/user/ExploitCraft</a>
+    <a href="http://doc.emonpersonal.xyz/">doc.emonpersonal.xyz</a>
     <div style="margin-top:8px;opacity:.4">HackerInc · Bangladesh 🇧🇩</div>
   </div>
 </aside>
@@ -356,7 +369,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
   <p class="hero-desc">Open-source CLI toolkit for pentesters, bug bounty hunters, and developers who think offensively. Five tools — one ecosystem — covering the full recon-to-exploit surface.</p>
 
   <div class="tool-pills">
-    <a href="#rn-overview" class="tool-pill rn"><span class="pill-dot"></span>ReconNinja v6</a>
+    <a href="#rn-overview" class="tool-pill rn"><span class="pill-dot"></span>ReconNinja v7.1</a>
     <a href="#vh-overview" class="tool-pill vh"><span class="pill-dot"></span>VaultHound v1</a>
     <a href="#el-overview" class="tool-pill el"><span class="pill-dot"></span>envleaks v1.1</a>
     <a href="#gd-overview" class="tool-pill gd"><span class="pill-dot"></span>gitdork v1.1</a>
@@ -365,9 +378,9 @@ tr:hover td{background:rgba(255,255,255,.012)}
 
   <div class="stats-row">
     <div class="stat"><div class="stat-val">5<span>_</span></div><div class="stat-label">Tools</div></div>
-    <div class="stat"><div class="stat-val">21<span>+</span></div><div class="stat-label">Recon Phases</div></div>
+    <div class="stat"><div class="stat-val">38<span>+</span></div><div class="stat-label">Recon Phases</div></div>
     <div class="stat"><div class="stat-val">100<span>+</span></div><div class="stat-label">Secret Patterns</div></div>
-    <div class="stat"><div class="stat-val">598<span>+</span></div><div class="stat-label">Tests</div></div>
+    <div class="stat"><div class="stat-val">597<span>+</span></div><div class="stat-label">Tests</div></div>
     <div class="stat"><div class="stat-val">3<span>_</span></div><div class="stat-label">Platforms</div></div>
   </div>
 
@@ -375,9 +388,9 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <h3 class="sh">Ecosystem Map</h3>
     <div class="eco-grid">
       <a href="#rn-overview" class="eco-card rn">
-        <div class="eco-top"><span class="eco-title">🥷 ReconNinja</span><span class="eco-ver">v6.0.0</span></div>
-        <div class="eco-desc">21-phase automated recon framework. Subdomain enum → port scan → web discovery → CVE lookup → AI threat analysis.</div>
-        <div class="eco-tags"><span class="eco-tag">Python</span><span class="eco-tag">598 tests</span><span class="eco-tag">PyPI</span><span class="eco-tag">21 phases</span></div>
+        <div class="eco-top"><span class="eco-title">🥷 ReconNinja</span><span class="eco-ver">v7.1.0</span></div>
+        <div class="eco-desc">38-phase automated recon framework. Subdomain enum → port scan → web discovery → CVE lookup → 17 new v7 intelligence modules → AI threat analysis.</div>
+        <div class="eco-tags"><span class="eco-tag">Python</span><span class="eco-tag">597+ tests</span><span class="eco-tag">PyPI</span><span class="eco-tag">38 phases</span></div>
       </a>
       <a href="#vh-overview" class="eco-card vh">
         <div class="eco-top"><span class="eco-title">🐾 VaultHound</span><span class="eco-ver">v1.0.0</span></div>
@@ -414,10 +427,10 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <div class="ts-meta">
       <div class="ts-eyebrow">// 01 · ReconNinja</div>
       <div class="ts-title">RECON<span class="hl">NINJA</span></div>
-      <p class="ts-desc">21-phase automated reconnaissance framework for authorized security testing. One command drives the full pipeline — passive recon through cloud bucket enumeration and AI threat analysis.</p>
+      <p class="ts-desc">38-phase automated reconnaissance framework for authorized security testing. One command drives the full pipeline — passive recon through cloud bucket enumeration, protocol-level exposure scanning, and AI threat analysis.</p>
       <div class="ts-chips">
-        <span class="chip" style="color:var(--rn-c);border-color:rgba(57,255,20,.25)">v6.0.0</span>
-        <span class="chip">Python 3.10+</span><span class="chip">598 Tests</span><span class="chip">MIT</span><span class="chip">PyPI</span>
+        <span class="chip" style="color:var(--rn-c);border-color:rgba(57,255,20,.25)">v7.1.0</span>
+        <span class="chip">Python 3.10+</span><span class="chip">597+ Tests</span><span class="chip">MIT</span><span class="chip">PyPI</span>
       </div>
     </div>
   </div>
@@ -437,13 +450,29 @@ tr:hover td{background:rgba(255,255,255,.012)}
 <span class="cmt"># With DNS zone transfer support</span>
 <span class="cmd">pip install</span> <span class="str">"ReconNinja[dns]"</span>
 
-<span class="cmt"># Full — AI + Shodan + dnspython</span>
+<span class="cmt"># v7 extras — LDAP, SNMP, ASN mapping</span>
+<span class="cmd">pip install</span> <span class="str">"ReconNinja[v7]"</span>
+
+<span class="cmt"># Full — AI + Shodan + dnspython + v7 extras</span>
 <span class="cmd">pip install</span> <span class="str">"ReconNinja[full]"</span>
 
-<span class="cmt"># From source</span>
+<span class="cmt"># From source (always latest)</span>
+<span class="cmd">pip install</span> git+https://github.com/ExploitCraft/ReconNinja.git
+
+<span class="cmt"># From source with install script</span>
 <span class="cmd">git clone</span> https://github.com/ExploitCraft/ReconNinja.git
-<span class="cmd">cd</span> ReconNinja &amp;&amp; <span class="cmd">pip install -e</span> <span class="str">".[full]"</span></code></pre></div>
+<span class="cmd">cd</span> ReconNinja &amp;&amp; <span class="cmd">chmod +x install.sh</span> &amp;&amp; <span class="cmd">./install.sh</span></code></pre></div>
   </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Extra</th><th>Includes</th></tr></thead>
+    <tbody>
+      <tr><td>ai</td><td>groq, google-generativeai, openai</td></tr>
+      <tr><td>shodan</td><td>shodan</td></tr>
+      <tr><td>dns</td><td>dnspython — required for zone transfer</td></tr>
+      <tr><td>v7</td><td>ipwhois, ldap3, pysnmp — required for v7 protocol modules</td></tr>
+      <tr><td>full</td><td>All of the above</td></tr>
+    </tbody>
+  </table></div>
 </section>
 
 <section id="rn-quickstart" class="tool-section t-rn">
@@ -456,17 +485,27 @@ tr:hover td{background:rgba(255,255,255,.012)}
 <span class="cmt"># Standard scan</span>
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com
 
-<span class="cmt"># Full 21-phase pipeline</span>
+<span class="cmt"># Full 38-phase pipeline</span>
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--profile</span> full_suite <span class="fl">-y</span>
 
-<span class="cmt"># v6 new modules — no keys needed</span>
+<span class="cmt"># v6 modules — no keys needed</span>
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com \
   <span class="fl">--github-osint --js-extract</span> \
   <span class="fl">--cloud-buckets --dns-zone</span> \
   <span class="fl">--waf --cors -y</span>
 
+<span class="cmt"># v7 modules — protocol &amp; intelligence</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com \
+  <span class="fl">--email-security --breach-check</span> \
+  <span class="fl">--graphql --jwt-scan</span> \
+  <span class="fl">--supply-chain --db-exposure</span> \
+  <span class="fl">--typosquat --devops-scan -y</span>
+
 <span class="cmt"># Scan diff — compare two JSON reports</span>
 <span class="cmd">ReconNinja</span> <span class="fl">--diff</span> report_jan.json report_mar.json
+
+<span class="cmt"># Export SARIF for GitHub Advanced Security</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--sarif -y</span>
 
 <span class="cmt"># With Slack notifications</span>
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--profile</span> full_suite \
@@ -479,8 +518,8 @@ tr:hover td{background:rgba(255,255,255,.012)}
 </section>
 
 <section id="rn-pipeline" class="tool-section t-rn">
-  <h3 class="sh">21-Phase Pipeline</h3>
-  <p style="font-size:.85rem;color:var(--text2);margin-bottom:1.5rem">Each phase feeds results into the next. <span style="color:var(--rn-c);font-family:'JetBrains Mono',monospace;font-size:.78rem">7 new phases added in v6.</span> Completed phases are checkpointed for resume.</p>
+  <h3 class="sh">38-Phase Pipeline</h3>
+  <p style="font-size:.85rem;color:var(--text2);margin-bottom:1.5rem">Each phase feeds results into the next. <span style="color:var(--rn-c);font-family:'JetBrains Mono',monospace;font-size:.78rem">7 new phases added in v6.</span> <span style="color:var(--b);font-family:'JetBrains Mono',monospace;font-size:.78rem">17 new phases added in v7.</span> All phases checkpoint to <span class="ic">state.json</span> for resume.</p>
   <div class="pipeline">
     <div class="phase"><span class="pbadge">Phase 1</span><div><div class="pname">Passive Recon</div><div class="pdesc">Subdomain enumeration via amass, subfinder, crt.sh</div></div></div>
     <div class="phase"><span class="pbadge">Phase 2</span><div><div class="pname">RustScan</div><div class="pdesc">Ultra-fast port discovery across all 65,535 ports (BUG-FIX v6: ports now persisted)</div></div></div>
@@ -500,21 +539,68 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <div class="phase new-p"><span class="pbadge new">Phase 13a ★</span><div><div class="pname">GitHub OSINT</div><div class="pdesc">Search public GitHub for exposed secrets and config files. <span class="ic">--github-osint</span></div></div></div>
     <div class="phase new-p"><span class="pbadge new">Phase 13b ★</span><div><div class="pname">Cloud Buckets</div><div class="pdesc">AWS S3, Azure Blob, GCS public bucket enumeration. <span class="ic">--cloud-buckets</span></div></div></div>
     <div class="phase new-p"><span class="pbadge new">Phase 13c ★</span><div><div class="pname">DNS Zone Transfer</div><div class="pdesc">AXFR against all nameservers. Saves leaked zone. <span class="ic">--dns-zone</span></div></div></div>
-    <div class="phase"><span class="pbadge">Phase 14–15</span><div><div class="pname">Plugins · Reports</div><div class="pdesc">Custom plugin execution + HTML / JSON / Markdown report generation</div></div></div>
+    <!-- v7 phases -->
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14a ◈</span><div><div class="pname">Email Security</div><div class="pdesc">SPF/DKIM/DMARC validation + spoofability score 0–100. <span class="ic">--email-security</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14b ◈</span><div><div class="pname">Breach Check</div><div class="pdesc">HaveIBeenPwned domain + email breach lookup. <span class="ic">--breach-check</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14c ◈</span><div><div class="pname">Cloud Metadata SSRF</div><div class="pdesc">AWS IMDSv1/v2, Azure IMDS, GCP metadata endpoint probe. <span class="ic">--cloud-meta</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14d ◈</span><div><div class="pname">GraphQL Scanner</div><div class="pdesc">Endpoint discovery, introspection, batching DoS, field suggestion. <span class="ic">--graphql</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14e ◈</span><div><div class="pname">JWT Scanner</div><div class="pdesc">none-algorithm bypass + weak HMAC secret cracker. <span class="ic">--jwt-scan</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14f ◈</span><div><div class="pname">ASN / BGP Mapping</div><div class="pdesc">BGP/ASN → all owned IP CIDRs via RIPE Stat API. <span class="ic">--asn-map</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14g ◈</span><div><div class="pname">Supply Chain</div><div class="pdesc">Outdated jQuery/Angular/Lodash/polyfill.io + npm package squatting. <span class="ic">--supply-chain</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14h ◈</span><div><div class="pname">Kubernetes / Docker Probe</div><div class="pdesc">Unauthenticated K8s API server + Docker socket detection. <span class="ic">--k8s-probe</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14i ◈</span><div><div class="pname">Database Exposure</div><div class="pdesc">Unauthenticated Elasticsearch, Redis, MongoDB, Memcached. <span class="ic">--db-exposure</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14j ◈</span><div><div class="pname">SMTP Enumeration</div><div class="pdesc">User enumeration via VRFY/EXPN/RCPT TO. <span class="ic">--smtp-enum</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14k ◈</span><div><div class="pname">SNMP Scan</div><div class="pdesc">Community string brute-force + MIB walk. <span class="ic">--snmp-scan</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14l ◈</span><div><div class="pname">LDAP Enumeration</div><div class="pdesc">Anonymous bind, user/group/attribute dump. <span class="ic">--ldap-enum</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14m ◈</span><div><div class="pname">DevOps Scan</div><div class="pdesc">Terraform state file exposure + Jenkins anon access / RCE check. <span class="ic">--devops-scan</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14n ◈</span><div><div class="pname">GreyNoise Lookup</div><div class="pdesc">IP tagging: noise / RIOT / unknown — filters internet background noise. <span class="ic">--greynoise</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14o ◈</span><div><div class="pname">Typosquatting</div><div class="pdesc">200+ lookalike domain variants + live DNS resolution. <span class="ic">--typosquat</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14p ◈</span><div><div class="pname">Censys Intelligence</div><div class="pdesc">Host intelligence + DNS history via VirusTotal PDNS. <span class="ic">--censys</span> <span class="ic">--dns-history</span></div></div></div>
+    <div class="phase v7-p"><span class="pbadge v7">Phase 14q ◈</span><div><div class="pname">SARIF Export</div><div class="pdesc">SARIF 2.1.0 report for GitHub / VSCode / Azure DevOps. <span class="ic">--sarif</span></div></div></div>
+    <div class="phase"><span class="pbadge">Phase 15–16</span><div><div class="pname">Plugins · Reports</div><div class="pdesc">Custom plugin execution + HTML / JSON / Markdown / SARIF report generation</div></div></div>
+  </div>
+</section>
+
+<!-- ══ v7 NEW MODULES ════════════════════════════════════════════════════════ -->
+<section id="rn-v7" class="tool-section t-rn">
+  <h3 class="sh">v7 New Modules <span class="new-tag badge v7" style="margin-left:.5rem">17 modules</span></h3>
+  <p style="font-size:.85rem;color:var(--text2);margin-bottom:1.5rem">All v7 modules are enabled by <span class="ic">--profile full_suite</span> or individually with their flags. Install <span class="ic">ReconNinja[v7]</span> for LDAP, SNMP, and ASN extras.</p>
+  <div class="mod-grid">
+    <div class="mod"><div class="mod-flag">--email-security</div><div class="mod-title">Email Security</div><div class="mod-desc">SPF/DKIM/DMARC validation with a spoofability score from 0–100.</div></div>
+    <div class="mod"><div class="mod-flag">--breach-check [--hibp-key]</div><div class="mod-title">Breach Check</div><div class="mod-desc">HaveIBeenPwned domain + email breach check. Key optional for email-level lookups.</div></div>
+    <div class="mod"><div class="mod-flag">--cloud-meta</div><div class="mod-title">Cloud Metadata SSRF</div><div class="mod-desc">Probes AWS IMDSv1/v2, Azure IMDS, and GCP metadata endpoints for SSRF exposure.</div></div>
+    <div class="mod"><div class="mod-flag">--graphql</div><div class="mod-title">GraphQL Scanner</div><div class="mod-desc">Discovers endpoints, runs introspection, tests batching DoS, and field suggestion attacks.</div></div>
+    <div class="mod"><div class="mod-flag">--jwt-scan</div><div class="mod-title">JWT Scanner</div><div class="mod-desc">Detects none-algorithm bypass and attempts weak HMAC secret cracking.</div></div>
+    <div class="mod"><div class="mod-flag">--asn-map</div><div class="mod-title">ASN / BGP Mapping</div><div class="mod-desc">Resolves target ASN via RIPE Stat API, returns all owned IP CIDRs.</div></div>
+    <div class="mod"><div class="mod-flag">--supply-chain</div><div class="mod-title">Supply Chain</div><div class="mod-desc">Detects outdated JS libraries (jQuery, Angular, Lodash, polyfill.io) and npm squatting.</div></div>
+    <div class="mod"><div class="mod-flag">--k8s-probe</div><div class="mod-title">K8s / Docker Probe</div><div class="mod-desc">Detects unauthenticated Kubernetes API servers and exposed Docker sockets.</div></div>
+    <div class="mod"><div class="mod-flag">--db-exposure</div><div class="mod-title">Database Exposure</div><div class="mod-desc">Tests for unauthenticated access to Elasticsearch, Redis, MongoDB, and Memcached (including amplification flag).</div></div>
+    <div class="mod"><div class="mod-flag">--smtp-enum</div><div class="mod-title">SMTP Enumeration</div><div class="mod-desc">Enumerates valid users via VRFY, EXPN, and RCPT TO commands.</div></div>
+    <div class="mod"><div class="mod-flag">--snmp-scan</div><div class="mod-title">SNMP Scan</div><div class="mod-desc">Brute-forces SNMP community strings and performs a MIB walk. Requires <span class="ic">ReconNinja[v7]</span>.</div></div>
+    <div class="mod"><div class="mod-flag">--ldap-enum</div><div class="mod-title">LDAP Enumeration</div><div class="mod-desc">Anonymous bind attempt, dumps users, groups, and attributes. Requires <span class="ic">ReconNinja[v7]</span>.</div></div>
+    <div class="mod"><div class="mod-flag">--devops-scan</div><div class="mod-title">DevOps Scan</div><div class="mod-desc">Checks for exposed Terraform state files and Jenkins (anonymous jobs, script console RCE).</div></div>
+    <div class="mod"><div class="mod-flag">--greynoise [--greynoise-key]</div><div class="mod-title">GreyNoise</div><div class="mod-desc">Tags IPs as noise / RIOT / unknown to filter out internet background scanners.</div></div>
+    <div class="mod"><div class="mod-flag">--typosquat</div><div class="mod-title">Typosquatting</div><div class="mod-desc">Generates 200+ lookalike domain variants and checks which resolve via live DNS.</div></div>
+    <div class="mod"><div class="mod-flag">--censys [--censys-id --censys-secret]</div><div class="mod-title">Censys Intelligence</div><div class="mod-desc">Host intelligence lookup via Censys API.</div></div>
+    <div class="mod"><div class="mod-flag">--dns-history [--vt-key]</div><div class="mod-title">DNS History</div><div class="mod-desc">Historical DNS resolutions via VirusTotal Passive DNS. Requires VT key.</div></div>
   </div>
 </section>
 
 <section id="rn-flags" class="tool-section t-rn">
-  <h3 class="sh">Key Flags</h3>
+  <h3 class="sh">All Flags</h3>
   <div class="flag-block">
     <div class="flag-row"><span class="flag-name">-t, --target</span><span class="flag-desc">Domain, IP, CIDR, or path to list file</span></div>
     <div class="flag-row"><span class="flag-name">-p, --profile</span><span class="flag-desc">fast · standard · thorough · stealth · web_only · port_only · full_suite · custom</span></div>
     <div class="flag-row"><span class="flag-name">--all-ports</span><span class="flag-desc">Scan all 65,535 ports</span></div>
+    <div class="flag-row"><span class="flag-name">--top-ports N</span><span class="flag-desc">Scan top N ports (default: 1000)</span></div>
+    <div class="flag-row"><span class="flag-name">--timing T1–T5</span><span class="flag-desc">Nmap timing template (default: T4)</span></div>
+    <div class="flag-row"><span class="flag-name">--threads N</span><span class="flag-desc">Concurrent threads (default: 20)</span></div>
     <div class="flag-row"><span class="flag-name">--shodan --shodan-key</span><span class="flag-desc">Shodan host intelligence</span></div>
     <div class="flag-row"><span class="flag-name">--vt --vt-key</span><span class="flag-desc">VirusTotal reputation (auto-routes domain vs IP)</span></div>
     <div class="flag-row"><span class="flag-name">--whois --wayback --ssl</span><span class="flag-desc">Free intelligence modules — no keys needed</span></div>
+    <div class="flag-row"><span class="flag-name">--cve [--nvd-key]</span><span class="flag-desc">NVD CVE lookup. Key optional (raises limit 5→50 req/30s)</span></div>
     <div class="flag-row"><span class="flag-name">--ai --ai-provider</span><span class="flag-desc">AI analysis — groq · ollama · gemini · openai</span></div>
-    <div class="flag-row"><span class="flag-name new">--github-osint</span><span class="flag-desc">GitHub secret hunting <span class="badge new">v6</span></span></div>
+    <div class="flag-row"><span class="flag-name new">--github-osint [--github-token]</span><span class="flag-desc">GitHub secret hunting <span class="badge new">v6</span></span></div>
     <div class="flag-row"><span class="flag-name new">--js-extract</span><span class="flag-desc">JS endpoint + credential extraction <span class="badge new">v6</span></span></div>
     <div class="flag-row"><span class="flag-name new">--cloud-buckets</span><span class="flag-desc">AWS S3, Azure Blob, GCS enumeration <span class="badge new">v6</span></span></div>
     <div class="flag-row"><span class="flag-name new">--dns-zone</span><span class="flag-desc">DNS zone transfer (AXFR) <span class="badge new">v6</span></span></div>
@@ -522,7 +608,30 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <div class="flag-row"><span class="flag-name new">--cors</span><span class="flag-desc">CORS misconfiguration scanner <span class="badge new">v6</span></span></div>
     <div class="flag-row"><span class="flag-name new">--diff A.json B.json</span><span class="flag-desc">Compare two scan reports <span class="badge new">v6</span></span></div>
     <div class="flag-row"><span class="flag-name new">--notify URL</span><span class="flag-desc">Mid-scan Slack / Discord / webhook alerts <span class="badge new">v6</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--email-security</span><span class="flag-desc">SPF/DKIM/DMARC + spoofability score <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--breach-check [--hibp-key]</span><span class="flag-desc">HaveIBeenPwned domain breach check <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--cloud-meta</span><span class="flag-desc">AWS/Azure/GCP metadata SSRF probe <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--graphql</span><span class="flag-desc">GraphQL endpoint discovery + introspection <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--jwt-scan</span><span class="flag-desc">JWT none-algorithm + weak HMAC cracker <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--asn-map</span><span class="flag-desc">BGP/ASN → all owned IP CIDRs <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--supply-chain</span><span class="flag-desc">Outdated JS libs + npm squatting <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--k8s-probe</span><span class="flag-desc">Kubernetes / Docker unauthenticated API detection <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--db-exposure</span><span class="flag-desc">Unauthenticated Redis / Elasticsearch / MongoDB / Memcached <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--smtp-enum</span><span class="flag-desc">SMTP user enumeration via VRFY/EXPN/RCPT TO <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--snmp-scan</span><span class="flag-desc">SNMP community string brute-force + MIB walk <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--ldap-enum</span><span class="flag-desc">LDAP anonymous bind + attribute dump <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--devops-scan</span><span class="flag-desc">Terraform state file + Jenkins exposure <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--greynoise [--greynoise-key]</span><span class="flag-desc">GreyNoise IP context — noise vs targeted <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--typosquat</span><span class="flag-desc">200+ lookalike domain variant detection <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--censys [--censys-id --censys-secret]</span><span class="flag-desc">Censys host intelligence <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--dns-history</span><span class="flag-desc">DNS resolution history via VirusTotal PDNS <span class="badge v7">v7</span></span></div>
+    <div class="flag-row"><span class="flag-name v7">--sarif</span><span class="flag-desc">Export findings as SARIF 2.1.0 <span class="badge v7">v7</span></span></div>
     <div class="flag-row"><span class="flag-name">--resume FILE</span><span class="flag-desc">Resume from state.json checkpoint</span></div>
+    <div class="flag-row"><span class="flag-name">--exclude PHASES</span><span class="flag-desc">Skip specific pipeline phases</span></div>
+    <div class="flag-row"><span class="flag-name">--output-format</span><span class="flag-desc">all · html · json · md · txt</span></div>
+    <div class="flag-row"><span class="flag-name">--timeout N</span><span class="flag-desc">Global per-operation timeout in seconds (default: 30)</span></div>
+    <div class="flag-row"><span class="flag-name">--rate-limit N</span><span class="flag-desc">Seconds between requests (default: 0)</span></div>
+    <div class="flag-row"><span class="flag-name">--update [--force-update]</span><span class="flag-desc">Check for updates and install latest version</span></div>
     <div class="flag-row"><span class="flag-name">-y, --yes</span><span class="flag-desc">Skip confirmation (CI/automation)</span></div>
   </div>
 </section>
@@ -546,8 +655,61 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <div class="term-bar"><div class="td r"></div><div class="td y"></div><div class="td g"></div><span class="term-name">bash</span></div>
     <div class="term-body"><pre><code><span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai --ai-key</span> YOUR_GROQ_KEY
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai --ai-provider</span> ollama  <span class="cmt"># local, free</span>
-<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai</span>  <span class="cmt"># rule-based fallback (no key needed)</span></code></pre></div>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai</span>  <span class="cmt"># rule-based fallback (no key needed)</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai --ai-model</span> llama3-8b-8192  <span class="cmt"># override model</span></code></pre></div>
   </div>
+</section>
+
+<section id="rn-changelog" class="tool-section t-rn">
+  <h3 class="sh">Changelog</h3>
+  <div class="changelog">
+
+    <div class="cl-entry latest">
+      <div class="cl-head">
+        <span class="cl-ver">v7.1.0</span>
+        <span class="cl-date">2026-04-04</span>
+        <span class="cl-tag bugfix">BUGFIX</span>
+      </div>
+      <div class="cl-body">
+        <strong>Bug #1 (Medium)</strong> — 19 module-level functions introduced in v7.0.0 raised <code style="color:var(--r);font-size:.73rem">NameError</code> at runtime because their imports were missing from <code style="color:var(--b);font-size:.73rem">core/orchestrator.py</code>. All 17 missing <code style="color:var(--b);font-size:.73rem">from core.*</code> statements added. <code style="color:var(--b);font-size:.73rem">smtp_user_enum</code> aliased to match call sites. <code style="color:var(--b);font-size:.73rem">flake8 --select=F821</code> now exits clean.
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-ver">v7.0.0</span>
+        <span class="cl-date">2026-04-04</span>
+        <span class="cl-tag major">MAJOR</span>
+      </div>
+      <div class="cl-body">
+        Added <strong>17 new intelligence modules</strong> (phases 14a–14q): email security, breach check, cloud metadata SSRF, GraphQL scanner, JWT scanner, ASN mapping, supply chain analysis, K8s/Docker probe, database exposure, SMTP enum, SNMP scan, LDAP enum, DevOps scan, GreyNoise, typosquatting, Censys intelligence, and SARIF export. 25 new CLI flags. 25 new <code style="color:var(--b);font-size:.73rem">ScanConfig</code> boolean fields. Bug fixes: JS extractor dedup on <code style="color:var(--b);font-size:.73rem">(label, match[:20])</code> so all unique credentials per type are captured; dead nameserver fallback branch removed from <code style="color:var(--b);font-size:.73rem">dns_zone_transfer.py</code>.
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-ver">v6.0.0</span>
+        <span class="cl-date">2026-03-20</span>
+        <span class="cl-tag major">MAJOR</span>
+      </div>
+      <div class="cl-body">
+        Added <strong>6 new modules</strong>: GitHub OSINT, JS extraction, cloud bucket enum, DNS zone transfer, WAF detection, CORS scanner. Added <strong>2 new utilities</strong>: scan diff and webhook notifications. 8 critical bug fixes including RustScan port persistence, AI fallback, screenshot URL routing, and NVD rate-limit handling.
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-ver">v5.x / v4.x</span>
+        <span class="cl-date">2026-03-09 – 2026-03-18</span>
+        <span class="cl-tag bugfix">BUGFIX</span>
+      </div>
+      <div class="cl-body">
+        v4.0.0 added Shodan, VirusTotal, WHOIS, Wayback, SSL modules + full pip packaging. v5.x series focused on bug sweeps: <code style="color:var(--b);font-size:.73rem">--exclude</code> now applied, VirusTotal correctly routes domain vs IP, pyflakes clean across all source files.
+      </div>
+    </div>
+
+  </div>
+  <p style="font-size:.78rem;color:var(--text2);margin-top:1rem">Full history: <a href="https://github.com/ExploitCraft/ReconNinja/blob/main/CHANGELOG.md" style="color:var(--rn-c);text-decoration:none">CHANGELOG.md on GitHub</a></p>
 </section>
 
 
@@ -909,10 +1071,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
 </section>
 
 
-<!-- ══════════════════════════════════════════════════════════════════════════ -->
-<!-- ░░░  FOOTER  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
-<!-- ══════════════════════════════════════════════════════════════════════════ -->
-
+<!-- ══ FOOTER ══════════════════════════════════════════════════════════════════ -->
 <footer class="footer">
   <span>HackerInc · ExploitCraft · MIT License · Bangladesh 🇧🇩</span>
   <div class="footer-links">
@@ -922,6 +1081,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <a href="https://github.com/ExploitCraft/envleaks">envleaks</a>
     <a href="https://github.com/ExploitCraft/gitdork">gitdork</a>
     <a href="https://github.com/ExploitCraft/wifi-passview">wifi-passview</a>
+    <a href="http://doc.emonpersonal.xyz/">Docs</a>
   </div>
 </footer>
 
@@ -929,13 +1089,11 @@ tr:hover td{background:rgba(255,255,255,.012)}
 </div>
 
 <script>
-// Section reveal on scroll
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
 }, { threshold: 0.04 });
 document.querySelectorAll('.tool-section').forEach(s => obs.observe(s));
 
-// Active sidebar link tracking
 const sections = document.querySelectorAll('.tool-section, #home');
 const links = document.querySelectorAll('.sb-link');
 
