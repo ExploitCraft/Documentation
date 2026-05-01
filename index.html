@@ -172,20 +172,29 @@ tr:hover td{background:rgba(255,255,255,.012)}
 .phase.new-p::before{background:rgba(57,255,20,.3)}
 .phase.v7-p{border-color:rgba(0,207,255,.18);background:rgba(0,207,255,.02)}
 .phase.v7-p::before{background:rgba(0,207,255,.3);border-color:var(--b);box-shadow:0 0 6px rgba(0,207,255,.25)}
+/* v8 phases — pink/magenta */
+.phase.v8-p{border-color:rgba(255,107,232,.18);background:rgba(255,107,232,.02)}
+.phase.v8-p::before{background:rgba(255,107,232,.3);border-color:var(--pk);box-shadow:0 0 6px rgba(255,107,232,.25)}
+.phase.v8-ai{border-color:rgba(180,122,255,.18);background:rgba(180,122,255,.02)}
+.phase.v8-ai::before{background:rgba(180,122,255,.3);border-color:var(--p);box-shadow:0 0 6px rgba(180,122,255,.25)}
 .pbadge{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--g);border:1px solid rgba(57,255,20,.25);background:rgba(57,255,20,.06);padding:.18rem .5rem;border-radius:3px;white-space:nowrap;flex-shrink:0;margin-top:3px}
 .pbadge.new{color:var(--g2);border-color:rgba(26,255,140,.3);background:rgba(26,255,140,.07)}
 .pbadge.v7{color:var(--b);border-color:rgba(0,207,255,.3);background:rgba(0,207,255,.07)}
+.pbadge.v8{color:var(--pk);border-color:rgba(255,107,232,.3);background:rgba(255,107,232,.07)}
+.pbadge.v8ai{color:var(--p);border-color:rgba(180,122,255,.3);background:rgba(180,122,255,.07)}
 .pname{font-weight:600;color:var(--white);font-size:.86rem}
 .pdesc{font-size:.76rem;color:var(--text2);margin-top:1px}
 
 /* ── FLAG BLOCK ──────────────────────────────────────────────────────────── */
 .flag-block{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1rem 0}
-.flag-row{display:grid;grid-template-columns:240px 1fr;padding:.55rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.03);align-items:start;transition:background .15s}
+.flag-row{display:grid;grid-template-columns:260px 1fr;padding:.55rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.03);align-items:start;transition:background .15s}
 .flag-row:last-child{border-bottom:none}
 .flag-row:hover{background:rgba(255,255,255,.018)}
 .flag-name{font-family:'JetBrains Mono',monospace;font-size:.73rem;color:var(--y);padding:.1rem 0}
 .flag-name.new{color:var(--g2)}
 .flag-name.v7{color:var(--b)}
+.flag-name.v8{color:var(--pk)}
+.flag-name.v8ai{color:var(--p)}
 .flag-desc{font-size:.78rem;color:var(--text2);padding:.1rem 0}
 
 /* ── PATTERN TABLE ───────────────────────────────────────────────────────── */
@@ -214,6 +223,8 @@ tr:hover td{background:rgba(255,255,255,.012)}
 .badge{font-family:'JetBrains Mono',monospace;font-size:.58rem;padding:.15rem .55rem;border-radius:3px;border:1px solid}
 .badge.new{color:var(--g);border-color:rgba(57,255,20,.3);background:rgba(57,255,20,.07)}
 .badge.v7{color:var(--b);border-color:rgba(0,207,255,.3);background:rgba(0,207,255,.07)}
+.badge.v8{color:var(--pk);border-color:rgba(255,107,232,.3);background:rgba(255,107,232,.07)}
+.badge.v8ai{color:var(--p);border-color:rgba(180,122,255,.3);background:rgba(180,122,255,.07)}
 .badge.crit{color:var(--r);border-color:rgba(255,41,82,.3);background:rgba(255,41,82,.07)}
 .badge.high{color:var(--y);border-color:rgba(255,179,71,.3);background:rgba(255,179,71,.07)}
 
@@ -234,17 +245,29 @@ tr:hover td{background:rgba(255,255,255,.012)}
 .cl-tag{font-size:.58rem;padding:.1rem .45rem;border-radius:2px;border:1px solid;margin-left:auto}
 .cl-tag.bugfix{color:var(--y);border-color:rgba(255,179,71,.3);background:rgba(255,179,71,.07)}
 .cl-tag.major{color:var(--g);border-color:rgba(57,255,20,.3);background:rgba(57,255,20,.07)}
+.cl-tag.patch{color:var(--pk);border-color:rgba(255,107,232,.3);background:rgba(255,107,232,.07)}
 .cl-body{padding:.9rem 1.2rem;font-size:.78rem;color:var(--text2);line-height:1.65}
 .cl-body strong{color:var(--white)}
 
-/* ── MODULE GRID (v7 highlight) ──────────────────────────────────────────── */
+/* ── MODULE GRID ─────────────────────────────────────────────────────────── */
 .mod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.7rem;margin:1.25rem 0}
+/* v7 modules — blue */
 .mod{background:var(--bg2);border:1px solid rgba(0,207,255,.15);border-radius:8px;padding:1rem 1.1rem;position:relative;overflow:hidden;transition:all .2s}
 .mod::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--b),transparent);opacity:.4}
 .mod:hover{transform:translateY(-2px);border-color:rgba(0,207,255,.3)}
 .mod-flag{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--b);margin-bottom:.35rem}
 .mod-title{font-weight:600;color:var(--white);font-size:.85rem;margin-bottom:.3rem}
 .mod-desc{font-size:.74rem;color:var(--text2);line-height:1.55}
+/* v8 modules — pink */
+.mod.v8{border-color:rgba(255,107,232,.15)}
+.mod.v8::before{background:linear-gradient(90deg,transparent,var(--pk),transparent)}
+.mod.v8:hover{border-color:rgba(255,107,232,.3)}
+.mod.v8 .mod-flag{color:var(--pk)}
+/* v8 AI modules — purple */
+.mod.v8ai{border-color:rgba(180,122,255,.15)}
+.mod.v8ai::before{background:linear-gradient(90deg,transparent,var(--p),transparent)}
+.mod.v8ai:hover{border-color:rgba(180,122,255,.3)}
+.mod.v8ai .mod-flag{color:var(--p)}
 
 /* ── FOOTER ──────────────────────────────────────────────────────────────── */
 .footer{padding:2.5rem 4.5rem;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--text2);border-top:1px solid var(--border)}
@@ -285,16 +308,18 @@ tr:hover td{background:rgba(255,255,255,.012)}
       <div class="sb-tool-header">
         <div class="sb-tool-dot" style="background:var(--rn-c);box-shadow:0 0 5px var(--rn-c)"></div>
         <span class="sb-tool-name" style="color:var(--rn-c)">ReconNinja</span>
-        <span class="sb-tool-ver">v7.1.0</span>
+        <span class="sb-tool-ver">v8.1.0</span>
       </div>
       <a href="#rn-overview"   class="sb-link"><span class="num">01</span>Overview</a>
       <a href="#rn-install"    class="sb-link"><span class="num">02</span>Installation</a>
       <a href="#rn-quickstart" class="sb-link"><span class="num">03</span>Quick Start</a>
-      <a href="#rn-pipeline"   class="sb-link"><span class="num">04</span>38-Phase Pipeline</a>
+      <a href="#rn-pipeline"   class="sb-link"><span class="num">04</span>51-Phase Pipeline</a>
       <a href="#rn-v7"         class="sb-link"><span class="num">05</span>v7 New Modules</a>
-      <a href="#rn-flags"      class="sb-link"><span class="num">06</span>All Flags</a>
-      <a href="#rn-ai"         class="sb-link"><span class="num">07</span>AI Analysis</a>
-      <a href="#rn-changelog"  class="sb-link"><span class="num">08</span>Changelog</a>
+      <a href="#rn-v8"         class="sb-link"><span class="num">06</span>v8 New Modules</a>
+      <a href="#rn-flags"      class="sb-link"><span class="num">07</span>All Flags</a>
+      <a href="#rn-ai"         class="sb-link"><span class="num">08</span>AI Analysis</a>
+      <a href="#rn-gui"        class="sb-link"><span class="num">09</span>GUI</a>
+      <a href="#rn-changelog"  class="sb-link"><span class="num">10</span>Changelog</a>
     </div>
 
     <div class="sb-section">
@@ -369,7 +394,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
   <p class="hero-desc">Open-source CLI toolkit for pentesters, bug bounty hunters, and developers who think offensively. Five tools — one ecosystem — covering the full recon-to-exploit surface.</p>
 
   <div class="tool-pills">
-    <a href="#rn-overview" class="tool-pill rn"><span class="pill-dot"></span>ReconNinja v7.1</a>
+    <a href="#rn-overview" class="tool-pill rn"><span class="pill-dot"></span>ReconNinja v8.1</a>
     <a href="#vh-overview" class="tool-pill vh"><span class="pill-dot"></span>VaultHound v1</a>
     <a href="#el-overview" class="tool-pill el"><span class="pill-dot"></span>envleaks v1.1</a>
     <a href="#gd-overview" class="tool-pill gd"><span class="pill-dot"></span>gitdork v1.1</a>
@@ -378,7 +403,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
 
   <div class="stats-row">
     <div class="stat"><div class="stat-val">5<span>_</span></div><div class="stat-label">Tools</div></div>
-    <div class="stat"><div class="stat-val">38<span>+</span></div><div class="stat-label">Recon Phases</div></div>
+    <div class="stat"><div class="stat-val">51<span>+</span></div><div class="stat-label">Recon Phases</div></div>
     <div class="stat"><div class="stat-val">100<span>+</span></div><div class="stat-label">Secret Patterns</div></div>
     <div class="stat"><div class="stat-val">597<span>+</span></div><div class="stat-label">Tests</div></div>
     <div class="stat"><div class="stat-val">3<span>_</span></div><div class="stat-label">Platforms</div></div>
@@ -388,9 +413,9 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <h3 class="sh">Ecosystem Map</h3>
     <div class="eco-grid">
       <a href="#rn-overview" class="eco-card rn">
-        <div class="eco-top"><span class="eco-title">🥷 ReconNinja</span><span class="eco-ver">v7.1.0</span></div>
-        <div class="eco-desc">38-phase automated recon framework. Subdomain enum → port scan → web discovery → CVE lookup → 17 new v7 intelligence modules → AI threat analysis.</div>
-        <div class="eco-tags"><span class="eco-tag">Python</span><span class="eco-tag">597+ tests</span><span class="eco-tag">PyPI</span><span class="eco-tag">38 phases</span></div>
+        <div class="eco-top"><span class="eco-title">🥷 ReconNinja</span><span class="eco-ver">v8.1.0</span></div>
+        <div class="eco-desc">51-phase automated recon framework. Subdomain enum → port scan → web discovery → CVE lookup → 30 intelligence modules → AI consensus + attack paths → local desktop GUI.</div>
+        <div class="eco-tags"><span class="eco-tag">Python</span><span class="eco-tag">597+ tests</span><span class="eco-tag">PyPI</span><span class="eco-tag">51 phases</span><span class="eco-tag">GUI</span></div>
       </a>
       <a href="#vh-overview" class="eco-card vh">
         <div class="eco-top"><span class="eco-title">🐾 VaultHound</span><span class="eco-ver">v1.0.0</span></div>
@@ -427,10 +452,10 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <div class="ts-meta">
       <div class="ts-eyebrow">// 01 · ReconNinja</div>
       <div class="ts-title">RECON<span class="hl">NINJA</span></div>
-      <p class="ts-desc">38-phase automated reconnaissance framework for authorized security testing. One command drives the full pipeline — passive recon through cloud bucket enumeration, protocol-level exposure scanning, and AI threat analysis.</p>
+      <p class="ts-desc">51-phase automated reconnaissance framework for authorized security testing. One command drives the full pipeline — passive recon through cloud bucket enumeration, protocol-level exposure scanning, web vuln probing, AI consensus threat analysis, and a local desktop GUI.</p>
       <div class="ts-chips">
-        <span class="chip" style="color:var(--rn-c);border-color:rgba(57,255,20,.25)">v7.1.0</span>
-        <span class="chip">Python 3.10+</span><span class="chip">597+ Tests</span><span class="chip">MIT</span><span class="chip">PyPI</span>
+        <span class="chip" style="color:var(--rn-c);border-color:rgba(57,255,20,.25)">v8.1.0</span>
+        <span class="chip">Python 3.10+</span><span class="chip">597+ Tests</span><span class="chip">MIT</span><span class="chip">PyPI</span><span class="chip">GUI</span>
       </div>
     </div>
   </div>
@@ -485,41 +510,47 @@ tr:hover td{background:rgba(255,255,255,.012)}
 <span class="cmt"># Standard scan</span>
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com
 
-<span class="cmt"># Full 38-phase pipeline</span>
+<span class="cmt"># Full 51-phase pipeline</span>
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--profile</span> full_suite <span class="fl">-y</span>
 
-<span class="cmt"># v6 modules — no keys needed</span>
+<span class="cmt"># v8 web attack modules</span>
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com \
-  <span class="fl">--github-osint --js-extract</span> \
-  <span class="fl">--cloud-buckets --dns-zone</span> \
-  <span class="fl">--waf --cors -y</span>
+  <span class="fl">--api-fuzz --oauth-scan</span> \
+  <span class="fl">--web-vulns --open-redirect -y</span>
 
-<span class="cmt"># v7 modules — protocol &amp; intelligence</span>
+<span class="cmt"># v8 OSINT + mobile + blockchain</span>
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com \
-  <span class="fl">--email-security --breach-check</span> \
-  <span class="fl">--graphql --jwt-scan</span> \
-  <span class="fl">--supply-chain --db-exposure</span> \
-  <span class="fl">--typosquat --devops-scan -y</span>
+  <span class="fl">--linkedin --paste-monitor</span> \
+  <span class="fl">--se-osint --anon-detect</span> \
+  <span class="fl">--web3-scan --ens-lookup -y</span>
 
-<span class="cmt"># Scan diff — compare two JSON reports</span>
-<span class="cmd">ReconNinja</span> <span class="fl">--diff</span> report_jan.json report_mar.json
+<span class="cmt"># APK static analysis</span>
+<span class="cmd">ReconNinja</span> <span class="fl">--apk-scan</span> /path/to/app.apk
 
-<span class="cmt"># Export SARIF for GitHub Advanced Security</span>
-<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--sarif -y</span>
+<span class="cmt"># v8 AI upgrades — consensus + attack paths</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com \
+  <span class="fl">--ai --ai-consensus --attack-paths</span> \
+  <span class="fl">--ai-remediate --ai-key</span> YOUR_KEY <span class="fl">-y</span>
 
-<span class="cmt"># With Slack notifications</span>
-<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--profile</span> full_suite \
-  <span class="fl">--ai --ai-provider</span> groq <span class="fl">--ai-key</span> KEY \
-  <span class="fl">--notify</span> slack://hooks.slack.com/services/xxx <span class="fl">-y</span>
+<span class="cmt"># Push findings to Jira</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com \
+  <span class="fl">--jira</span> https://jira.example.com:user@example.com:TOKEN:SEC <span class="fl">-y</span>
+
+<span class="cmt"># Launch desktop GUI</span>
+<span class="cmd">ReconNinja</span> <span class="fl">--gui</span>
 
 <span class="cmt"># Resume interrupted scan</span>
-<span class="cmd">ReconNinja</span> <span class="fl">--resume</span> reports/example.com_20260320/state.json</code></pre></div>
+<span class="cmd">ReconNinja</span> <span class="fl">--resume</span> reports/example.com_20260501/state.json</code></pre></div>
   </div>
 </section>
 
 <section id="rn-pipeline" class="tool-section t-rn">
-  <h3 class="sh">38-Phase Pipeline</h3>
-  <p style="font-size:.85rem;color:var(--text2);margin-bottom:1.5rem">Each phase feeds results into the next. <span style="color:var(--rn-c);font-family:'JetBrains Mono',monospace;font-size:.78rem">7 new phases added in v6.</span> <span style="color:var(--b);font-family:'JetBrains Mono',monospace;font-size:.78rem">17 new phases added in v7.</span> All phases checkpoint to <span class="ic">state.json</span> for resume.</p>
+  <h3 class="sh">51-Phase Pipeline</h3>
+  <p style="font-size:.85rem;color:var(--text2);margin-bottom:1.5rem">Each phase feeds results into the next.
+    <span style="color:var(--rn-c);font-family:'JetBrains Mono',monospace;font-size:.78rem">7 new phases in v6.</span>
+    <span style="color:var(--b);font-family:'JetBrains Mono',monospace;font-size:.78rem">17 new phases in v7.</span>
+    <span style="color:var(--pk);font-family:'JetBrains Mono',monospace;font-size:.78rem">13 new phases in v8.</span>
+    All phases checkpoint to <span class="ic">state.json</span> for resume.</p>
   <div class="pipeline">
     <div class="phase"><span class="pbadge">Phase 1</span><div><div class="pname">Passive Recon</div><div class="pdesc">Subdomain enumeration via amass, subfinder, crt.sh</div></div></div>
     <div class="phase"><span class="pbadge">Phase 2</span><div><div class="pname">RustScan</div><div class="pdesc">Ultra-fast port discovery across all 65,535 ports (BUG-FIX v6: ports now persisted)</div></div></div>
@@ -557,7 +588,25 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <div class="phase v7-p"><span class="pbadge v7">Phase 14o ◈</span><div><div class="pname">Typosquatting</div><div class="pdesc">200+ lookalike domain variants + live DNS resolution. <span class="ic">--typosquat</span></div></div></div>
     <div class="phase v7-p"><span class="pbadge v7">Phase 14p ◈</span><div><div class="pname">Censys Intelligence</div><div class="pdesc">Host intelligence + DNS history via VirusTotal PDNS. <span class="ic">--censys</span> <span class="ic">--dns-history</span></div></div></div>
     <div class="phase v7-p"><span class="pbadge v7">Phase 14q ◈</span><div><div class="pname">SARIF Export</div><div class="pdesc">SARIF 2.1.0 report for GitHub / VSCode / Azure DevOps. <span class="ic">--sarif</span></div></div></div>
-    <div class="phase"><span class="pbadge">Phase 15–16</span><div><div class="pname">Plugins · Reports</div><div class="pdesc">Custom plugin execution + HTML / JSON / Markdown / SARIF report generation</div></div></div>
+    <!-- v8 phases — pink -->
+    <div class="phase v8-p"><span class="pbadge v8">Phase 15a ✦</span><div><div class="pname">REST API Fuzzer</div><div class="pdesc">OpenAPI/Swagger discovery, endpoint enum, IDOR probes, auth-bypass header testing, mass assignment, method confusion. <span class="ic">--api-fuzz</span></div></div></div>
+    <div class="phase v8-p"><span class="pbadge v8">Phase 15b ✦</span><div><div class="pname">OAuth / OIDC Scanner</div><div class="pdesc">Implicit flow, PKCE enforcement, open redirect in redirect_uri, state CSRF, token endpoint CORS, exposed client creds. <span class="ic">--oauth-scan</span></div></div></div>
+    <div class="phase v8-p"><span class="pbadge v8">Phase 15c ✦</span><div><div class="pname">Web Vuln Probes</div><div class="pdesc">Reflected XSS, error-based + time-based SQLi, LFI/path traversal, SSRF (IMDS detection). <span class="ic">--web-vulns</span></div></div></div>
+    <div class="phase v8-p"><span class="pbadge v8">Phase 15d ✦</span><div><div class="pname">Open Redirect Scanner</div><div class="pdesc">30 common redirect params with bypass-payload variants. <span class="ic">--open-redirect</span></div></div></div>
+    <div class="phase v8-p"><span class="pbadge v8">Phase 15e ✦</span><div><div class="pname">LinkedIn OSINT</div><div class="pdesc">Employee enum via Google dorking, tech stack inference from job postings, high-value target ID. <span class="ic">--linkedin</span></div></div></div>
+    <div class="phase v8-p"><span class="pbadge v8">Phase 15f ✦</span><div><div class="pname">Paste Monitor</div><div class="pdesc">Pastebin / GitHub Gist / paste.ee credential dump scanner — AWS keys, GitHub tokens, OpenAI keys, base64 blobs. <span class="ic">--paste-monitor</span></div></div></div>
+    <div class="phase v8-p"><span class="pbadge v8">Phase 15g ✦</span><div><div class="pname">SE OSINT</div><div class="pdesc">Email address + phone number harvesting from contact pages, Hunter.io, and Google dorking. <span class="ic">--se-osint</span></div></div></div>
+    <div class="phase v8-p"><span class="pbadge v8">Phase 15h ✦</span><div><div class="pname">APK Static Analysis</div><div class="pdesc">Manifest permissions, hardcoded secrets (10 patterns), dangerous APIs, embedded URLs, internal IP exposure. <span class="ic">--apk-scan APK_PATH</span></div></div></div>
+    <div class="phase v8-p"><span class="pbadge v8">Phase 15i ✦</span><div><div class="pname">App Store Recon</div><div class="pdesc">Google Play + Apple App Store metadata scraper — version, permissions, reviews, privacy labels. <span class="ic">--app-store</span></div></div></div>
+    <div class="phase v8-p"><span class="pbadge v8">Phase 15j ✦</span><div><div class="pname">Anon Detect</div><div class="pdesc">Tor exit node, VPN, hosting provider, and proxy IP detection via multiple intelligence feeds. <span class="ic">--anon-detect</span></div></div></div>
+    <div class="phase v8-p"><span class="pbadge v8">Phase 15k ✦</span><div><div class="pname">DNS Leak Check</div><div class="pdesc">DNS rebinding, open resolver detection, internal hostname exposure via DNS leaks. <span class="ic">--dns-leak</span></div></div></div>
+    <div class="phase v8-p"><span class="pbadge v8">Phase 15l ✦</span><div><div class="pname">Web3 / Blockchain Recon</div><div class="pdesc">Smart contract discovery, ABI extraction, on-chain transaction history. <span class="ic">--web3-scan</span></div></div></div>
+    <div class="phase v8-p"><span class="pbadge v8">Phase 15m ✦</span><div><div class="pname">ENS Lookup</div><div class="pdesc">Ethereum Name Service domain resolution + on-chain social profile (avatar, email, GitHub). <span class="ic">--ens-lookup</span></div></div></div>
+    <!-- v8 AI upgrades — purple -->
+    <div class="phase v8-ai"><span class="pbadge v8ai">Phase 16a ✦</span><div><div class="pname">AI Consensus</div><div class="pdesc">Run analysis across multiple AI providers and synthesize a consensus threat report. <span class="ic">--ai-consensus</span></div></div></div>
+    <div class="phase v8-ai"><span class="pbadge v8ai">Phase 16b ✦</span><div><div class="pname">MITRE ATT&amp;CK Kill-Chain</div><div class="pdesc">AI-generated attack path mapping to MITRE ATT&amp;CK tactics and techniques. <span class="ic">--attack-paths</span></div></div></div>
+    <div class="phase v8-ai"><span class="pbadge v8ai">Phase 16c ✦</span><div><div class="pname">AI Remediation + CVSSv3</div><div class="pdesc">Per-finding remediation guidance with CVSSv3 base score calculation. <span class="ic">--ai-remediate</span></div></div></div>
+    <div class="phase"><span class="pbadge">Phase 17–18</span><div><div class="pname">Plugins · Reports</div><div class="pdesc">Custom plugin execution + HTML / JSON / Markdown / PDF / SARIF report generation + Jira / GitHub Issues / SIEM push</div></div></div>
   </div>
 </section>
 
@@ -574,7 +623,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <div class="mod"><div class="mod-flag">--asn-map</div><div class="mod-title">ASN / BGP Mapping</div><div class="mod-desc">Resolves target ASN via RIPE Stat API, returns all owned IP CIDRs.</div></div>
     <div class="mod"><div class="mod-flag">--supply-chain</div><div class="mod-title">Supply Chain</div><div class="mod-desc">Detects outdated JS libraries (jQuery, Angular, Lodash, polyfill.io) and npm squatting.</div></div>
     <div class="mod"><div class="mod-flag">--k8s-probe</div><div class="mod-title">K8s / Docker Probe</div><div class="mod-desc">Detects unauthenticated Kubernetes API servers and exposed Docker sockets.</div></div>
-    <div class="mod"><div class="mod-flag">--db-exposure</div><div class="mod-title">Database Exposure</div><div class="mod-desc">Tests for unauthenticated access to Elasticsearch, Redis, MongoDB, and Memcached (including amplification flag).</div></div>
+    <div class="mod"><div class="mod-flag">--db-exposure</div><div class="mod-title">Database Exposure</div><div class="mod-desc">Tests for unauthenticated access to Elasticsearch, Redis, MongoDB, and Memcached.</div></div>
     <div class="mod"><div class="mod-flag">--smtp-enum</div><div class="mod-title">SMTP Enumeration</div><div class="mod-desc">Enumerates valid users via VRFY, EXPN, and RCPT TO commands.</div></div>
     <div class="mod"><div class="mod-flag">--snmp-scan</div><div class="mod-title">SNMP Scan</div><div class="mod-desc">Brute-forces SNMP community strings and performs a MIB walk. Requires <span class="ic">ReconNinja[v7]</span>.</div></div>
     <div class="mod"><div class="mod-flag">--ldap-enum</div><div class="mod-title">LDAP Enumeration</div><div class="mod-desc">Anonymous bind attempt, dumps users, groups, and attributes. Requires <span class="ic">ReconNinja[v7]</span>.</div></div>
@@ -583,6 +632,48 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <div class="mod"><div class="mod-flag">--typosquat</div><div class="mod-title">Typosquatting</div><div class="mod-desc">Generates 200+ lookalike domain variants and checks which resolve via live DNS.</div></div>
     <div class="mod"><div class="mod-flag">--censys [--censys-id --censys-secret]</div><div class="mod-title">Censys Intelligence</div><div class="mod-desc">Host intelligence lookup via Censys API.</div></div>
     <div class="mod"><div class="mod-flag">--dns-history [--vt-key]</div><div class="mod-title">DNS History</div><div class="mod-desc">Historical DNS resolutions via VirusTotal Passive DNS. Requires VT key.</div></div>
+  </div>
+</section>
+
+<!-- ══ v8 NEW MODULES ════════════════════════════════════════════════════════ -->
+<section id="rn-v8" class="tool-section t-rn">
+  <h3 class="sh">v8 New Modules <span class="new-tag badge v8" style="margin-left:.5rem">13 modules + 3 AI upgrades</span></h3>
+  <p style="font-size:.85rem;color:var(--text2);margin-bottom:1.5rem">v8 adds deep web-attack probing, mobile/blockchain recon, social-engineering intel, and a full AI upgrade pass. All modules available individually or via <span class="ic">--profile full_suite</span>.</p>
+
+  <h3 class="sh" style="font-size:.65rem;margin-top:1.5rem">API &amp; Web Attack</h3>
+  <div class="mod-grid">
+    <div class="mod v8"><div class="mod-flag">--api-fuzz</div><div class="mod-title">REST API Fuzzer</div><div class="mod-desc">OpenAPI/Swagger discovery, endpoint enumeration, IDOR probes, auth-bypass header testing, mass assignment, method confusion, sensitive key detection.</div></div>
+    <div class="mod v8"><div class="mod-flag">--oauth-scan</div><div class="mod-title">OAuth 2.0 / OIDC Scanner</div><div class="mod-desc">Implicit flow detection, PKCE enforcement check, open redirect in redirect_uri, state CSRF, token endpoint CORS, exposed client credentials in JS.</div></div>
+    <div class="mod v8"><div class="mod-flag">--web-vulns</div><div class="mod-title">Web Vuln Probes</div><div class="mod-desc">Reflected XSS, error-based + time-based SQLi, LFI/path traversal, SSRF with IMDS detection.</div></div>
+    <div class="mod v8"><div class="mod-flag">--open-redirect</div><div class="mod-title">Open Redirect Scanner</div><div class="mod-desc">Scans 30 common redirect parameters with bypass-payload variants.</div></div>
+  </div>
+
+  <h3 class="sh" style="font-size:.65rem;margin-top:1.5rem">Social Engineering &amp; OSINT</h3>
+  <div class="mod-grid">
+    <div class="mod v8"><div class="mod-flag">--linkedin</div><div class="mod-title">LinkedIn OSINT</div><div class="mod-desc">Employee enumeration via Google dorking, tech stack inference from job postings, high-value target identification (IT/security roles), email format guessing.</div></div>
+    <div class="mod v8"><div class="mod-flag">--paste-monitor</div><div class="mod-title">Paste Monitor</div><div class="mod-desc">Pastebin / GitHub Gist / paste.ee credential dump scanner — AWS keys, GitHub tokens, OpenAI keys, passwords, base64 blobs.</div></div>
+    <div class="mod v8"><div class="mod-flag">--se-osint</div><div class="mod-title">SE OSINT</div><div class="mod-desc">Social engineering OSINT: email address and phone number harvesting from contact pages, Hunter.io, and Google.</div></div>
+  </div>
+
+  <h3 class="sh" style="font-size:.65rem;margin-top:1.5rem">Mobile &amp; Blockchain</h3>
+  <div class="mod-grid">
+    <div class="mod v8"><div class="mod-flag">--apk-scan APK_PATH</div><div class="mod-title">APK Static Analysis</div><div class="mod-desc">Manifest permissions (dangerous perm flagging), hardcoded secrets (10 patterns), dangerous API calls (WebView JS bridge, TrustAllCerts), embedded URL extraction, internal IP exposure.</div></div>
+    <div class="mod v8"><div class="mod-flag">--app-store</div><div class="mod-title">App Store Recon</div><div class="mod-desc">Google Play + Apple App Store metadata — version history, permissions, ratings, privacy nutrition labels.</div></div>
+    <div class="mod v8"><div class="mod-flag">--web3-scan</div><div class="mod-title">Web3 / Blockchain</div><div class="mod-desc">Smart contract discovery, ABI extraction, on-chain transaction analysis.</div></div>
+    <div class="mod v8"><div class="mod-flag">--ens-lookup</div><div class="mod-title">ENS Lookup</div><div class="mod-desc">Ethereum Name Service domain resolution + on-chain social profile (avatar, email, GitHub).</div></div>
+  </div>
+
+  <h3 class="sh" style="font-size:.65rem;margin-top:1.5rem">Network Intel</h3>
+  <div class="mod-grid">
+    <div class="mod v8"><div class="mod-flag">--anon-detect</div><div class="mod-title">Anon Detect</div><div class="mod-desc">Tor exit node, VPN, hosting provider, and proxy IP detection via multiple intelligence feeds.</div></div>
+    <div class="mod v8"><div class="mod-flag">--dns-leak</div><div class="mod-title">DNS Leak Check</div><div class="mod-desc">DNS rebinding vulnerability, open resolver detection, internal hostname exposure via DNS leaks.</div></div>
+  </div>
+
+  <h3 class="sh" style="font-size:.65rem;margin-top:1.5rem">AI Upgrades <span class="badge v8ai" style="margin-left:.5rem">3 new</span></h3>
+  <div class="mod-grid">
+    <div class="mod v8ai"><div class="mod-flag">--ai-consensus</div><div class="mod-title">AI Consensus</div><div class="mod-desc">Runs threat analysis across multiple AI providers simultaneously and synthesizes a consensus report.</div></div>
+    <div class="mod v8ai"><div class="mod-flag">--attack-paths</div><div class="mod-title">MITRE ATT&amp;CK Kill-Chain</div><div class="mod-desc">AI-generated attack path mapping — findings mapped to MITRE ATT&amp;CK tactics, techniques, and procedures.</div></div>
+    <div class="mod v8ai"><div class="mod-flag">--ai-remediate</div><div class="mod-title">AI Remediation + CVSSv3</div><div class="mod-desc">Per-finding remediation guidance with CVSSv3 base score calculation and priority ranking.</div></div>
   </div>
 </section>
 
@@ -626,9 +717,32 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <div class="flag-row"><span class="flag-name v7">--censys [--censys-id --censys-secret]</span><span class="flag-desc">Censys host intelligence <span class="badge v7">v7</span></span></div>
     <div class="flag-row"><span class="flag-name v7">--dns-history</span><span class="flag-desc">DNS resolution history via VirusTotal PDNS <span class="badge v7">v7</span></span></div>
     <div class="flag-row"><span class="flag-name v7">--sarif</span><span class="flag-desc">Export findings as SARIF 2.1.0 <span class="badge v7">v7</span></span></div>
+    <!-- v8 flags -->
+    <div class="flag-row"><span class="flag-name v8">--api-fuzz</span><span class="flag-desc">REST API fuzzer: endpoint discovery, IDOR, auth bypass, mass assignment <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--oauth-scan</span><span class="flag-desc">OAuth 2.0/OIDC misconfiguration scanner <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--web-vulns</span><span class="flag-desc">Web vuln probes: XSS, SQLi, LFI, SSRF <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--open-redirect</span><span class="flag-desc">Open redirect vulnerability scanner <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--linkedin</span><span class="flag-desc">LinkedIn employee OSINT + tech stack inference <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--paste-monitor</span><span class="flag-desc">Scan paste sites for credential/secret leaks <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--se-osint</span><span class="flag-desc">Social engineering OSINT: emails, phones, contacts <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--apk-scan APK_PATH</span><span class="flag-desc">APK static analysis (provide path to .apk file) <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--app-store</span><span class="flag-desc">Google Play + Apple App Store metadata scraper <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--anon-detect</span><span class="flag-desc">Tor/VPN/proxy/hosting IP detection <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--dns-leak</span><span class="flag-desc">DNS leak check: rebinding, open resolver, internal exposure <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--web3-scan</span><span class="flag-desc">Blockchain/Web3 recon: smart contracts, ABI, on-chain data <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--ens-lookup</span><span class="flag-desc">ENS domain lookup + on-chain social profile resolution <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8ai">--ai-consensus</span><span class="flag-desc">Multi-provider AI consensus threat report <span class="badge v8ai">v8 AI</span></span></div>
+    <div class="flag-row"><span class="flag-name v8ai">--attack-paths</span><span class="flag-desc">AI-generated MITRE ATT&amp;CK kill-chain attack paths <span class="badge v8ai">v8 AI</span></span></div>
+    <div class="flag-row"><span class="flag-name v8ai">--ai-remediate</span><span class="flag-desc">AI per-finding remediation + CVSSv3 scoring <span class="badge v8ai">v8 AI</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--pdf-report</span><span class="flag-desc">Export pentest-ready PDF report (requires weasyprint or fpdf2) <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--jira URL:EMAIL:TOKEN:PROJECT</span><span class="flag-desc">Push findings to Jira as issues <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--gh-issues TOKEN:OWNER/REPO</span><span class="flag-desc">Push findings to GitHub Issues <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--siem URL:TOKEN[:type]</span><span class="flag-desc">Push findings to Splunk/Elastic HEC endpoint <span class="badge v8">v8</span></span></div>
+    <div class="flag-row"><span class="flag-name v8">--gui [--gui-port N]</span><span class="flag-desc">Launch local desktop GUI at http://127.0.0.1:7117 <span class="badge v8">v8</span></span></div>
+    <!-- core flags -->
     <div class="flag-row"><span class="flag-name">--resume FILE</span><span class="flag-desc">Resume from state.json checkpoint</span></div>
     <div class="flag-row"><span class="flag-name">--exclude PHASES</span><span class="flag-desc">Skip specific pipeline phases</span></div>
-    <div class="flag-row"><span class="flag-name">--output-format</span><span class="flag-desc">all · html · json · md · txt</span></div>
+    <div class="flag-row"><span class="flag-name">--output-format</span><span class="flag-desc">all · html · json · md · txt · pdf · sarif</span></div>
     <div class="flag-row"><span class="flag-name">--timeout N</span><span class="flag-desc">Global per-operation timeout in seconds (default: 30)</span></div>
     <div class="flag-row"><span class="flag-name">--rate-limit N</span><span class="flag-desc">Seconds between requests (default: 0)</span></div>
     <div class="flag-row"><span class="flag-name">--update [--force-update]</span><span class="flag-desc">Check for updates and install latest version</span></div>
@@ -638,7 +752,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
 
 <section id="rn-ai" class="tool-section t-rn">
   <h3 class="sh">AI Analysis</h3>
-  <p style="font-size:.85rem;color:var(--text2);margin-bottom:1.25rem">Phase 11 feeds all results into an LLM for threat prioritisation. Rule-based fallback runs automatically when no key is provided (BUG-FIX v6).</p>
+  <p style="font-size:.85rem;color:var(--text2);margin-bottom:1.25rem">Phase 11 feeds all results into an LLM for threat prioritisation. Rule-based fallback runs automatically when no key is provided. v8 adds three AI-upgrade modes for deeper analysis.</p>
   <div class="tbl">
     <table>
       <thead><tr><th>Provider</th><th>Default Model</th><th>Key</th></tr></thead>
@@ -653,10 +767,50 @@ tr:hover td{background:rgba(255,255,255,.012)}
   </div>
   <div class="terminal">
     <div class="term-bar"><div class="td r"></div><div class="td y"></div><div class="td g"></div><span class="term-name">bash</span></div>
-    <div class="term-body"><pre><code><span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai --ai-key</span> YOUR_GROQ_KEY
+    <div class="term-body"><pre><code><span class="cmt"># Standard AI analysis</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai --ai-key</span> YOUR_GROQ_KEY
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai --ai-provider</span> ollama  <span class="cmt"># local, free</span>
 <span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai</span>  <span class="cmt"># rule-based fallback (no key needed)</span>
-<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai --ai-model</span> llama3-8b-8192  <span class="cmt"># override model</span></code></pre></div>
+
+<span class="cmt"># v8 — AI consensus across providers</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai --ai-consensus --ai-key</span> KEY
+
+<span class="cmt"># v8 — MITRE ATT&amp;CK attack paths</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai --attack-paths --ai-key</span> KEY
+
+<span class="cmt"># v8 — Per-finding remediation + CVSSv3</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com <span class="fl">--ai --ai-remediate --ai-key</span> KEY
+
+<span class="cmt"># Full AI stack</span>
+<span class="cmd">ReconNinja</span> <span class="fl">-t</span> example.com \
+  <span class="fl">--ai --ai-consensus --attack-paths --ai-remediate</span> \
+  <span class="fl">--ai-provider</span> groq <span class="fl">--ai-key</span> KEY <span class="fl">-y</span></code></pre></div>
+  </div>
+</section>
+
+<!-- ══ GUI ════════════════════════════════════════════════════════════════════ -->
+<section id="rn-gui" class="tool-section t-rn">
+  <h3 class="sh">GUI <span class="badge v8" style="margin-left:.5rem">v8 new</span></h3>
+  <p style="font-size:.85rem;color:var(--text2);margin-bottom:1.25rem">v8.0.0 ships a local Flask-based desktop GUI accessible via browser. Run scans point-and-click with real-time SSE progress streaming and an in-app findings dashboard. Requires <span class="ic">pip install flask</span> (auto-installed by <span class="ic">install.sh</span>).</p>
+  <div class="feat-grid">
+    <div class="feat"><span class="feat-icon">🖱️</span><div class="feat-title">Point-and-Click Scans</div><div class="feat-desc">Select profile, modules, output formats, and timeout without touching the CLI.</div></div>
+    <div class="feat"><span class="feat-icon">📡</span><div class="feat-title">Live Progress (SSE)</div><div class="feat-desc">Real-time log streaming via Server-Sent Events — see output the moment it arrives.</div></div>
+    <div class="feat"><span class="feat-icon">🗂️</span><div class="feat-title">In-App Findings Table</div><div class="feat-desc">Vulnerability findings grouped by severity with inline detail view.</div></div>
+    <div class="feat"><span class="feat-icon">🕑</span><div class="feat-title">Scan History</div><div class="feat-desc">Browse and re-open previous scan reports from the History tab.</div></div>
+  </div>
+  <div class="terminal">
+    <div class="term-bar"><div class="td r"></div><div class="td y"></div><div class="td g"></div><span class="term-name">bash</span></div>
+    <div class="term-body"><pre><code><span class="cmt"># Launch GUI (opens browser automatically)</span>
+<span class="cmd">ReconNinja</span> <span class="fl">--gui</span>
+
+<span class="cmt"># Custom port</span>
+<span class="cmd">ReconNinja</span> <span class="fl">--gui --gui-port</span> 8080
+
+<span class="cmt"># GUI URL</span>
+<span class="cmt"># → http://127.0.0.1:7117</span>
+
+<span class="cmt"># Install Flask if not installed</span>
+<span class="cmd">pip install</span> flask</code></pre></div>
   </div>
 </section>
 
@@ -665,6 +819,36 @@ tr:hover td{background:rgba(255,255,255,.012)}
   <div class="changelog">
 
     <div class="cl-entry latest">
+      <div class="cl-head">
+        <span class="cl-ver">v8.1.0</span>
+        <span class="cl-date">2026-05-01</span>
+        <span class="cl-tag patch">PATCH</span>
+      </div>
+      <div class="cl-body">
+        <strong>Bug #1 (High)</strong> — <code style="color:var(--r);font-size:.73rem">VERSION = "7.0.0"</code> hardcoded in <code style="color:var(--b);font-size:.73rem">reconninja.py</code> despite being v8 code; affected startup banner, argparse description, and <code style="color:var(--b);font-size:.73rem">--update</code> version comparison. Fixed to <code style="color:var(--g2);font-size:.73rem">8.1.0</code>.<br><br>
+        <strong>Bug #2 (Low)</strong> — Module docstring header in <code style="color:var(--b);font-size:.73rem">reconninja.py</code> still read <code style="color:var(--r);font-size:.73rem">v7.0.0</code>. Updated.<br><br>
+        <strong>Bug #3 (Medium)</strong> — <code style="color:var(--b);font-size:.73rem">gui/app.py</code>: <code style="color:var(--r);font-size:.73rem">autocomplete="of"</code> typo on target input — browsers showed autocomplete suggestions for security tool targets. Fixed to <code style="color:var(--g2);font-size:.73rem">autocomplete="off"</code>.<br><br>
+        <strong>Bug #4 (Medium)</strong> — SSE keepalive in <code style="color:var(--b);font-size:.73rem">gui/app.py</code> used <code style="color:var(--r);font-size:.73rem">type: "log"</code> with <code style="color:var(--y);font-size:.73rem">text: "…"</code>, appending a noise dot to the progress log every 30 s during idle. Changed to <code style="color:var(--g2);font-size:.73rem">type: "keepalive"</code> which the JS client silently ignores.<br><br>
+        <strong>Bug #5 (Medium)</strong> — <code style="color:var(--b);font-size:.73rem">_scan_queues</code> and <code style="color:var(--b);font-size:.73rem">_scan_results</code> dicts in <code style="color:var(--b);font-size:.73rem">gui/app.py</code> never cleaned up after scan completion, causing unbounded memory growth in long-running GUI sessions. Both dicts now pruned in the <code style="color:var(--b);font-size:.73rem">run_scan</code> finally block.
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-ver">v8.0.0</span>
+        <span class="cl-date">2026-05-01</span>
+        <span class="cl-tag major">MAJOR</span>
+      </div>
+      <div class="cl-body">
+        <strong>13 new modules</strong> (Phases 15a–15m): REST API fuzzer, OAuth scanner, web vuln probes, open redirect, LinkedIn OSINT, paste monitor, SE OSINT, APK static analysis, app store recon, anon detect, DNS leak check, Web3 scan, ENS lookup.<br><br>
+        <strong>3 AI upgrades</strong>: multi-provider consensus, MITRE ATT&amp;CK kill-chain attack paths, per-finding AI remediation with CVSSv3 scoring.<br><br>
+        <strong>Local desktop GUI</strong> via Flask + SSE — <code style="color:var(--g2);font-size:.73rem">--gui</code> flag.<br><br>
+        <strong>Output integrations</strong>: <code style="color:var(--b);font-size:.73rem">--pdf-report</code>, <code style="color:var(--b);font-size:.73rem">--jira</code>, <code style="color:var(--b);font-size:.73rem">--gh-issues</code>, <code style="color:var(--b);font-size:.73rem">--siem</code>.<br><br>
+        <strong>17 pre-release bugs fixed</strong> across 13 files — including 19 missing imports in <code style="color:var(--b);font-size:.73rem">orchestrator.py</code>, 12 broken f-strings, broken dnstwist output path in <code style="color:var(--b);font-size:.73rem">typosquat.py</code>, dead <code style="color:var(--b);font-size:.73rem">slab</code> assignment in <code style="color:var(--b);font-size:.73rem">db_exposure.py</code>, and SARIF shadow import loop.
+      </div>
+    </div>
+
+    <div class="cl-entry">
       <div class="cl-head">
         <span class="cl-ver">v7.1.0</span>
         <span class="cl-date">2026-04-04</span>
@@ -682,7 +866,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
         <span class="cl-tag major">MAJOR</span>
       </div>
       <div class="cl-body">
-        Added <strong>17 new intelligence modules</strong> (phases 14a–14q): email security, breach check, cloud metadata SSRF, GraphQL scanner, JWT scanner, ASN mapping, supply chain analysis, K8s/Docker probe, database exposure, SMTP enum, SNMP scan, LDAP enum, DevOps scan, GreyNoise, typosquatting, Censys intelligence, and SARIF export. 25 new CLI flags. 25 new <code style="color:var(--b);font-size:.73rem">ScanConfig</code> boolean fields. Bug fixes: JS extractor dedup on <code style="color:var(--b);font-size:.73rem">(label, match[:20])</code> so all unique credentials per type are captured; dead nameserver fallback branch removed from <code style="color:var(--b);font-size:.73rem">dns_zone_transfer.py</code>.
+        Added <strong>17 new intelligence modules</strong> (phases 14a–14q): email security, breach check, cloud metadata SSRF, GraphQL scanner, JWT scanner, ASN mapping, supply chain analysis, K8s/Docker probe, database exposure, SMTP enum, SNMP scan, LDAP enum, DevOps scan, GreyNoise, typosquatting, Censys intelligence, and SARIF export.
       </div>
     </div>
 
@@ -693,7 +877,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
         <span class="cl-tag major">MAJOR</span>
       </div>
       <div class="cl-body">
-        Added <strong>6 new modules</strong>: GitHub OSINT, JS extraction, cloud bucket enum, DNS zone transfer, WAF detection, CORS scanner. Added <strong>2 new utilities</strong>: scan diff and webhook notifications. 8 critical bug fixes including RustScan port persistence, AI fallback, screenshot URL routing, and NVD rate-limit handling.
+        Added <strong>6 new modules</strong>: GitHub OSINT, JS extraction, cloud bucket enum, DNS zone transfer, WAF detection, CORS scanner. Added <strong>2 new utilities</strong>: scan diff and webhook notifications. 8 critical bug fixes.
       </div>
     </div>
 
