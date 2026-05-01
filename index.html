@@ -172,7 +172,6 @@ tr:hover td{background:rgba(255,255,255,.012)}
 .phase.new-p::before{background:rgba(57,255,20,.3)}
 .phase.v7-p{border-color:rgba(0,207,255,.18);background:rgba(0,207,255,.02)}
 .phase.v7-p::before{background:rgba(0,207,255,.3);border-color:var(--b);box-shadow:0 0 6px rgba(0,207,255,.25)}
-/* v8 phases — pink/magenta */
 .phase.v8-p{border-color:rgba(255,107,232,.18);background:rgba(255,107,232,.02)}
 .phase.v8-p::before{background:rgba(255,107,232,.3);border-color:var(--pk);box-shadow:0 0 6px rgba(255,107,232,.25)}
 .phase.v8-ai{border-color:rgba(180,122,255,.18);background:rgba(180,122,255,.02)}
@@ -251,19 +250,16 @@ tr:hover td{background:rgba(255,255,255,.012)}
 
 /* ── MODULE GRID ─────────────────────────────────────────────────────────── */
 .mod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.7rem;margin:1.25rem 0}
-/* v7 modules — blue */
 .mod{background:var(--bg2);border:1px solid rgba(0,207,255,.15);border-radius:8px;padding:1rem 1.1rem;position:relative;overflow:hidden;transition:all .2s}
 .mod::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--b),transparent);opacity:.4}
 .mod:hover{transform:translateY(-2px);border-color:rgba(0,207,255,.3)}
 .mod-flag{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--b);margin-bottom:.35rem}
 .mod-title{font-weight:600;color:var(--white);font-size:.85rem;margin-bottom:.3rem}
 .mod-desc{font-size:.74rem;color:var(--text2);line-height:1.55}
-/* v8 modules — pink */
 .mod.v8{border-color:rgba(255,107,232,.15)}
 .mod.v8::before{background:linear-gradient(90deg,transparent,var(--pk),transparent)}
 .mod.v8:hover{border-color:rgba(255,107,232,.3)}
 .mod.v8 .mod-flag{color:var(--pk)}
-/* v8 AI modules — purple */
 .mod.v8ai{border-color:rgba(180,122,255,.15)}
 .mod.v8ai::before{background:linear-gradient(90deg,transparent,var(--p),transparent)}
 .mod.v8ai:hover{border-color:rgba(180,122,255,.3)}
@@ -308,7 +304,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
       <div class="sb-tool-header">
         <div class="sb-tool-dot" style="background:var(--rn-c);box-shadow:0 0 5px var(--rn-c)"></div>
         <span class="sb-tool-name" style="color:var(--rn-c)">ReconNinja</span>
-        <span class="sb-tool-ver">v8.1.0</span>
+        <span class="sb-tool-ver">v8.2.1</span>
       </div>
       <a href="#rn-overview"   class="sb-link"><span class="num">01</span>Overview</a>
       <a href="#rn-install"    class="sb-link"><span class="num">02</span>Installation</a>
@@ -394,7 +390,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
   <p class="hero-desc">Open-source CLI toolkit for pentesters, bug bounty hunters, and developers who think offensively. Five tools — one ecosystem — covering the full recon-to-exploit surface.</p>
 
   <div class="tool-pills">
-    <a href="#rn-overview" class="tool-pill rn"><span class="pill-dot"></span>ReconNinja v8.1</a>
+    <a href="#rn-overview" class="tool-pill rn"><span class="pill-dot"></span>ReconNinja v8.2.1</a>
     <a href="#vh-overview" class="tool-pill vh"><span class="pill-dot"></span>VaultHound v1</a>
     <a href="#el-overview" class="tool-pill el"><span class="pill-dot"></span>envleaks v1.1</a>
     <a href="#gd-overview" class="tool-pill gd"><span class="pill-dot"></span>gitdork v1.1</a>
@@ -413,7 +409,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <h3 class="sh">Ecosystem Map</h3>
     <div class="eco-grid">
       <a href="#rn-overview" class="eco-card rn">
-        <div class="eco-top"><span class="eco-title">🥷 ReconNinja</span><span class="eco-ver">v8.1.0</span></div>
+        <div class="eco-top"><span class="eco-title">🥷 ReconNinja</span><span class="eco-ver">v8.2.1</span></div>
         <div class="eco-desc">51-phase automated recon framework. Subdomain enum → port scan → web discovery → CVE lookup → 30 intelligence modules → AI consensus + attack paths → local desktop GUI.</div>
         <div class="eco-tags"><span class="eco-tag">Python</span><span class="eco-tag">597+ tests</span><span class="eco-tag">PyPI</span><span class="eco-tag">51 phases</span><span class="eco-tag">GUI</span></div>
       </a>
@@ -442,9 +438,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
 </div>
 
 
-<!-- ══════════════════════════════════════════════════════════════════════════ -->
 <!-- ░░░  RECONNINJA  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
-<!-- ══════════════════════════════════════════════════════════════════════════ -->
 
 <section id="rn-overview" class="tool-section t-rn">
   <div class="ts-header">
@@ -454,7 +448,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
       <div class="ts-title">RECON<span class="hl">NINJA</span></div>
       <p class="ts-desc">51-phase automated reconnaissance framework for authorized security testing. One command drives the full pipeline — passive recon through cloud bucket enumeration, protocol-level exposure scanning, web vuln probing, AI consensus threat analysis, and a local desktop GUI.</p>
       <div class="ts-chips">
-        <span class="chip" style="color:var(--rn-c);border-color:rgba(57,255,20,.25)">v8.1.0</span>
+        <span class="chip" style="color:var(--rn-c);border-color:rgba(57,255,20,.25)">v8.2.1</span>
         <span class="chip">Python 3.10+</span><span class="chip">597+ Tests</span><span class="chip">MIT</span><span class="chip">PyPI</span><span class="chip">GUI</span>
       </div>
     </div>
@@ -570,7 +564,6 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <div class="phase new-p"><span class="pbadge new">Phase 13a ★</span><div><div class="pname">GitHub OSINT</div><div class="pdesc">Search public GitHub for exposed secrets and config files. <span class="ic">--github-osint</span></div></div></div>
     <div class="phase new-p"><span class="pbadge new">Phase 13b ★</span><div><div class="pname">Cloud Buckets</div><div class="pdesc">AWS S3, Azure Blob, GCS public bucket enumeration. <span class="ic">--cloud-buckets</span></div></div></div>
     <div class="phase new-p"><span class="pbadge new">Phase 13c ★</span><div><div class="pname">DNS Zone Transfer</div><div class="pdesc">AXFR against all nameservers. Saves leaked zone. <span class="ic">--dns-zone</span></div></div></div>
-    <!-- v7 phases -->
     <div class="phase v7-p"><span class="pbadge v7">Phase 14a ◈</span><div><div class="pname">Email Security</div><div class="pdesc">SPF/DKIM/DMARC validation + spoofability score 0–100. <span class="ic">--email-security</span></div></div></div>
     <div class="phase v7-p"><span class="pbadge v7">Phase 14b ◈</span><div><div class="pname">Breach Check</div><div class="pdesc">HaveIBeenPwned domain + email breach lookup. <span class="ic">--breach-check</span></div></div></div>
     <div class="phase v7-p"><span class="pbadge v7">Phase 14c ◈</span><div><div class="pname">Cloud Metadata SSRF</div><div class="pdesc">AWS IMDSv1/v2, Azure IMDS, GCP metadata endpoint probe. <span class="ic">--cloud-meta</span></div></div></div>
@@ -588,7 +581,6 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <div class="phase v7-p"><span class="pbadge v7">Phase 14o ◈</span><div><div class="pname">Typosquatting</div><div class="pdesc">200+ lookalike domain variants + live DNS resolution. <span class="ic">--typosquat</span></div></div></div>
     <div class="phase v7-p"><span class="pbadge v7">Phase 14p ◈</span><div><div class="pname">Censys Intelligence</div><div class="pdesc">Host intelligence + DNS history via VirusTotal PDNS. <span class="ic">--censys</span> <span class="ic">--dns-history</span></div></div></div>
     <div class="phase v7-p"><span class="pbadge v7">Phase 14q ◈</span><div><div class="pname">SARIF Export</div><div class="pdesc">SARIF 2.1.0 report for GitHub / VSCode / Azure DevOps. <span class="ic">--sarif</span></div></div></div>
-    <!-- v8 phases — pink -->
     <div class="phase v8-p"><span class="pbadge v8">Phase 15a ✦</span><div><div class="pname">REST API Fuzzer</div><div class="pdesc">OpenAPI/Swagger discovery, endpoint enum, IDOR probes, auth-bypass header testing, mass assignment, method confusion. <span class="ic">--api-fuzz</span></div></div></div>
     <div class="phase v8-p"><span class="pbadge v8">Phase 15b ✦</span><div><div class="pname">OAuth / OIDC Scanner</div><div class="pdesc">Implicit flow, PKCE enforcement, open redirect in redirect_uri, state CSRF, token endpoint CORS, exposed client creds. <span class="ic">--oauth-scan</span></div></div></div>
     <div class="phase v8-p"><span class="pbadge v8">Phase 15c ✦</span><div><div class="pname">Web Vuln Probes</div><div class="pdesc">Reflected XSS, error-based + time-based SQLi, LFI/path traversal, SSRF (IMDS detection). <span class="ic">--web-vulns</span></div></div></div>
@@ -602,7 +594,6 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <div class="phase v8-p"><span class="pbadge v8">Phase 15k ✦</span><div><div class="pname">DNS Leak Check</div><div class="pdesc">DNS rebinding, open resolver detection, internal hostname exposure via DNS leaks. <span class="ic">--dns-leak</span></div></div></div>
     <div class="phase v8-p"><span class="pbadge v8">Phase 15l ✦</span><div><div class="pname">Web3 / Blockchain Recon</div><div class="pdesc">Smart contract discovery, ABI extraction, on-chain transaction history. <span class="ic">--web3-scan</span></div></div></div>
     <div class="phase v8-p"><span class="pbadge v8">Phase 15m ✦</span><div><div class="pname">ENS Lookup</div><div class="pdesc">Ethereum Name Service domain resolution + on-chain social profile (avatar, email, GitHub). <span class="ic">--ens-lookup</span></div></div></div>
-    <!-- v8 AI upgrades — purple -->
     <div class="phase v8-ai"><span class="pbadge v8ai">Phase 16a ✦</span><div><div class="pname">AI Consensus</div><div class="pdesc">Run analysis across multiple AI providers and synthesize a consensus threat report. <span class="ic">--ai-consensus</span></div></div></div>
     <div class="phase v8-ai"><span class="pbadge v8ai">Phase 16b ✦</span><div><div class="pname">MITRE ATT&amp;CK Kill-Chain</div><div class="pdesc">AI-generated attack path mapping to MITRE ATT&amp;CK tactics and techniques. <span class="ic">--attack-paths</span></div></div></div>
     <div class="phase v8-ai"><span class="pbadge v8ai">Phase 16c ✦</span><div><div class="pname">AI Remediation + CVSSv3</div><div class="pdesc">Per-finding remediation guidance with CVSSv3 base score calculation. <span class="ic">--ai-remediate</span></div></div></div>
@@ -610,7 +601,6 @@ tr:hover td{background:rgba(255,255,255,.012)}
   </div>
 </section>
 
-<!-- ══ v7 NEW MODULES ════════════════════════════════════════════════════════ -->
 <section id="rn-v7" class="tool-section t-rn">
   <h3 class="sh">v7 New Modules <span class="new-tag badge v7" style="margin-left:.5rem">17 modules</span></h3>
   <p style="font-size:.85rem;color:var(--text2);margin-bottom:1.5rem">All v7 modules are enabled by <span class="ic">--profile full_suite</span> or individually with their flags. Install <span class="ic">ReconNinja[v7]</span> for LDAP, SNMP, and ASN extras.</p>
@@ -635,7 +625,6 @@ tr:hover td{background:rgba(255,255,255,.012)}
   </div>
 </section>
 
-<!-- ══ v8 NEW MODULES ════════════════════════════════════════════════════════ -->
 <section id="rn-v8" class="tool-section t-rn">
   <h3 class="sh">v8 New Modules <span class="new-tag badge v8" style="margin-left:.5rem">13 modules + 3 AI upgrades</span></h3>
   <p style="font-size:.85rem;color:var(--text2);margin-bottom:1.5rem">v8 adds deep web-attack probing, mobile/blockchain recon, social-engineering intel, and a full AI upgrade pass. All modules available individually or via <span class="ic">--profile full_suite</span>.</p>
@@ -717,7 +706,6 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <div class="flag-row"><span class="flag-name v7">--censys [--censys-id --censys-secret]</span><span class="flag-desc">Censys host intelligence <span class="badge v7">v7</span></span></div>
     <div class="flag-row"><span class="flag-name v7">--dns-history</span><span class="flag-desc">DNS resolution history via VirusTotal PDNS <span class="badge v7">v7</span></span></div>
     <div class="flag-row"><span class="flag-name v7">--sarif</span><span class="flag-desc">Export findings as SARIF 2.1.0 <span class="badge v7">v7</span></span></div>
-    <!-- v8 flags -->
     <div class="flag-row"><span class="flag-name v8">--api-fuzz</span><span class="flag-desc">REST API fuzzer: endpoint discovery, IDOR, auth bypass, mass assignment <span class="badge v8">v8</span></span></div>
     <div class="flag-row"><span class="flag-name v8">--oauth-scan</span><span class="flag-desc">OAuth 2.0/OIDC misconfiguration scanner <span class="badge v8">v8</span></span></div>
     <div class="flag-row"><span class="flag-name v8">--web-vulns</span><span class="flag-desc">Web vuln probes: XSS, SQLi, LFI, SSRF <span class="badge v8">v8</span></span></div>
@@ -739,7 +727,6 @@ tr:hover td{background:rgba(255,255,255,.012)}
     <div class="flag-row"><span class="flag-name v8">--gh-issues TOKEN:OWNER/REPO</span><span class="flag-desc">Push findings to GitHub Issues <span class="badge v8">v8</span></span></div>
     <div class="flag-row"><span class="flag-name v8">--siem URL:TOKEN[:type]</span><span class="flag-desc">Push findings to Splunk/Elastic HEC endpoint <span class="badge v8">v8</span></span></div>
     <div class="flag-row"><span class="flag-name v8">--gui [--gui-port N]</span><span class="flag-desc">Launch local desktop GUI at http://127.0.0.1:7117 <span class="badge v8">v8</span></span></div>
-    <!-- core flags -->
     <div class="flag-row"><span class="flag-name">--resume FILE</span><span class="flag-desc">Resume from state.json checkpoint</span></div>
     <div class="flag-row"><span class="flag-name">--exclude PHASES</span><span class="flag-desc">Skip specific pipeline phases</span></div>
     <div class="flag-row"><span class="flag-name">--output-format</span><span class="flag-desc">all · html · json · md · txt · pdf · sarif</span></div>
@@ -788,7 +775,6 @@ tr:hover td{background:rgba(255,255,255,.012)}
   </div>
 </section>
 
-<!-- ══ GUI ════════════════════════════════════════════════════════════════════ -->
 <section id="rn-gui" class="tool-section t-rn">
   <h3 class="sh">GUI <span class="badge v8" style="margin-left:.5rem">v8 new</span></h3>
   <p style="font-size:.85rem;color:var(--text2);margin-bottom:1.25rem">v8.0.0 ships a local Flask-based desktop GUI accessible via browser. Run scans point-and-click with real-time SSE progress streaming and an in-app findings dashboard. Requires <span class="ic">pip install flask</span> (auto-installed by <span class="ic">install.sh</span>).</p>
@@ -818,7 +804,20 @@ tr:hover td{background:rgba(255,255,255,.012)}
   <h3 class="sh">Changelog</h3>
   <div class="changelog">
 
+    <!-- ── v8.2.1 ── -->
     <div class="cl-entry latest">
+      <div class="cl-head">
+        <span class="cl-ver">v8.2.1</span>
+        <span class="cl-date">2026-05-01</span>
+        <span class="cl-tag patch">PATCH</span>
+      </div>
+      <div class="cl-body">
+        <strong>pyproject.toml fix</strong> — corrected project metadata in <code style="color:var(--b);font-size:.73rem">pyproject.toml</code>. No functional changes.
+      </div>
+    </div>
+
+    <!-- ── v8.1.0 ── -->
+    <div class="cl-entry">
       <div class="cl-head">
         <span class="cl-ver">v8.1.0</span>
         <span class="cl-date">2026-05-01</span>
@@ -897,9 +896,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
 </section>
 
 
-<!-- ══════════════════════════════════════════════════════════════════════════ -->
 <!-- ░░░  VAULTHOUND  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
-<!-- ══════════════════════════════════════════════════════════════════════════ -->
 
 <section id="vh-overview" class="tool-section t-vh">
   <div class="ts-header">
@@ -982,9 +979,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
 </section>
 
 
-<!-- ══════════════════════════════════════════════════════════════════════════ -->
 <!-- ░░░  ENVLEAKS  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
-<!-- ══════════════════════════════════════════════════════════════════════════ -->
 
 <section id="el-overview" class="tool-section t-el">
   <div class="ts-header">
@@ -1087,9 +1082,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
 </section>
 
 
-<!-- ══════════════════════════════════════════════════════════════════════════ -->
 <!-- ░░░  GITDORK  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
-<!-- ══════════════════════════════════════════════════════════════════════════ -->
 
 <section id="gd-overview" class="tool-section t-gd">
   <div class="ts-header">
@@ -1181,9 +1174,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
 </section>
 
 
-<!-- ══════════════════════════════════════════════════════════════════════════ -->
 <!-- ░░░  WIFI-PASSVIEW  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
-<!-- ══════════════════════════════════════════════════════════════════════════ -->
 
 <section id="wp-overview" class="tool-section t-wp">
   <div class="ts-header">
@@ -1255,7 +1246,6 @@ tr:hover td{background:rgba(255,255,255,.012)}
 </section>
 
 
-<!-- ══ FOOTER ══════════════════════════════════════════════════════════════════ -->
 <footer class="footer">
   <span>HackerInc · ExploitCraft · MIT License · Bangladesh 🇧🇩</span>
   <div class="footer-links">
